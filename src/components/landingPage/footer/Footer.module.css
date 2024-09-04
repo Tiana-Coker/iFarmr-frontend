@@ -1,0 +1,18 @@
+
+
+.footer_links{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.footer_links h1{
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34.13px;
+    font-family: Montserrat;
+}
+
+.footer_links div{
+    font-size: 20px;
+    line-height: 23.48px;
+}
