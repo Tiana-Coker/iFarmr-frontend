@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --primary-color: #204E51;
+    font-family: Montserrat, sans-serif;
+}
+
+.container{
+    width: 90%;
+    margin: 0 auto;
+}
+.green_btn{
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.transparent_btn{
+    color: white;
+    border: 1px solid #FFFFFF
+}
+
+.p_color{
+    color: var(--primary-color);
+}
+
+.bg_p_color{
+    background-color: var(--primary-color);
+}
