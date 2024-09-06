@@ -65,11 +65,11 @@ const Login: React.FC = () => {
         
          // Role is an array, get the first element
           const userRole = role[0]; // get the first role (e.g., 'USER' or 'ADMIN')
-
+          
          // Redirect based on role
          if (userRole === 'USER') {
           navigate('/user/dashboard');
-        } else if (role === 'ADMIN') {
+        } else if (userRole === 'ADMIN') {
           navigate('/admin/dashboard');
         } else {
           setErrorMessage('Unrecognized role. Please contact support.');
