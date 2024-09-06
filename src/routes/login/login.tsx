@@ -54,16 +54,27 @@ const Login: React.FC = () => {
   
       // Check if login was successful and JWT is received
       if (response.data && response.data.token) {
-        const { token, message } = response.data;  // Extract the token and message from response
+        const { token,role} = response.data;  // Extract the token and message from response
   
         // Store JWT in localStorage 
         localStorage.setItem('token', token);
   
         
         setIsLoading(false); // Stop loading spinner
+
+        
+         // Role is an array, get the first element
+          const userRole = role[0]; // get the first role (e.g., 'USER' or 'ADMIN')
+
+         // Redirect based on role
+         if (userRole === 'USER') {
+          navigate('/user/dashboard');
+        } else if (role === 'ADMIN') {
+          navigate('/admin/dashboard');
+        } else {
+          setErrorMessage('Unrecognized role. Please contact support.');
+        }
   
-        // Redirect to the dashboard
-        navigate('/user/dashboard');
       } else {
         throw new Error('Invalid response from server');
       }
