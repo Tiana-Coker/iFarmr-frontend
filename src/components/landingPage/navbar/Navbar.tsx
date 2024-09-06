@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 import IFARMR_LOGO from "../../../assets/landingPage/navbar/ifarmr_logo_green.png"
 
 export default function Navbar() {
@@ -17,8 +17,12 @@ export default function Navbar() {
               </div>
               {/* Onboard Links */}
               <div className='font-[600] font-[Raleway] text-[20px] leading-[23.48px]'>
+              <Link to="/login">
                 <button className='mr-8 green_btn py-2 px-8 rounded-lg'>Login</button>
+              </Link>  
+              <Link to="/signup">
                 <button className='p_color border-[1px] border-solid border-[#204E51] py-2 px-8 rounded-lg'>Sign Up</button>
+              </Link>
               </div>
 
           </div>
