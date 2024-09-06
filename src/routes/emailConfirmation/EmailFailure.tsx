@@ -3,7 +3,7 @@ import React from 'react';
 
 const EmailFailure: React.FC = () => {
   return (
-    <div className="bg-[#f2f2f2] flex justify-center items-center h-screen">
+    <div className="bg-[#f2f2f2] flex justify-center items-center h-screen font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md text-center w-full max-w-[400px]">
         <div className="flex flex-col">
           

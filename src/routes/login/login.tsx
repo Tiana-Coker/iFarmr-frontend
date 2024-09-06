@@ -80,7 +80,7 @@ const Login: React.FC = () => {
   
 
   return (
-    <div className="flex h-screen mx-auto">
+    <div className="flex h-screen mx-auto font-sans">
       {/* Left section with the image and text */}
       <div className="w-1/2 bg-customGreen flex flex-col justify-center items-center relative bg-no-repeat bg-cover" style={{
       backgroundImage: `url('/src/assets/signupImages/wave.svg')`

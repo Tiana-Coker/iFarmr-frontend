@@ -37,7 +37,7 @@ const EmailConfirmation: React.FC = () => {
   }, [location.search]);
 
   return (
-    <div>
+    <div className="font-sans">
       {status === "success" && <EmailSuccess />}
       {status === "failure" && <EmailFailure />}
       {status === null && <div>Loading...</div>}
