@@ -1,0 +1,25 @@
+
+.features .features_step:not(:last-child){
+    margin-bottom: 50px;
+}
+
+.features_step{
+    gap: 20px;
+}
+
+.features_step .feature_img{
+    /* width: 195px; */
+}
+
+.features_step .feature_title{
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 27px;
+}
+
+@media (max-width:1023px){
+    .features_step .feature_title{
+        font-size: 20px;
+        line-height: 22px;
+    } 
+}

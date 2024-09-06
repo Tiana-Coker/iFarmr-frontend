@@ -1,0 +1,47 @@
+/* .slick-prev:before,.slick-next:before {
+    color: red;
+  } */
+
+/* Default styling for all slides */
+/* */
+  
+
+
+  /* .slick-prev {
+    left: 3% !important;
+    z-index: 1;
+    display: none;
+  }
+  .slick-next {
+    right: 3% !important;
+    z-index: 1;
+    display: none;
+  } */
+
+/* .slick-prev,
+.slick-next {
+  display: none !important; 
+} */
+
+/* .custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+  }
+  
+  .custom-arrow img {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  .slick-track {
+    display: flex;
+    border: 1px solid red;
+    gap: 13px !important; 
+  } */
+
+ 
+  /* https://www.youtube.com/watch?v=6YnryDjEGr8 */
