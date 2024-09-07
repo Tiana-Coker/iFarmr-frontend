@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
-import Sidebar from '../sidebar/sidebar';
-import PopularPosts from '../popularPost/PopularPost';
-import Dashboard1 from '../userdashboardComponent/UserDashboard1';
-import Dashboard2 from '../userdashboardComponent/UserDashboard2';
-import ErrorPage from '../error/Error'; // Ensure correct import path
+import Sidebar from '../../components/dashboard/sidebar/sidebar';
+import PopularPosts from '../../components/dashboard/popularPost/PopularPost';
+import Dashboard1 from '../../components/dashboard/userdashboardComponent/UserDashboard1';
+import Dashboard2 from '../../components/dashboard/userdashboardComponent/UserDashboard2';
+import ErrorPage from '../../components/dashboard/error/Error'; // Ensure correct import path
 
 const MainUserDashboard: React.FC = () => {
   const [error, setError] = useState<boolean>(false);

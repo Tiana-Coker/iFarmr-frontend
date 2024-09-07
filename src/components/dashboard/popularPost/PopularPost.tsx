@@ -65,6 +65,27 @@ const PopularPosts: React.FC = () => {
     return firstInitial + lastInitial;
   };
 
+  // Define an array of colors
+  const colors = [
+    '#FF5733', // Red-orange
+    '#33FF57', // Green
+    '#3357FF', // Blue
+    '#FF33A6', // Pink
+    '#A633FF', // Purple
+    '#33FFF6', // Aqua
+    '#FFBD33', // Yellow-orange
+  ];
+
+  // Function to generate color based on the name
+  const getColorForName = (name: string): string => {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  };
+
   const timeAgo = (dateCreated: string): string => {
     return moment(dateCreated).fromNow();
   };
@@ -80,7 +101,7 @@ const PopularPosts: React.FC = () => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="post-card bg-white rounded-lg shadow-lg p-4 flex flex-col space-y-2 cursor-pointer hover:shadow-md transition-shadow duration-300"
+              className="post-card bg-white rounded-lg p-4 flex flex-col space-y-2 cursor-pointer hover:shadow-md transition-shadow duration-300"
             >
               <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
                 <div className="flex flex-row">
@@ -89,8 +110,8 @@ const PopularPosts: React.FC = () => {
                     {/* User's Initials */}
                     <div className="flex items-center space-x-2 mb-2">
                       <div
-                        className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white text-md"
-                        style={{ backgroundColor: '#bbb' }}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white text-md"
+                        style={{ backgroundColor: getColorForName(post.postedBy.name) }}
                       >
                         {getInitials(post.postedBy.name)}
                       </div>
@@ -98,14 +119,14 @@ const PopularPosts: React.FC = () => {
                     </div>
 
                     {/* Post Title */}
-                    <p className="text-md font-bold text-black">{post.title}</p>
+                    <p className="text-custom-big font-thick leading-custom-h text-black">{post.title}</p>
 
                     {/* Post Content */}
                     <div className="my-2">
                       <p className="text-xs text-gray-500">{timeAgo(post.dateCreated)}</p>
-                      <p className="font-raleway text-custom-sm font-verylight text-custom-writing overflow-hidden overflow-ellipsis ">
-  {post.content}
-</p>
+                      <p className="font-raleway text-custom-sm font-verylight text-custom-writing overflow-hidden overflow-ellipsis">
+                        {post.content}
+                      </p>
                     </div>
                   </div>
 
@@ -141,7 +162,9 @@ const PopularPosts: React.FC = () => {
                       </div>
                     ))}
                     {post.commentedBy.length > 5 && (
-                      <span className="text-sm text-gray-500 ml-1">+{post.commentedBy.length - 5} more</span>
+                      <span className="text-sm text-gray-500 ml-1">
+                        +{post.commentedBy.length - 5} more
+                      </span>
                     )}
                     <span className="text-sm text-gray-500 ml-1">
                       {post.commentCount} {post.commentCount === 1 ? 'comment' : 'comments'}

@@ -72,10 +72,10 @@ const GrowYourFarmAndNotifications: React.FC = () => {
           </h2>
           <p className="text-sm mb-4">Quickly Add New Entries and Keep Your Farm Data Up to Date.</p>
           <div className="flex space-x-4">
-            <button className="bg-transparent text-white py-2 px-1 rounded-lg font-semibold border border-gray-300 hover:bg-white hover:border-custom-bg hover:text-custom-bg hover:shadow-md transition duration-300">
+            <button className="bg-transparent text-white py-0 px-1 rounded-lg font-thin border border-gray-300 hover:bg-white hover:border-custom-bg hover:text-custom-bg hover:shadow-md transition duration-300">
               Add New Crop
             </button>
-            <button className="bg-transparent text-white py-2 px-4 rounded-lg font-semibold border border-gray-300 hover:bg-white hover:border-white hover:text-custom-bg hover:shadow-md transition duration-300">
+            <button className="bg-transparent text-white py-2 px-4 rounded-lg font-thin border border-gray-300 hover:bg-white hover:border-white hover:text-custom-bg hover:shadow-md transition duration-300">
               Add New Livestock
             </button>
           </div>

@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
       <div>
         <div className="logo mb-8 hover:text-green-500">
           {/* Wrap the logo image in a Link */}
-          <Link to="/dashboard">
+          <Link to="/">
             <img src={Ifarm} alt="iFarmr Logo" className="h-16 mx-auto " />
           </Link>
         </div>

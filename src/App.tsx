@@ -1,14 +1,13 @@
-import React from 'react'; // Explicitly import React
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import MainUserDashboard from './components/dashboard/userdashboard/MainUserDashboard';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import LandingPage from "./routes/landingPage/LandingPage";
+import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 
 export default function App() {
   return (
-    <div>
-      <MainUserDashboard />
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/userdashboard" element={<MainUserDashboard />} />
+    </Routes>
   );
 }

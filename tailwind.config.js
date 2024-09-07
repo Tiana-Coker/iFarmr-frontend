@@ -19,15 +19,18 @@ export default {
       fontSize: {
         'custom-lg': '16px', // Custom font size
         'custom-xl': '23px', // Custom font size for large headings
-        'custom-sm': '14px,'
+        'custom-sm': '14px',
+        'custom-big': '18px',
       },
       lineHeight: {
         'custom-lg': '18.78px', // Custom line height
         'custom-xl': '27px', // Custom line height for large headings
+        'custom-h' : '24px',
       },
       fontWeight: {
         'medium': 500, // Custom font weight
         'verylight': 400,
+        'thick': 700, // Custom font weight for headings
       },
       colors: {
         'custom-green': '#00563E', // Custom color for text
