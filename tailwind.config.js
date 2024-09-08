@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: "640px", // Small screens (e.g., phones)
-        md: "768px", // Medium screens (e.g., tablets)
-        lg: "1024px", // Large screens (e.g., laptops)
-        xl: "1280px", // Extra large screens (e.g., desktops)
-        "2xl": "1536px", // 2xl screens (e.g., large desktops)
+        'custom-sm': '640px',  // Small screens (e.g., phones)
+        'custom-md': '768px',  // Medium screens (e.g., tablets)
+        'custom-lg': '1024px', // Large screens (e.g., laptops)
+        'custom-xl': '1280px', // Extra large screens (e.g., desktops)
+        'custom-2xl': '1536px', // 2xl screens (e.g., large desktops)
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'], // Add Raleway font
@@ -24,19 +24,20 @@ export default {
       },
       lineHeight: {
         'custom-lg': '18.78px', // Custom line height
-        'custom-xl': '27px', // Custom line height for large headings
-        'custom-h' : '24px',
+        'custom-xl': '27px',    // Custom line height for large headings
+        'custom-h': '24px',
       },
       fontWeight: {
-        'medium': 500, // Custom font weight
+        'medium': 500,   // Custom font weight
         'verylight': 400,
-        'thick': 700, // Custom font weight for headings
+        'thick': 700,    // Custom font weight for headings
       },
       colors: {
-        'custom-green': '#00563E', // Custom color for text
-        'custom-bg': '#2F580F', // Custom background color
-        'custom-writing':  '#4F4F4F', // Custom color for writing
-    
+        'custom-green': '#00563E',    // Custom color for text
+        'custom-bg': '#2F580F',       // Custom background color
+        'custom-writing': '#4F4F4F',  // Custom color for writing
+        'custom-grow': ' #C0F196'
+        
       },
     },
   },
