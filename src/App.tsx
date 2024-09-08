@@ -6,10 +6,12 @@ import VerifyEmail from './routes/emailConfirmation/EmailConfirmation';
 import Login from './routes/login/login';
 import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './components/globalSpinner/LoadingContext';
+import { AuthProvider } from './AuthContext';
 
 
 export default function App() {
   return (
+    <AuthProvider>
     <LoadingProvider>
     <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -20,5 +22,6 @@ export default function App() {
       <Route path="user/dashboard" element={<MainUserDashboard />} />
     </Routes>
     </LoadingProvider>
+    </AuthProvider>
   );
 }
