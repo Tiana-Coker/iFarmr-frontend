@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import agricultureImage from '../../../assets/dashboard/error.png'; // Replace with your agriculture image path
+import agricultureImage from '../../assets/dashboard/error.png'; // Replace with your agriculture image path
 
 const ErrorPage: React.FC = () => {
   return (
