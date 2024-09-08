@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { useLoading } from '../../globalSpinner/LoadingContext'; // Import the loading hook
 import icon from '../../../assets/dashboard/icon.svg';
+import { useAuth } from '../../../AuthContext';
 
 interface Post {
   id: number;
@@ -25,18 +26,21 @@ interface UserSummary {
 interface ErrorResponse {
   message: string;
 }
+interface PopularPostsProps {
+  className?: string;
+}
 
-const PopularPosts: React.FC = () => {
+const PopularPosts: React.FC<PopularPostsProps> = ({className}) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { loading, setLoading } = useLoading(); // Use the global loading state
+  const { token, baseUrl } = useAuth(); // Use AuthContext
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const token = import.meta.env.VITE_TOKEN;
 
+  
   useEffect(() => {
     const fetchPopularPosts = async () => {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
         const response = await axios.get(`${baseUrl}/api/v1/posts/popular`, {
           headers: {
@@ -53,7 +57,7 @@ const PopularPosts: React.FC = () => {
         const axiosError = err as AxiosError<ErrorResponse>;
         setError(axiosError.response?.data?.message || 'Failed to fetch popular posts.');
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 
@@ -85,7 +89,7 @@ const PopularPosts: React.FC = () => {
   };
 
   return (
-    <div className="popular-posts ">
+    <div className={`popular-posts ${className}`}>
       <h1>Popular Posts</h1>
       {error && <p className="error">{error}</p>}
       {!loading && !error && posts.length === 0 && <p>No popular posts.</p>}

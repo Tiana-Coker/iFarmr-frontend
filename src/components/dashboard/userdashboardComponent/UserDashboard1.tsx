@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from '../../../AuthContext'; 
 import image from '../../../assets/dashboard/image.svg';
 
 interface FarmGlanceProps {}
@@ -11,12 +12,10 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [tasksToday, setTasksToday] = useState<number>(0);
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  const token = import.meta.env.VITE_TOKEN;
+  const { token, baseUrl } = useAuth(); 
 
   useEffect(() => {
-    if (!apiBaseUrl || !token) {
-      console.error('API Base URL or token is not defined');
+    if (!baseUrl || !token) {
       setError('Configuration error: API base URL or token is not defined');
       return;
     }
@@ -40,52 +39,34 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
 
     const decodedToken = decodeToken(token);
     if (decodedToken && decodedToken.sub) {
-      setUsername(decodedToken.sub); // Assuming 'sub' contains the username
+      setUsername(decodedToken.sub);
     }
 
     const fetchData = async () => {
       try {
-        console.log('Fetching crops from:', `${apiBaseUrl}/api/v1/crops/total`);
-        const cropsResponse = await axios.get<number>(`${apiBaseUrl}/api/v1/crops/total`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const cropsResponse = await axios.get<number>(`${baseUrl}/api/v1/crops/total`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('Crops response:', cropsResponse.data);
         setCrops(cropsResponse.data);
 
-        console.log('Fetching livestock from:', `${apiBaseUrl}/api/v1/livestock/total`);
-        const livestockResponse = await axios.get<number>(`${apiBaseUrl}/api/v1/livestock/total`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const livestockResponse = await axios.get<number>(`${baseUrl}/api/v1/livestock/total`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('Livestock response:', livestockResponse.data);
         setLivestock(livestockResponse.data);
 
-        console.log('Fetching upcoming tasks from:', `${apiBaseUrl}/api/v1/tasks/upcoming`);
-        const tasksResponse = await axios.get<any[]>(`${apiBaseUrl}/api/v1/tasks/upcoming`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const tasksResponse = await axios.get<any[]>(`${baseUrl}/api/v1/tasks/upcoming`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-
         const today = new Date().toISOString().split('T')[0];
         const todayTasksCount = tasksResponse.data.filter(task => task.dueDate === today).length;
         setTasksToday(todayTasksCount);
-
-      } catch (error: unknown) {
-        console.error('Error details:', error);
-        if (axios.isAxiosError(error)) {
-          console.error('Error response:', error.response);
-          console.error('Error request:', error.request);
-        }
+      } catch (error) {
         setError('Failed to fetch data.');
       }
     };
 
     fetchData();
-  }, [apiBaseUrl, token]);
+  }, [baseUrl, token]);
 
   if (error) return <div className="text-red-600">{error}</div>;
 
@@ -93,22 +74,18 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
     <div className="w-full p-4">
       <h1 className="text-l font-semibold text-gray-800 mb-4">Welcome Back, {username ? username : 'User'}</h1>
 
-      <section
-        className="flex justify-between items-center p-8 rounded-lg shadow-md relative bg-cover bg-no-repeat"
-        style={{ backgroundColor: '#C0F196' }}
-      >
+      <section className="flex flex-col md:flex-row justify-between items-center p-8 rounded-lg shadow-md relative bg-cover bg-no-repeat" style={{ backgroundColor: '#C0F196' }}>
         <div>
           <h2 className="text-custom-xl font-medium text-custom-bg">Your Farm at a Glance</h2>
-
-          <div className="mt-4"> {/* Adjusted margin */}
-            <div className="flex justify-between">
-              <div className="space-y-1"> {/* Adjusted spacing */}
+          <div className="mt-4">
+            <div className="flex flex-col md:flex-row justify-between">
+              <div className="space-y-1">
                 <p className="text-custom-lg font-medium text-custom-green">Total Crops</p>
                 <p className="text-xl font-medium text-custom-green">
                   {crops !== null ? `${crops} Crops` : 'Loading...'}
                 </p>
               </div>
-              <div className="space-y-1"> {/* Adjusted spacing */}
+              <div className="space-y-1">
                 <p className="text-custom-lg font-medium text-custom-green">Total Livestock</p>
                 <p className="text-xl font-medium text-custom-green">
                   {livestock !== null ? `${livestock} Livestock` : 'Loading...'}
@@ -119,14 +96,11 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
 
           <p className="mt-6 text-custom-lg text-custom-green">
             You have <span className="font-bold">{tasksToday} tasks</span> scheduled for today.
-            <a href="/tasks" className="text-custom-bg"> &rarr;</a> {/* Make the arrow a clickable link */}
-
+            <a href="/tasks" className="text-custom-bg">&rarr;</a>
           </p>
-
-        
         </div>
 
-        <div className="relative w-1/3">
+        <div className="relative w-full md:w-1/3">
           <img src={image} alt="Plants" className="w-full h-auto object-contain" />
           <div className="absolute top-0 right-0 h-24 w-24 border-t-4 border-r-4 border-white rounded-full"></div>
         </div>

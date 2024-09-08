@@ -14,11 +14,13 @@ import plusIcon from '../../../assets/dashboard/+.svg'; // Add this line
 
 interface SidebarProps {
   // If you have any props for the Sidebar, define them here.
+  className?: string;
+
 }
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: React.FC<SidebarProps> = ({className}) => {
   return (
-    <div className="sidebar bg-gray-100 h-full w-64 p-4 flex flex-col justify-between"> {/* Flex column to align items properly */}
+    <div className={`sidebar bg-gray-100 h-full w-64 p-4 flex flex-col justify-between ${className}`}>
       <div>
         <div className="logo mb-8 hover:text-green-500">
           {/* Wrap the logo image in a Link */}

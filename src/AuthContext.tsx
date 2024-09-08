@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface AuthContextProps {
   token: string | null;
+  baseUrl: string;
   setToken: (token: string | null) => void;
 }
 
@@ -26,6 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return localStorage.getItem('token');
   });
 
+  const baseUrl = 'http://localhost:8080'; // Hardcoded for local development
+
   const saveToken = (userToken: string | null) => {
     if (userToken) {
       localStorage.setItem('token', userToken);
@@ -36,7 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken: saveToken }}>
+    <AuthContext.Provider value={{ token, baseUrl, setToken: saveToken }}>
       {children}
     </AuthContext.Provider>
   );
