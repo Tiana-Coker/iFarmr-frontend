@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { useLoading } from '../../globalSpinner/LoadingContext'; // Import the loading hook
 import icon from '../../../assets/dashboard/icon.svg';
 
 interface Post {
@@ -28,13 +29,14 @@ interface ErrorResponse {
 const PopularPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { loading, setLoading } = useLoading(); // Use the global loading state
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
     const fetchPopularPosts = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await axios.get(`${baseUrl}/api/v1/posts/popular`, {
           headers: {
@@ -51,12 +53,12 @@ const PopularPosts: React.FC = () => {
         const axiosError = err as AxiosError<ErrorResponse>;
         setError(axiosError.response?.data?.message || 'Failed to fetch popular posts.');
       } finally {
-        setLoading(false);
+        setLoading(false); // End loading
       }
     };
 
     fetchPopularPosts();
-  }, [baseUrl, token]);
+  }, [baseUrl, token, setLoading]);
 
   const getInitials = (name: string): string => {
     const words = name.split(' ');
@@ -65,18 +67,10 @@ const PopularPosts: React.FC = () => {
     return firstInitial + lastInitial;
   };
 
-  // Define an array of colors
   const colors = [
-    '#FF5733', // Red-orange
-    '#33FF57', // Green
-    '#3357FF', // Blue
-    '#FF33A6', // Pink
-    '#A633FF', // Purple
-    '#33FFF6', // Aqua
-    '#FFBD33', // Yellow-orange
+    '#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#A633FF', '#33FFF6', '#FFBD33',
   ];
 
-  // Function to generate color based on the name
   const getColorForName = (name: string): string => {
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
@@ -93,7 +87,6 @@ const PopularPosts: React.FC = () => {
   return (
     <div className="popular-posts ">
       <h1>Popular Posts</h1>
-      {loading && <p>Loading popular posts...</p>}
       {error && <p className="error">{error}</p>}
       {!loading && !error && posts.length === 0 && <p>No popular posts.</p>}
       {!loading && !error && posts.length > 0 && (
@@ -105,9 +98,7 @@ const PopularPosts: React.FC = () => {
             >
               <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
                 <div className="flex flex-row">
-                  {/* Post Content on the left */}
                   <div className="flex flex-col flex-1 pr-4">
-                    {/* User's Initials */}
                     <div className="flex items-center space-x-2 mb-2">
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center text-white text-md"
@@ -118,10 +109,8 @@ const PopularPosts: React.FC = () => {
                       <p className="text-md font-thin text-black">{post.postedBy.name}</p>
                     </div>
 
-                    {/* Post Title */}
                     <p className="text-custom-big font-thick leading-custom-h text-black">{post.title}</p>
 
-                    {/* Post Content */}
                     <div className="my-2">
                       <p className="text-xs text-gray-500">{timeAgo(post.dateCreated)}</p>
                       <p className="font-raleway text-custom-sm font-verylight text-custom-writing overflow-hidden overflow-ellipsis">
@@ -130,7 +119,6 @@ const PopularPosts: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Image on the right */}
                   {post.photoUrl && (
                     <div className="flex-shrink-0">
                       <img
@@ -142,9 +130,7 @@ const PopularPosts: React.FC = () => {
                   )}
                 </div>
 
-                {/* Interaction section at the bottom */}
                 <div className="flex justify-between items-center mt-4">
-                  {/* Commented by users */}
                   <div className="flex items-center space-x-1">
                     {post.commentedBy.slice(0, 5).map((user, index) => (
                       <div key={index} className="relative">
@@ -171,7 +157,6 @@ const PopularPosts: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Likes */}
                   <div className="flex items-center space-x-1 text-gray-500">
                     <img src={icon} alt="Like icon" className="w-5 h-5" />
                     <span>{post.likeCount} likes</span>

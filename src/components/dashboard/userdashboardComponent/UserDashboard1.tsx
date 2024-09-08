@@ -11,8 +11,8 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [tasksToday, setTasksToday] = useState<number>(0);
 
-  const apiBaseUrl: string = 'http://localhost:8080'; // Replace with your actual API base URL
-  const token: string = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImxvcmR2eTEiLCJpYXQiOjE3MjU3MDQyNzIsImV4cCI6MTcyNTc5MDY3Mn0.mKtxhScldtC4Y1iJNwvY-qSuzSjtGf-4F53icRBp6iA'; // Replace with your actual token
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
     if (!apiBaseUrl || !token) {
