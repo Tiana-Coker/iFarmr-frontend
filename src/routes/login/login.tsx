@@ -5,82 +5,64 @@ import { FaSpinner } from 'react-icons/fa';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
+import { useAuth } from '../../context/authContext/AuthContext';
 
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { setToken } = useAuth(); // Access setToken from context
 
-   // State to track form data (username, password)
+  // Other state and functions remain unchanged
   const [formData, setFormData] = useState({
-    
     username: '',
     password: '',
   });
 
-   // State to handle loading (spinner) during form submission
   const [isLoading, setIsLoading] = useState(false);
-
-
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-   // States to manage the visibility of the password and confirm password fields
   const [showPassword, setShowPassword] = useState(false);
-  
 
-
- // Function to toggle the visibility of the password field
   const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Toggle the state
+    setShowPassword(!showPassword);
   };
 
-
-// Function to handle input changes and update the form data state
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-   // Function to handle form submission
-   const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading spinner
-    setErrorMessage(null); // Clear previous error message
-  
-    try {
-      // Make API call to login
-      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
-        username: formData.username, // Send the username
-        password: formData.password, // Send the password
-      });
-  
-      // Check if login was successful and JWT is received
-      if (response.data && response.data.token) {
-        const { token,role} = response.data;  // Extract the token and message from response
-  
-        // Store JWT in localStorage 
-        localStorage.setItem('token', token);
-  
-        
-        setIsLoading(false); // Stop loading spinner
+    setIsLoading(true);
+    setErrorMessage(null);
 
-        
-         // Role is an array, get the first element
-          const userRole = role[0]; // get the first role (e.g., 'USER' or 'ADMIN')
-          
-         // Redirect based on role
-         if (userRole === 'USER') {
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+        username: formData.username,
+        password: formData.password,
+      });
+
+      if (response.data && response.data.token) {
+        const { token, role } = response.data;
+
+        // Set the token in the context
+        setToken(token);
+        localStorage.setItem('token', token);
+
+        setIsLoading(false);
+
+        const userRole = role[0];
+        if (userRole === 'USER') {
           navigate('/user/dashboard');
         } else if (userRole === 'ADMIN') {
           navigate('/admin/dashboard');
         } else {
           setErrorMessage('Unrecognized role. Please contact support.');
         }
-  
       } else {
         throw new Error('Invalid response from server');
       }
     } catch (error: any) {
       setIsLoading(false);
-     
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message || 'Failed to login.');
       } else {
@@ -88,8 +70,6 @@ const Login: React.FC = () => {
       }
     }
   };
-  
-
   return (
     <div className="flex h-screen mx-auto font-sans">
       {/* Left section with the image and text */}
