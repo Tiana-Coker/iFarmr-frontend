@@ -1,10 +1,11 @@
+// this is my side bar  that is left side the way i want it, i would be importing it to various component i want it to be responsive for all kind of screen when its in mobile or table it should collapse with a button to so the menu dont change my functions and design !!!!
 import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { useLoading } from '../../globalSpinner/LoadingContext'; // Import the loading hook
+import { useLoading } from '../../../context/globalSpinner/LoadingContext';
 import icon from '../../../assets/dashboard/icon.svg';
-import { useAuth } from '../../../AuthContext';
+import { useAuth } from '../../../context/authContext/AuthContext';
 
 interface Post {
   id: number;
@@ -14,7 +15,7 @@ interface Post {
   dateCreated: string;
   commentCount: number;
   likeCount: number;
-  postedBy: UserSummary; // Assuming postedBy contains user details
+  postedBy: UserSummary;
   commentedBy: UserSummary[];
 }
 
@@ -26,18 +27,17 @@ interface UserSummary {
 interface ErrorResponse {
   message: string;
 }
+
 interface PopularPostsProps {
   className?: string;
 }
 
-const PopularPosts: React.FC<PopularPostsProps> = ({className}) => {
+const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { loading, setLoading } = useLoading(); // Use the global loading state
-  const { token, baseUrl } = useAuth(); // Use AuthContext
+  const { loading, setLoading } = useLoading();
+  const { token, baseUrl } = useAuth();
 
-
-  
   useEffect(() => {
     const fetchPopularPosts = async () => {
       setLoading(true);
@@ -90,11 +90,11 @@ const PopularPosts: React.FC<PopularPostsProps> = ({className}) => {
 
   return (
     <div className={`popular-posts ${className}`}>
-      <h1>Popular Posts</h1>
-      {error && <p className="error">{error}</p>}
+      <h1 className="text-xl font-raleway mb-4">Popular Posts</h1>
+      {error && <p className="text-red-500">{error}</p>}
       {!loading && !error && posts.length === 0 && <p>No popular posts.</p>}
       {!loading && !error && posts.length > 0 && (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="flex flex-col space-y-4">
           {posts.map((post) => (
             <div
               key={post.id}
@@ -113,11 +113,11 @@ const PopularPosts: React.FC<PopularPostsProps> = ({className}) => {
                       <p className="text-md font-thin text-black">{post.postedBy.name}</p>
                     </div>
 
-                    <p className="text-custom-big font-thick leading-custom-h text-black">{post.title}</p>
+                    <p className="text-lg font-semibold leading-tight text-black">{post.title}</p>
 
                     <div className="my-2">
                       <p className="text-xs text-gray-500">{timeAgo(post.dateCreated)}</p>
-                      <p className="font-raleway text-custom-sm font-verylight text-custom-writing overflow-hidden overflow-ellipsis">
+                      <p className="font-raleway text-sm font-light text-gray-700 overflow-hidden overflow-ellipsis">
                         {post.content}
                       </p>
                     </div>

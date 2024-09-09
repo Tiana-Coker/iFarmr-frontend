@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../../AuthContext'; 
+import { useAuth } from '../../../context/authContext/AuthContext'; 
 import image from '../../../assets/dashboard/image.svg';
 
 interface FarmGlanceProps {}
@@ -74,37 +74,36 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
     <div className="w-full p-4">
       <h1 className="text-l font-semibold text-gray-800 mb-4">Welcome Back, {username ? username : 'User'}</h1>
 
-      <section className="flex flex-col md:flex-row justify-between items-center p-8 rounded-lg shadow-md relative bg-cover bg-no-repeat" style={{ backgroundColor: '#C0F196' }}>
-        <div>
-          <h2 className="text-custom-xl font-medium text-custom-bg">Your Farm at a Glance</h2>
-          <div className="mt-4">
-            <div className="flex flex-col md:flex-row justify-between">
-              <div className="space-y-1">
-                <p className="text-custom-lg font-medium text-custom-green">Total Crops</p>
-                <p className="text-xl font-medium text-custom-green">
-                  {crops !== null ? `${crops} Crops` : 'Loading...'}
-                </p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-custom-lg font-medium text-custom-green">Total Livestock</p>
-                <p className="text-xl font-medium text-custom-green">
-                  {livestock !== null ? `${livestock} Livestock` : 'Loading...'}
-                </p>
-              </div>
-            </div>
-          </div>
+      <section className="flex flex-col md:flex-row justify-between items-center p-4 md:p-8 rounded-lg shadow-md relative bg-cover bg-no-repeat" style={{ backgroundColor: '#C0F196' }}>
+  <div className="w-full md:w-2/3 mb-6 md:mb-0">
+    <h2 className="text-custom-xl font-medium text-custom-bg">Your Farm at a Glance</h2>
+    <div className="mt-4 space-y-4 md:space-y-0 md:flex md:space-x-6">
+      <div className="space-y-1">
+        <p className="text-custom-lg font-medium text-custom-green">Total Crops</p>
+        <p className="text-xl font-medium text-custom-green">
+          {crops !== null ? `${crops} Crops` : 'Loading...'}
+        </p>
+      </div>
+      <div className="space-y-1">
+        <p className="text-custom-lg font-medium text-custom-green">Total Livestock</p>
+        <p className="text-xl font-medium text-custom-green">
+          {livestock !== null ? `${livestock} Livestock` : 'Loading...'}
+        </p>
+      </div>
+    </div>
 
-          <p className="mt-6 text-custom-lg text-custom-green">
-            You have <span className="font-bold">{tasksToday} tasks</span> scheduled for today.
-            <a href="/tasks" className="text-custom-bg">&rarr;</a>
-          </p>
-        </div>
+    <p className="mt-6 text-custom-lg text-custom-green">
+      You have <span className="font-bold">{tasksToday} tasks</span> scheduled for today.
+      <a href="/tasks" className="text-custom-bg">&rarr;</a>
+    </p>
+  </div>
 
-        <div className="relative w-full md:w-1/3">
-          <img src={image} alt="Plants" className="w-full h-auto object-contain" />
-          <div className="absolute top-0 right-0 h-24 w-24 border-t-4 border-r-4 border-white rounded-full"></div>
-        </div>
-      </section>
+  <div className="w-full md:w-1/3 relative">
+    <img src={image} alt="Plants" className="w-full h-auto object-contain" />
+    <div className="absolute top-0 right-0 h-24 w-24 border-t-4 border-r-4 border-white rounded-full"></div>
+  </div>
+</section>
+
     </div>
   );
 };
