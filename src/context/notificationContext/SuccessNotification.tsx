@@ -33,7 +33,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     <NotificationContext.Provider value={{ showNotification }}>
       {children}
       {notification && (
-        <div className="fixed top-0 right-0 m-4 bg-custom-green text-white p-4 rounded shadow-lg">
+        <div className="fixed top-0 right-0 m-1 bg-custom-bg bg-opacity-80 text-white p-2 rounded shadow-lg">
           {notification}
         </div>
       )}

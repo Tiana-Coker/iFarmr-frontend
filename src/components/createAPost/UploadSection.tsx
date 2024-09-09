@@ -64,21 +64,23 @@ const UploadSection: React.FC = () => {
       };
 
       xhr.onload = () => {
+        setLoading(false);
         if (xhr.status === 200) {
           showNotification('Post created successfully!');
           setFile(null);
           setDescription('');
           setTitle('');
           setUploadProgress(0);
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 1000);
         } else {
           showNotification('There was an error creating the post. Please try again.');
         }
       };
 
       xhr.onerror = () => {
+        setLoading(false);
         showNotification('There was an error creating the post. Please try again.');
       };
 
@@ -86,13 +88,11 @@ const UploadSection: React.FC = () => {
       xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       xhr.send(formData);
     } catch (error) {
+      setLoading(false);
       console.error(error);
       showNotification('There was an error creating the post. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
-
   return (
     <div className="flex h-screen bg-white-100 ">
       <Sidebar className="w-20  mr-0 flex-shrink-0" />
