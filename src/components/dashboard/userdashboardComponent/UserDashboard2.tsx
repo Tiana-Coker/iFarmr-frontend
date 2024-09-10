@@ -5,7 +5,8 @@ import wheat from '../../../assets/dashboard/wheat.jpeg';
 import Avatar from 'react-avatar';
 import { BellIcon } from '@heroicons/react/24/outline'; // Assuming you are using Heroicons for the bell icon
 import { FaNewspaper, FaComment, FaHeart, FaTasks, FaSeedling, FaBoxes, FaTicketAlt } from 'react-icons/fa';
-import Cow from '../../../assets/images/cow.png';
+import { GiCow, GiChicken, GiSheep, GiElephantHead } from 'react-icons/gi';
+
 
 interface Notification {
   icon: string;  // Add this new field
@@ -28,7 +29,7 @@ const iconMap: { [key: string]: React.ElementType | string } = {
   task: FaTasks,
   crop: FaSeedling,
   inventory: FaBoxes,
-  livestock: Cow, // Image icon
+  livestock: GiSheep, // Image icon
   ticket: FaTicketAlt,
 };
 
@@ -67,7 +68,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
 
     if (typeof IconComponent === 'string') {
       // Handle image-based icons (like Cow)
-      return <img src={IconComponent} alt={iconName} className="h-8 w-8" />;
+      return <img src={IconComponent} alt={iconName} className="h-8 w-8 ml-0" />;
     }
     
 

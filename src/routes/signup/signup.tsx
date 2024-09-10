@@ -29,29 +29,42 @@ const Signup: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // State to track if passwords match
+  const [passwordMatchError, setPasswordMatchError] = useState<string | null>(null);
 
  // Function to toggle the visibility of the password field
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Toggle the state
   };
 
-
  // Function to toggle the visibility of the confirm password field
   const handleToggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword); // Toggle visibility for confirm password
   };
 
-// Function to handle input changes and update the form data state
+ // Function to handle input changes and update the form data state
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+    // Clear password match error on any input change
+    if (e.target.name === "password" || e.target.name === "confirmPassword") {
+      setPasswordMatchError(null);
+    }
   };
 
-   // Function to handle form submission
-  const handleSubmit =async (e: React.FormEvent) => {
+  // Function to handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading spinner
     setErrorMessage(null); // Clear previous error message
-    
+
+    // Check if password matches confirm password before API call
+    if (formData.password !== formData.confirmPassword) {
+      setIsLoading(false);
+      setPasswordMatchError("Passwords do not match"); // Show password mismatch error
+      return;
+    }
+
     // Perform the API call using axios
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
@@ -86,9 +99,7 @@ const Signup: React.FC = () => {
     } else {
       setErrorMessage('Failed to connect to the server.');
     }
-
     }
-  
   };
 
    // Function to close the modal
@@ -101,7 +112,6 @@ const Signup: React.FC = () => {
       {/* Left section with the image and text */}
       <div className="w-1/2 bg-customGreen flex flex-col justify-center items-center relative bg-no-repeat bg-cover" style={{
       backgroundImage: `url('/src/assets/signupImages/wave.svg')`
-      
     }}>
         <h1 className="text-4xl text-[#204E51] font-semibold mb-80 text-center z-10">Welcome to IFarmr</h1>
         <img
@@ -169,9 +179,6 @@ const Signup: React.FC = () => {
             </select>
           </div>
 
-
-
-
   {/* Email input field */}
   <div className="mb-2 flex items-center">
     <label className="block text-gray-700 text-sm font-light mr-4 w-1/3" htmlFor="email">
@@ -212,7 +219,7 @@ const Signup: React.FC = () => {
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </button>
-        </div>
+    </div>
   </div>
 
   {/* Confirm Password input field */}
@@ -224,66 +231,69 @@ const Signup: React.FC = () => {
     <input
       name="confirmPassword"
       type={showConfirmPassword ? 'text' : 'password'}
-      className=" appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline"
+      className=" appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline"
       value={formData.confirmPassword}
       onChange={handleChange}
       placeholder="********"
       required 
     />
-
+     
     {/* Eye icon to toggle confirm password visibility */}
-    <button
+     <button
           type="button"
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
           onClick={handleToggleConfirmPasswordVisibility}
         >
-          
           {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
         </button>
     </div>
   </div>
 
+  {/* Password match error message */}
+  {passwordMatchError && (
+    <p className="text-red-500 text-xs italic mt-2">{passwordMatchError}</p>
+  )}
 
-  {/* Error message (if any) */}
-    {errorMessage && (
-      <div className="text-red-500 text-sm mb-4">
-         {errorMessage}
-      </div>
-     )}
+  {/* Error message display */}
+  {errorMessage && (
+    <p className="text-red-500 text-xs italic mt-2">{errorMessage}</p>
+  )}
 
- {/* Submit button with spinner */}
-  <div className="flex justify-end">
+  {/* Signup button with spinner */}
+  <div className="flex items-center justify-center mt-4">
     <button
-      className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap"
       type="submit"
-      disabled={isLoading} // Disable button when loading
+      className="w-2/3 bg-[#204e51] hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline flex justify-center"
+      disabled={isLoading}
     >
-        {isLoading ? (
-              <>
-               <span className="text-sm">Registering...</span>
-                <FaSpinner className="animate-spin mr-2 text-sm" /> {/* Spinner icon */}
-                
-              </>
-            ) : (
-              "Register"
-            )}
-      
+      {isLoading ? (
+        <FaSpinner className="animate-spin mr-2" />
+      ) : (
+        'Signup'
+      )}
     </button>
   </div>
 </form>
 
-     {/* Success Modal */}
-     <Modal
+        {/* Modal popup for registration success */}
+        <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         message="You have successfully registered!
         Check your email to confirm your email address and then proceed to Login.
         Thank you!"
-      />
-
-      </div>
+      />      </div>
     </div>
   );
 };
 
 export default Signup;
+
+
+{/* <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        message="You have successfully registered!
+        Check your email to confirm your email address and then proceed to Login.
+        Thank you!"
+      /> */}
