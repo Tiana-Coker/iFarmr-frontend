@@ -79,28 +79,32 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
             ))}
           </ul>
         </div>
-
-        <div className="bg-[#C0F196] rounded-2xl p-6 text-center mt-8 shadow-sm relative">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-            <div className="bg-[#C0F196] w-32 h--5 mx-auto relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-16 bg-white rounded-full transform translate-y-8"></div>
-            </div>
-            <div className="absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="bg-white rounded-full p-2 shadow-md">
-                <img src={plusIcon} alt="Plus Icon" className="h-6 w-6" />
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 flex items-center justify-center flex-col">
-            <div className="text-green-800 font-normal text-lg mb-2">Share Your Experience</div>
-            <p className="text-green-700 text-sm mb-4 text-center">Connect with Others, Ask Questions, and Share Your Success Stories.</p>
-            <Link to="/post">
-              <button className="bg-white text-green-700 font-semibold py-2 px-6 rounded-md text-sm hover:bg-green-50 transition duration-300">
-                Create New Post
-              </button>
-            </Link>
-          </div>
-        </div>
+        <div className="bg-[#C0F196] rounded-3xl p-6 text-center mt-8 shadow-sm relative overflow-hidden">
+  {/* Top-left arc */}
+  <div className="absolute top-0 left-0 w-1/4 h-1/4 bg-[#D8F9C4] rounded-br-full"></div>
+  {/* Bottom-right arc */}
+  <div className="absolute bottom-0 right-0 w-2/5 h-2/5 bg-[#D8F9C4] rounded-tl-full"></div>
+  
+  {/* Plus icon */}
+  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-1/4">
+    <div className="bg-white rounded-full p-2 shadow-md">
+      <img src={plusIcon} alt="Plus Icon" className="h-6 w-6" />
+    </div>
+  </div>
+  
+  <div className="mt-12 flex items-center justify-center flex-col relative z-10">
+    <div className="text-green-800 font-semibold text-lg mb-2">Share Your Experience</div>
+    <p className="text-green-700 text-sm mb-4 text-center">Connect with Others, Ask Questions, and Share Your Success Stories.</p>
+    <Link to="/post">
+      <button className="bg-white text-green-700 font-semibold py-2 px-6 rounded-lg text-sm hover:bg-green-50 transition duration-300">
+        Create New Post
+      </button>
+    </Link>
+  </div>
+  
+  {/* Cutout for the button */}
+  <div className="absolute bottom-5 right-7 w-2/5 h-10.5 bg-[#C0F196]"></div>
+</div>
       </div>
 
       {isOpen && (
