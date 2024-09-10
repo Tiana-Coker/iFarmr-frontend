@@ -260,11 +260,11 @@ const Signup: React.FC = () => {
   )}
 
   {/* Signup button with spinner */}
-  <div className="flex items-center justify-center mt-4">
+  <div className="flex justify-end">
     <button
+      className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap"
       type="submit"
-      className="w-2/3 bg-[#204e51] hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline flex justify-center"
-      disabled={isLoading}
+      disabled={isLoading} // Disable button when loading
     >
       {isLoading ? (
         <FaSpinner className="animate-spin mr-2" />
