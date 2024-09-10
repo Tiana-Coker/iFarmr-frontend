@@ -4,8 +4,12 @@ import { useAuth } from '../../../context/authContext/AuthContext';
 import wheat from '../../../assets/dashboard/wheat.jpeg';
 import Avatar from 'react-avatar';
 import { BellIcon } from '@heroicons/react/24/outline'; // Assuming you are using Heroicons for the bell icon
+import { FaNewspaper, FaComment, FaHeart, FaTasks, FaSeedling, FaBoxes, FaTicketAlt } from 'react-icons/fa';
+import { GiCow, GiChicken, GiSheep, GiElephantHead } from 'react-icons/gi';
+
 
 interface Notification {
+  icon: string;  // Add this new field
   title: string;
   description: string;
   date: string;
@@ -18,11 +22,22 @@ interface ErrorResponse {
   message: string;
 }
 
+const iconMap: { [key: string]: React.ElementType | string } = {
+  post: FaNewspaper,
+  comment: FaComment,
+  like: FaHeart,
+  task: FaTasks,
+  crop: FaSeedling,
+  inventory: FaBoxes,
+  livestock: GiSheep, // Image icon
+  ticket: FaTicketAlt,
+};
+
 const GrowYourFarmAndNotifications: React.FC = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null); // Track which notification is expanded
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const { token, baseUrl } = useAuth(); 
 
@@ -45,25 +60,36 @@ const GrowYourFarmAndNotifications: React.FC = () => {
   }, [baseUrl, token]);
 
   const toggleNotification = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index); // Toggle between expanded and collapsed
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const NotificationIcon: React.FC<{ iconName: string }> = ({ iconName }) => {
+    const IconComponent = iconMap[iconName];
+
+    if (typeof IconComponent === 'string') {
+      // Handle image-based icons (like Cow)
+      return <img src={IconComponent} alt={iconName} className="h-8 w-8 ml-0" />;
+    }
+    
+
+    // Handle React icon components
+    return IconComponent ? <IconComponent className="h-6 w-6 text-gray-500" /> : <BellIcon className="h-6 w-6 text-gray-500" />;
   };
 
   return (
     <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8 p-4 w-full">
       {/* Grow Your Farm Section */}
       <div
-  className={`w-full h-auto md:w-1/2 p-6 rounded-lg shadow-md relative ${
-    // Apply min-height for small screens and remove it for larger screens
-    'min-h-[14rem] md:min-h-0'
-  }`}
-  style={{ 
-    backgroundImage: `url(${wheat})`, 
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center', 
-    maxHeight: '10.5rem' // Restrict the height on larger screens
-  }}
->
-
+        className={`w-full h-auto md:w-1/2 p-6 rounded-lg shadow-md relative ${
+          'min-h-[14rem] md:min-h-0'
+        }`}
+        style={{ 
+          backgroundImage: `url(${wheat})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          maxHeight: '10.5rem'
+        }}
+      >
         <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
         <div className="relative z-10 text-custom-grow">
           <h2 className="text-2xl font-medium">Grow Your Farm</h2>
@@ -103,7 +129,6 @@ const GrowYourFarmAndNotifications: React.FC = () => {
                     <span className="text-gray-800">Notification</span>
                     <span className="text-xs text-gray-500">{notification.timeAgo}</span>
                   </button>
-                  {/* Toggle notification details when expanded */}
                   {expandedIndex === index && (
                     <div className="mt-2 pl-8">
                       <div className="flex items-center space-x-2">
@@ -120,7 +145,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
 
                 {/* Desktop View */}
                 <div className="hidden md:flex items-center space-x-2 w-full">
-                  <Avatar name={notification.userFullName} size="30" round />
+                  <NotificationIcon iconName={notification.icon} />
                   <div className="flex-grow">
                     <p className="text-gray-800">{notification.title}</p>
                     <p className="text-sm text-gray-500">{notification.description}</p>
