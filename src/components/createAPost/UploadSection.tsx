@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import upload from '../../assets/images/upload.svg';
 import { useLoading } from '../../context/globalSpinner/LoadingContext';
 import { useAuth } from '../../context/authContext/AuthContext';
-import { useNotification } from '../../context/notificationContext/SuccessNotification';
+import { useNotification } from '../../context/notificationContext/Notification';
 import Sidebar from '../dashboard/sidebar/sidebar';
 import PopularPosts from '../dashboard/popularPost/PopularPost';
 

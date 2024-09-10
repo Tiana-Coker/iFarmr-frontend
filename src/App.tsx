@@ -8,7 +8,7 @@ import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './context/globalSpinner/LoadingContext';
 import { AuthProvider } from './context/authContext/AuthContext';
 import UploadSection from './components/createAPost/UploadSection';
-import { NotificationProvider } from './context/notificationContext/SuccessNotification';
+import { NotificationProvider } from './context/notificationContext/Notification';
 
 
 export default function App() {
