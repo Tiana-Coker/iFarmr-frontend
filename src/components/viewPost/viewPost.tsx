@@ -86,7 +86,7 @@ const ViewPost: React.FC = () => {
       </div>
       {/* Main Content */}
       <div className="flex-grow flex flex-col md:flex-row">
-        <div className="flex-grow relative border-2 border-blue-300 mt-11 mx-4 my-4 rounded-lg">
+        <div className="flex-grow relative mt-11 mx-4 my-4 rounded-lg">
           <main className="p-6 max-w-3xl mx-auto">
             <h2 className="text-2xl font-semibold mb-4">{greeting}</h2>
 
@@ -142,10 +142,7 @@ const ViewPost: React.FC = () => {
 
 // PostCard component to render each post
 const PostCard = ({ post }: { post: any }) => (
-  <div
-    className="bg-white border border-blue-100 mb-4 rounded-lg"
-    style={{ borderColor: 'rgba(173, 216, 230, 0.5)' }}
-  >
+  <div className="bg-white border mb-4 rounded-lg">
     <div className="flex flex-col md:flex-row">
       <div className="flex-1 flex flex-col md:flex-row items-start md:items-start p-4">
         <div className="flex flex-col items-start md:items-start mb-4 md:mb-0">
