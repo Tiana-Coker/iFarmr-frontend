@@ -8,7 +8,9 @@ import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './context/globalSpinner/LoadingContext';
 import { AuthProvider } from './context/authContext/AuthContext';
 import UploadSection from './components/createAPost/UploadSection';
+import ViewPost from './components/viewPost/viewPost';
 import { NotificationProvider } from './context/notificationContext/Notification';
+
 
 
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/post" element={<UploadSection/>}></Route>
+        <Route path="/view-post" element={<ViewPost/>} />
 
       <Route path="user/dashboard" element={<MainUserDashboard />} />
 
