@@ -44,13 +44,32 @@ const GrowYourFarmAndNotifications: React.FC = () => {
 
   // const { token, baseUrl } = useAuth(); 
 
+  // useEffect(() => {
+  //   const fetchNotifications = async () => {
+  //     try {
+  //       const response = await axios.get(`${baseUrl}/api/v1/notifications/recent-activities`, {
+  //         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  //       });
+  //       setNotifications(response.data);
+  //     } catch (err) {
+  //       const axiosError = err as AxiosError<ErrorResponse>;
+  //       setError(axiosError.response?.data?.message || 'Failed to fetch notifications.');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchNotifications();
+  // }, []);
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(`${baseUrl}/api/v1/notifications/recent-activities`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
-        setNotifications(response.data);
+  
+        const data = Array.isArray(response.data) ? response.data : [];
+        setNotifications(data);
       } catch (err) {
         const axiosError = err as AxiosError<ErrorResponse>;
         setError(axiosError.response?.data?.message || 'Failed to fetch notifications.');
@@ -58,7 +77,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     fetchNotifications();
   }, []);
 
