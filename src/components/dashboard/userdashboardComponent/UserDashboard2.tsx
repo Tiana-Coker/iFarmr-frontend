@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-import { useAuth } from '../../../context/authContext/AuthContext'; 
+// import { useAuth } from '../../../context/authContext/AuthContext'; 
 import wheat from '../../../assets/dashboard/wheat.jpeg';
 import Avatar from 'react-avatar';
-import { BellIcon } from '@heroicons/react/24/outline'; // Assuming you are using Heroicons for the bell icon
+import { BellIcon } from '@heroicons/react/24/outline';
 import { FaNewspaper, FaComment, FaHeart, FaTasks, FaSeedling, FaBoxes, FaTicketAlt } from 'react-icons/fa';
-import { GiCow, GiChicken, GiSheep, GiElephantHead } from 'react-icons/gi';
-
+import { GiSheep } from 'react-icons/gi';
 
 interface Notification {
-  icon: string;  // Add this new field
+  id: string;  // <-- Added this
+  icon: string;
   title: string;
   description: string;
   date: string;
@@ -29,9 +29,12 @@ const iconMap: { [key: string]: React.ElementType | string } = {
   task: FaTasks,
   crop: FaSeedling,
   inventory: FaBoxes,
-  livestock: GiSheep, // Image icon
+  livestock: GiSheep, 
   ticket: FaTicketAlt,
 };
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
 const GrowYourFarmAndNotifications: React.FC = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -39,13 +42,13 @@ const GrowYourFarmAndNotifications: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  const { token, baseUrl } = useAuth(); 
+  // const { token, baseUrl } = useAuth(); 
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(`${baseUrl}/api/v1/notifications/recent-activities`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setNotifications(response.data);
       } catch (err) {
@@ -57,7 +60,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
     };
 
     fetchNotifications();
-  }, [baseUrl, token]);
+  }, []);
 
   const toggleNotification = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -67,12 +70,9 @@ const GrowYourFarmAndNotifications: React.FC = () => {
     const IconComponent = iconMap[iconName];
 
     if (typeof IconComponent === 'string') {
-      // Handle image-based icons (like Cow)
       return <img src={IconComponent} alt={iconName} className="h-8 w-8 ml-0" />;
     }
-    
 
-    // Handle React icon components
     return IconComponent ? <IconComponent className="h-6 w-6 text-gray-500" /> : <BellIcon className="h-6 w-6 text-gray-500" />;
   };
 
@@ -81,7 +81,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
       {/* Grow Your Farm Section */}
       <div
         className={`w-full h-auto md:w-1/2 p-6 rounded-lg shadow-md relative ${
-          'min-h-[14rem] md:min-h-0'
+          'min-h-[19rem] md:min-h-0'
         }`}
         style={{ 
           backgroundImage: `url(${wheat})`, 
@@ -118,7 +118,8 @@ const GrowYourFarmAndNotifications: React.FC = () => {
           
           <ul className="space-y-4">
             {notifications.map((notification, index) => (
-              <li key={index} className="flex justify-between items-center">
+              // Updated the key to use notification.id
+              <li key={notification.id} className="flex justify-between items-center">
                 {/* Mobile/Tablet View */}
                 <div className="block md:hidden w-full">
                   <button

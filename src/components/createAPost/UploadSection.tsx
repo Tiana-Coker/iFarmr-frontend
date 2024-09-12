@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import upload from '../../assets/images/upload.svg';
 import { useLoading } from '../../context/globalSpinner/LoadingContext';
-import { useAuth } from '../../context/authContext/AuthContext';
+// import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
 import Sidebar from '../dashboard/sidebar/sidebar';
 import PopularPosts from '../dashboard/popularPost/PopularPost';
@@ -13,9 +13,12 @@ const UploadSection: React.FC = () => {
   const [title, setTitle] = useState('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const { setLoading } = useLoading();
-  const { token, baseUrl } = useAuth();
+  // const { token, baseUrl } = useAuth();
   const { showNotification } = useNotification();
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem('token'); // Get token directly from localStorage
+
 
   const userName = 'John Doe';
   const userInitials = getInitials(userName);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../../context/authContext/AuthContext'; 
+// import { useAuth } from '../../../context/authContext/AuthContext'; 
 import image from '../../../assets/dashboard/image.svg';
 
 interface FarmGlanceProps {}
@@ -12,9 +12,13 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [tasksToday, setTasksToday] = useState<number>(0);
 
-  const { token, baseUrl } = useAuth(); 
+  // const { token, baseUrl } = useAuth(); 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
   useEffect(() => {
+    const token = localStorage.getItem('token'); // Get token directly from localStorage
+
     if (!baseUrl || !token) {
       setError('Configuration error: API base URL or token is not defined');
       return;
@@ -66,7 +70,7 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
     };
 
     fetchData();
-  }, [baseUrl, token]);
+  }, []);
 
   if (error) return <div className="text-red-600">{error}</div>;
 

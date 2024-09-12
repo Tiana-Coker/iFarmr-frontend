@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
 
 interface AuthContextProps {
   token: string | null;
@@ -26,11 +25,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(() => {
     return localStorage.getItem('token'); // Retrieve token from localStorage
   });
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false); // Track auth status
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token); // Initialize auth status based on token
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-  // Save token to localStorage and validate it
+  // Save token to localStorage
   const saveToken = (userToken: string | null) => {
     if (userToken) {
       localStorage.setItem('token', userToken);
@@ -38,30 +37,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem('token');
     }
     setToken(userToken);
+    setIsAuthenticated(!!userToken); // Update auth status based on the presence of token
   };
 
-  // Validate the token when it's set or on initial load
-  const validateToken = async (token: string | null) => {
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-
-    try {
-      await axios.get(`${baseUrl}/api/v1/auth/validate-token`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setIsAuthenticated(true); // Set authenticated state if token is valid
-    } catch (err) {
-      const axiosError = err as AxiosError;
-      console.error('Token validation error:', axiosError.response?.data || axiosError);
-      setIsAuthenticated(false); // If validation fails, set to false
-      saveToken(null); // Clear invalid token
-    }
-  };
-
+  // Check token expiration on load or token change
   useEffect(() => {
-    validateToken(token); // Validate token on load or token change
+    const expiration = localStorage.getItem('tokenExpiration');
+    if (expiration && Date.now() > parseInt(expiration)) {
+      console.log('Token has expired.');
+      saveToken(null); // Clear token if it's expired
+    }
   }, [token]);
 
   return (
