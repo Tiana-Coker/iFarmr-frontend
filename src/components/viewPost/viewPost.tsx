@@ -20,27 +20,33 @@ const decodeToken = (token: string) => {
 
 const ViewPost: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
-  const [userPosts, setUserPosts] = useState<any[]>([]); // Store filtered posts
-  const [showUserPosts, setShowUserPosts] = useState(false); // Toggle between all posts and user posts
+  const [userPosts, setUserPosts] = useState<any[]>([]);
+  const [showUserPosts, setShowUserPosts] = useState(false);
   const [greeting, setGreeting] = useState<string>('');
   const { setLoading } = useLoading();
   const { showNotification } = useNotification();
   const navigate = useNavigate();
 
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6IklraXNlaDEiLCJpYXQiOjE3MjYwOTM2NTUsImV4cCI6MTcyNjE4MDA1NX0.KULExpAYO0blUDMy8uc24YBWULd7q_3PFf6tm5Nj3Vs'; // Example token
-  const baseUrl = 'http://localhost:8080';
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem('token'); // Get token directly from localStorage
 
-  const decodedToken = decodeToken(token);
-  const userName = decodedToken.sub;
+  // Handle decoding the token and getting the username
+  let userName: string | null = null;
+  if (token) {
+    const decodedToken = decodeToken(token);
+    userName = decodedToken.sub;
+  }
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    if (currentHour < 12) {
-      setGreeting(`Good morning, ${userName}`);
-    } else if (currentHour < 18) {
-      setGreeting(`Good afternoon, ${userName}`);
-    } else {
-      setGreeting(`Good evening, ${userName}`);
+    if (userName) {
+      if (currentHour < 12) {
+        setGreeting(`Good morning, ${userName}`);
+      } else if (currentHour < 18) {
+        setGreeting(`Good afternoon, ${userName}`);
+      } else {
+        setGreeting(`Good evening, ${userName}`);
+      }
     }
 
     const fetchPosts = async () => {
@@ -62,7 +68,9 @@ const ViewPost: React.FC = () => {
         if (contentType && contentType.includes('application/json')) {
           const data = await response.json();
           setPosts(data);
-          setUserPosts(data.filter((post: any) => post.userName === userName)); // Filter user-specific posts
+          if (userName) {
+            setUserPosts(data.filter((post: any) => post.userName === userName));
+          }
         }
       } catch (error) {
         showNotification('Error fetching posts data. Please try again.');
@@ -77,7 +85,6 @@ const ViewPost: React.FC = () => {
   const handleShowUserPosts = () => {
     setShowUserPosts(true); // Show only user posts when clicked
   };
-
   return (
     <div className="flex h-screen bg-white">
       {/* Sidebar */}

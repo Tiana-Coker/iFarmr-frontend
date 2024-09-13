@@ -36,7 +36,8 @@ export default {
         'custom-green': '#00563E',    // Custom color for text
         'custom-bg': '#2F580F',       // Custom background color
         'custom-writing': '#4F4F4F',  // Custom color for writing
-        'custom-grow': ' #C0F196'
+        'custom-grow': ' #C0F196',
+        'side-bar' : ' #204E51 '
         
       },
     },
