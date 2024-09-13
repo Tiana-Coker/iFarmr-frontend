@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       </button>
 
       <div
-  className={`sidebar bg-gray-100 h-screen w-64 p-4 flex flex-col justify-between fixed z-40 transform ${
+  className={`sidebar  h-screen w-64 p-4 flex flex-col justify-between fixed z-40 transform ${
     isOpen ? 'translate-x-0' : '-translate-x-full'
   } md:translate-x-0 transition-transform duration-300 ${className} ${
     // Allow scrolling only on mobile and tablet
@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
           <ul className="nav-links space-y-4">
             <li className="flex items-center" onClick={handleDashboardClick}>
               <img src={Dashboard} alt="Dashboard Icon" className="h-6 w-6 mr-2" />
-              <span className="block text-gray-700 font-thin hover:text-side-bar cursor-pointer">Dashboard</span>
+              <span className=" text-gray-500  hover:text-side-bar cursor-pointer">Dashboard</span>
             </li >
             {[
               { src: plant, alt: 'Crop Management Icon', text: 'Crop Management', path: '/crop-management' },
