@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-// import { useAuth } from '../../../context/authContext/AuthContext'; 
 import wheat from '../../../assets/dashboard/wheat.jpeg';
 import Avatar from 'react-avatar';
 import { BellIcon } from '@heroicons/react/24/outline';
@@ -42,25 +41,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  // const { token, baseUrl } = useAuth(); 
-
-  // useEffect(() => {
-  //   const fetchNotifications = async () => {
-  //     try {
-  //       const response = await axios.get(`${baseUrl}/api/v1/notifications/recent-activities`, {
-  //         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-  //       });
-  //       setNotifications(response.data);
-  //     } catch (err) {
-  //       const axiosError = err as AxiosError<ErrorResponse>;
-  //       setError(axiosError.response?.data?.message || 'Failed to fetch notifications.');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchNotifications();
-  // }, []);
+  
   useEffect(() => {
     const fetchNotifications = async () => {
       try {

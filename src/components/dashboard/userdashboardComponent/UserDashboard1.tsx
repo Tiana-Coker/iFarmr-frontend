@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useAuth } from '../../../context/authContext/AuthContext'; 
 import image from '../../../assets/dashboard/image.svg';
 
 interface FarmGlanceProps {}
@@ -12,7 +11,6 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [tasksToday, setTasksToday] = useState<number>(0);
 
-  // const { token, baseUrl } = useAuth(); 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
