@@ -4,7 +4,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
-import Modal from '../../routes/signup/modal';
+import Modal from '../../components/signUp/modal';
 
 const Signup: React.FC = () => {
   // State to track form data (name, username, email, password, confirmPassword)
