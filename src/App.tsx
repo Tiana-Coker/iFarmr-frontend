@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import LandingPage from "./routes/landingPage/LandingPage";
 import Signup from './routes/signup/signup';
-import VerifyEmail from './routes/emailConfirmation/EmailConfirmation';
+import VerifyEmail from './components/emailConfirmation/EmailConfirmation';
 import Login from './routes/login/login';
 import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './context/globalSpinner/LoadingContext';
