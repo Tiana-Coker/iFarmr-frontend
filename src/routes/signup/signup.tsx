@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import Modal from '../../components/signUp/modal';
+import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
   // State to track form data (name, username, email, password, confirmPassword)
@@ -75,12 +76,12 @@ const Signup: React.FC = () => {
 
     // Perform the API call using axios
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
-        fullName: formData.name, // Map Name to fullName
-        userName: formData.username, // Map Username to userName
+      const response = await axios.post(`${baseUrl}/api/v1/auth/register`, {
+        fullName: formData.name, 
+        userName: formData.username, 
         email: formData.email,
         password: formData.password,
-        gender: formData.gender, // Send gender value from the form
+        gender: formData.gender, 
       });
 
       console.log('Registration successful:', response.data);
@@ -94,13 +95,13 @@ const Signup: React.FC = () => {
       if (error.response && error.response.data) {
         const errorData = error.response.data;
 
-        // Handle if errorData is an object (e.g., validation errors)
+        // Handle if errorData is an object 
         if (typeof errorData === 'object') {
           // Convert object to a list of error messages and join them
           const errorMessages = Object.values(errorData).join(' ');
           setErrorMessage(errorMessages);
         }
-        // Handle if errorData is a string (e.g., email already exists)
+        // Handle if errorData is a string 
         else if (typeof errorData === 'string') {
           setErrorMessage(errorData);
         }
@@ -112,7 +113,7 @@ const Signup: React.FC = () => {
 
   // Function to close the modal
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close modal
+    setIsModalOpen(false); 
   };
 
   return (

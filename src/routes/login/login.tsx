@@ -6,6 +6,7 @@ import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
+import { baseUrl } from '../../utils/apiConfig';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Login: React.FC = () => {
     username: '',
     password: '',
   });
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -35,7 +37,7 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+      const response = await axios.post(`${baseUrl}/api/v1/auth/login`, {
         username: formData.username,
         password: formData.password,
       });
