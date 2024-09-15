@@ -123,7 +123,7 @@ const InventoryModal = ({ onClose }) => {
 
     setLoading(true);
 
-
+    const formDataToSend = new FormData();
   for (let key in formData) {
     if (formData[key]) {
       formDataToSend.append(key, formData[key]);
