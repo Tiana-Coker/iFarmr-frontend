@@ -56,7 +56,7 @@ const Login: React.FC = () => {
         if (userRole === 'USER') {
           navigate('/user/dashboard');
         } else if (userRole === 'ADMIN') {
-          navigate('/admin/dashboard');
+          navigate('/admin');
         } else {
           setErrorMessage('Unrecognized role. Please contact support.');
         }

@@ -38,7 +38,6 @@ export default function App() {
     <Route element={<ProtectedRoute />}>
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="user-database" element={<UserDatabase />} />
             <Route path="user-analytics" element={<UserAnalytics />} />
           </Route>
