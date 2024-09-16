@@ -21,14 +21,14 @@ const Sidebar: React.FC = () => {
       {/* Menu Items */}
       <div className="flex flex-col justify-start p-8 space-y-7">
         {/* Dashboard */}
-        <NavLink to="user/dashboard" className="flex items-center space-x-3 text-[#333333] hover:text-[#204E51] transition-colors">
+        <NavLink to="/admin" className="flex items-center space-x-3 text-[#333333] hover:text-[#204E51] transition-colors">
         <img src={gridIcon} alt="icon" className="" />
           
           <span>Dashboard</span>
         </NavLink>
 
         {/* User Database */}
-        <NavLink to="/user-database" 
+        <NavLink to="/admin/user-database" 
         className={({ isActive }) =>
           isActive
             ? "flex items-center space-x-3 text-[#204E51] font-semibold transition-colors"
@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
         </NavLink>
 
         {/* User Analytics */}
-        <NavLink to="/user-analytics" 
+        <NavLink to="/admin/user-analytics" 
         className={({ isActive }) =>
           isActive
             ? "flex items-center space-x-3 text-[#204E51] font-semibold transition-colors"

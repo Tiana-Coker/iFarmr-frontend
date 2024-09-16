@@ -6,11 +6,11 @@ import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
-import { baseUrl } from '../../utils/apiConfig';
+
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { setToken } = useAuth(); 
+  const { setToken, baseUrl } = useAuth(); 
   const { showNotification } = useNotification();
 
   const [formData, setFormData] = useState({
@@ -42,10 +42,11 @@ const Login: React.FC = () => {
       });
 
       if (response.data && response.data.token) {
-        const { token, role } = response.data;
+        const { token, role, username } = response.data;
 
-        setToken(token);
+        setToken(token, username);
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
 
         showNotification('Login successful!');
 
