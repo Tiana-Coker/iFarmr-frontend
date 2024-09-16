@@ -13,6 +13,7 @@ import { NotificationProvider } from './context/notificationContext/Notification
 
 
 
+
 export default function App() {
   return (
     <AuthProvider>
@@ -27,6 +28,8 @@ export default function App() {
         <Route path="/view-post" element={<ViewPost/>} />
 
       <Route path="user/dashboard" element={<MainUserDashboard />} />
+
+      
 
 
     </Routes>
