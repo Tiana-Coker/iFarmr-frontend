@@ -5,6 +5,9 @@ import Avatar from 'react-avatar';
 import { BellIcon } from '@heroicons/react/24/outline';
 import { FaNewspaper, FaComment, FaHeart, FaTasks, FaSeedling, FaBoxes, FaTicketAlt } from 'react-icons/fa';
 import { GiSheep } from 'react-icons/gi';
+import CropModal from '../../modals/CropModal';
+ import LivestockModal from '../../modals/LivestockModal';
+
 
 interface Notification {
   id: string;  // <-- Added this
@@ -41,7 +44,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  
+
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -76,6 +79,9 @@ const GrowYourFarmAndNotifications: React.FC = () => {
     return IconComponent ? <IconComponent className="h-6 w-6 text-gray-500" /> : <BellIcon className="h-6 w-6 text-gray-500" />;
   };
 
+  // To handle the modals
+   const [showCropModal, setShowCropModal] = useState<boolean>(false);
+   const [showLivestockModal, setShowLivestockModal] = useState<boolean>(false);
   return (
     <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8 p-4 w-full">
       {/* Grow Your Farm Section */}
@@ -95,12 +101,14 @@ const GrowYourFarmAndNotifications: React.FC = () => {
           <h2 className="text-2xl font-medium">Grow Your Farm</h2>
           <p className="text-sm mb-4">Quickly Add New Entries and Keep Your Farm Data Up to Date.</p>
           <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-            <button className="bg-transparent text-white py-0 px-1 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
+            <button onClick={() => setShowCropModal(true)} className="bg-transparent text-white py-0 px-1 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
               Add New Crop
             </button>
-            <button className="bg-transparent text-white py-2 px-4 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
+            <CropModal isOpen={showCropModal} onClose={() => setShowCropModal(false)}/>
+            <button onClick={() => setShowLivestockModal(true)} className="bg-transparent text-white py-2 px-4 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
               Add New Livestock
             </button>
+            <LivestockModal isOpen={showLivestockModal} onClose={() => setShowLivestockModal(false)} />
           </div>
         </div>
       </div>
