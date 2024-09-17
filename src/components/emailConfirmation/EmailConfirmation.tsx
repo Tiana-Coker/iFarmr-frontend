@@ -3,6 +3,7 @@ import EmailFailure from "./EmailFailure";
 import EmailSuccess from "./EmailSuccess";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { baseUrl } from "../../utils/apiConfig";
 
 const EmailConfirmation: React.FC = () => {
   const [status, setStatus] = useState<"success" | "failure" | null>(null);
@@ -18,7 +19,7 @@ const EmailConfirmation: React.FC = () => {
       requestSent.current = true;
 
       axios
-        .get(`http://localhost:8080/api/v1/auth/confirm?token=${token}`)
+        .get(`${baseUrl}/api/v1/auth/confirm?token=${token}`)
         .then((response) => {
           
 

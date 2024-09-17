@@ -7,10 +7,11 @@ import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
 
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { setToken } = useAuth(); 
-  const { showNotification } = useNotification(); // Use the notification context
+  const { setToken, baseUrl } = useAuth(); 
+  const { showNotification } = useNotification();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -35,18 +36,19 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+      const response = await axios.post(`${baseUrl}/api/v1/auth/login`, {
         username: formData.username,
         password: formData.password,
       });
 
       if (response.data && response.data.token) {
-        const { token, role } = response.data;
+        const { token, role, username } = response.data;
 
-        setToken(token);
+        setToken(token, username);
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
 
-        showNotification('Login successful!'); // Show success notification
+        showNotification('Login successful!');
 
         setIsLoading(false);
 
@@ -54,7 +56,7 @@ const Login: React.FC = () => {
         if (userRole === 'USER') {
           navigate('/user/dashboard');
         } else if (userRole === 'ADMIN') {
-          navigate('/admin/dashboard');
+          navigate('/admin');
         } else {
           setErrorMessage('Unrecognized role. Please contact support.');
         }
@@ -63,7 +65,7 @@ const Login: React.FC = () => {
       }
     } catch (error: any) {
       setIsLoading(false);
-      showNotification('Failed to login. Please check your credentials and try again.'); // Show error notification
+      showNotification('Failed to login. Please check your credentials and try again.');
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message || 'Failed to login.');
       } else {
@@ -73,24 +75,27 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen mx-auto font-sans">
-      <div className="w-1/2 bg-customGreen flex flex-col justify-center items-center relative bg-no-repeat bg-cover" style={{ backgroundImage: `url('/src/assets/signupImages/wave.svg')` }}>
+    <div className="flex h-screen font-raleway">
+
+      {/* Left side: Image + Welcome for larger screens */}
+      <div className="hidden custom-bp:flex custom-bp:w-1/2 bg-customGreen relative bg-no-repeat bg-cover justify-center items-center" style={{ backgroundImage: `url('/src/assets/signupImages/wave.svg')` }}>
         <h1 className="text-4xl text-[#204E51] font-semibold mb-80 text-center z-10">Welcome to IFarmr</h1>
-        <img src={signupImage} alt="Farmers" className="w-2/3 absolute bottom-0 mb-0 z-10" />
+        <img src={signupImage} alt="Farmers" className="absolute bottom-0 w-2/3" />
       </div>
 
-      <div className="w-1/2 flex flex-col justify-center items-center bg-white" style={{ maxWidth: '670px' }}>
-        <form onSubmit={handleSubmit} className="bg-white px-8 pt-6 pb-8 mb-4 w-3/4">
-          <img src={farmerIcon} alt="IFarmr Logo" className="mr-4 ml-32 w-48 h-auto mb-4" />
+      {/* Right side: Form for larger screens */}
+      <div className="w-full custom-bp:w-1/2 flex justify-center items-center bg-white p-4">
+        <form onSubmit={handleSubmit} className="bg-white px-4 md:px-8 pt-6 pb-8 mb-4 w-full md:w-3/4">
+          <img src={farmerIcon} alt="IFarmr Logo" className="mx-auto w-24 md:w-48 h-auto mb-4" />
           
-          <div className="mb-2 flex items-center">
-            <label className="block text-gray-700 text-sm font-light mr-4 w-1/3" htmlFor="username">
+          <div className="mb-2 flex flex-col md:flex-row items-center">
+            <label className="block text-gray-700 text-sm font-light mb-1 md:mb-0 md:mr-4 w-full md:w-1/3" htmlFor="username">
               Username
             </label>
             <input
               name="username"
               type="text"
-              className="appearance-none border rounded-lg w-3/4 py-2 px-3 bg-[#e0e0e01f] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded-lg w-full md:w-3/4 py-2 px-3 bg-[#e0e0e01f] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={formData.username}
               onChange={handleChange}
               placeholder="Username"
@@ -98,11 +103,11 @@ const Login: React.FC = () => {
             />
           </div>
 
-          <div className="mb-2 flex items-center">
-            <label className="block text-gray-700 text-sm font-light mr-4 w-1/3" htmlFor="password">
+          <div className="mb-2 flex flex-col md:flex-row items-center">
+            <label className="block text-gray-700 text-sm font-light mb-1 md:mb-0 md:mr-4 w-full md:w-1/3" htmlFor="password">
               Password
             </label>
-            <div className="w-3/4 relative">
+            <div className="w-full md:w-3/4 relative">
               <input
                 name="password"
                 type={showPassword ? 'text' : 'password'}
@@ -130,6 +135,67 @@ const Login: React.FC = () => {
                 <>
                   <span className="text-sm">Logging in...</span>
                   <FaSpinner className="animate-spin mr-2 text-sm" />
+                </>
+              ) : (
+                "Log In"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* For smaller screens: Form floats on background */}
+      <div className="custom-bp:hidden absolute inset-0 flex justify-center items-center bg-cover bg-center" style={{ backgroundImage: `url('/src/assets/signupImages/wave.svg')` }}>
+        <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg w-full max-w-md">
+          <img src={farmerIcon} alt="IFarmr Logo" className="mx-auto w-32 h-auto mb-4" />
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="username">
+              Username
+            </label>
+            <input
+              name="username"
+              type="text"
+              className="appearance-none border rounded-lg w-full py-2 px-3 bg-[#e0e0e01f] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Username"
+              required 
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="********"
+                required 
+              />
+              <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600" onClick={handleTogglePasswordVisibility}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          {errorMessage && (
+            <div className="text-red-500 text-sm mb-4">
+              {errorMessage}
+            </div>
+          )}
+
+          <div className="flex justify-center w-full">
+            <button className="bg-[#204E51] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center justify-center w-full" type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <span className="text-sm">Logging in...</span>
+                  <FaSpinner className="animate-spin ml-2 text-sm" />
                 </>
               ) : (
                 "Log In"
