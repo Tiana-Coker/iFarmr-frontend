@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import farmer from '../../../assets/Admin/farmer.png';
 import wave from '../../../assets/Admin/wave.png';
+import { useAuth } from '../../../context/authContext/AuthContext';
 
 interface FarmStats {
   totalFarmers: number;
   activeFarmers: number;
   newRegistration: number;
-//   username: string;
 }
 
 const FarmStats: React.FC = () => {
@@ -14,13 +14,12 @@ const FarmStats: React.FC = () => {
     totalFarmers: 0,
     activeFarmers: 0,
     newRegistration: 0,
-    // username: "",
   });
 
-  const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-  const baseUrl = import.meta.env.VITE_API_BASE_URL; // Environment variable for the API base URL
+//   const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+//   const baseUrl = import.meta.env.VITE_API_BASE_URL; // Environment variable for the API base URL
 
-
+  const { token, baseUrl, adminName } = useAuth();
 
   useEffect(() => {
     // Fetch data from your API
@@ -54,7 +53,7 @@ const FarmStats: React.FC = () => {
   return (
     <div className=" relative">
       <h1 className="text-l font-semibold font-raleway text-gray-800 mb-6 z-10 relative">
-        Welcome Back, Admin
+        Welcome Back, {adminName}
       </h1>
       <div className="relative w-full h-52 rounded-2xl mb-10 shadow-md">
         {/* Wave background image */}
