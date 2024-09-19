@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 
           {/* Dashboard */}
           <NavLink
-            to="/admin"
+            to="/admin/dashboard"
             className="flex items-center space-x-3 text-[#333333] hover:text-[#204E51] transition-colors"
           >
             <img src={gridIcon} alt="icon" className="w-5 h-5" />

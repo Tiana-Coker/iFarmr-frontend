@@ -11,11 +11,10 @@ import UploadSection from './components/createAPost/UploadSection';
 import ViewPost from './components/viewPost/viewPost';
 import { NotificationProvider } from './context/notificationContext/Notification';
 import AdminLayout from './layouts/AdminLayout';
-import AdminDashboard from './routes/admin/AdminDashboard';
 import UserDatabase from './routes/admin/UserDatabase';
 import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
-
+ import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
 
 
 
@@ -37,7 +36,7 @@ export default function App() {
       {/* Protected Admin Routes */}
     <Route element={<ProtectedRoute />}>
           <Route path="admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="user-database" element={<UserDatabase />} />
             <Route path="user-analytics" element={<UserAnalytics />} />
           </Route>
