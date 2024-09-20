@@ -1,11 +1,9 @@
-// this is my side bar  that is left side the way i want it, i would be importing it to various component i want it to be responsive for all kind of screen when its in mobile or table it should collapse with a button to so the menu dont change my functions and design !!!!
 import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { useLoading } from '../../../context/globalSpinner/LoadingContext';
 import icon from '../../../assets/dashboard/icon.svg';
-import { useAuth } from '../../../context/authContext/AuthContext';
 
 interface Post {
   id: number;
@@ -36,7 +34,9 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { loading, setLoading } = useLoading();
-  const { token, baseUrl } = useAuth();
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
   useEffect(() => {
     const fetchPopularPosts = async () => {
@@ -44,7 +44,7 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
       try {
         const response = await axios.get(`${baseUrl}/api/v1/posts/popular`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
 
@@ -62,7 +62,7 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
     };
 
     fetchPopularPosts();
-  }, [baseUrl, token, setLoading]);
+  }, [ setLoading]);
 
   const getInitials = (name: string): string => {
     const words = name.split(' ');

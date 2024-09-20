@@ -12,6 +12,7 @@ export default {
         'custom-lg': '1024px', // Large screens (e.g., laptops)
         'custom-xl': '1280px', // Extra large screens (e.g., desktops)
         'custom-2xl': '1536px', // 2xl screens (e.g., large desktops)
+        'custom-bp' : '890px',
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'], // Add Raleway font
@@ -36,7 +37,8 @@ export default {
         'custom-green': '#00563E',    // Custom color for text
         'custom-bg': '#2F580F',       // Custom background color
         'custom-writing': '#4F4F4F',  // Custom color for writing
-        'custom-grow': ' #C0F196'
+        'custom-grow': ' #C0F196',
+        'side-bar' : ' #204E51 '
         
       },
     },
