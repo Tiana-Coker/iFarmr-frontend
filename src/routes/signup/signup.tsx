@@ -7,6 +7,9 @@ import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import Modal from '../../routes/signup/modal';
 
 const Signup: React.FC = () => {
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   // State to track form data (name, username, email, password, confirmPassword)
   const [formData, setFormData] = useState({
     name: '',
@@ -73,9 +76,10 @@ const Signup: React.FC = () => {
       return; // Stop form submission if passwords do not match
     }
 
+    console.log(formData.username)
     // Perform the API call using axios
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
+      const response = await axios.post(baseUrl + '/api/v1/auth/register', {
         fullName: formData.name, // Map Name to fullName
         userName: formData.username, // Map Username to userName
         email: formData.email,
@@ -88,6 +92,7 @@ const Signup: React.FC = () => {
       setIsModalOpen(true); // Show success modal
 
     } catch (error: any) {
+      console.log("here is the error ", error)
       setIsLoading(false);
 
       // Check if error response exists

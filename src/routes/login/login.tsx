@@ -8,6 +8,8 @@ import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
 
 const Login: React.FC = () => {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   const navigate = useNavigate();
   const { setToken } = useAuth(); 
   const { showNotification } = useNotification(); // Use the notification context
@@ -35,7 +37,7 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+      const response = await axios.post( baseUrl + '/api/v1/auth/login', {
         username: formData.username,
         password: formData.password,
       });
