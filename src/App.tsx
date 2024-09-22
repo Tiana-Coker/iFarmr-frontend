@@ -38,9 +38,7 @@ export default function App() {
       </NotificationProvider>
       </AuthProvider>
 
-      {/* <Routes>
-       
-      </Routes> */}
+    
     </>
 
   );
