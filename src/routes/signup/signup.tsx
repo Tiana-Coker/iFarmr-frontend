@@ -8,13 +8,12 @@ import Modal from '../../components/signUp/modal';
 import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
-<<<<<<< HEAD
+
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   // State to track form data (name, username, email, password, confirmPassword)
-=======
->>>>>>> 7be6faaa1f5e58ff162ef33413f2e0d78a5051c7
+
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -64,19 +63,10 @@ const Signup: React.FC = () => {
       return;
     }
 
-<<<<<<< HEAD
-    console.log(formData.username)
-    // Perform the API call using axios
-    try {
-      const response = await axios.post(baseUrl + '/api/v1/auth/register', {
-        fullName: formData.name, // Map Name to fullName
-        userName: formData.username, // Map Username to userName
-=======
     try {
       const response = await axios.post(`${baseUrl}/api/v1/auth/register`, {
         fullName: formData.name, 
         userName: formData.username, 
->>>>>>> 7be6faaa1f5e58ff162ef33413f2e0d78a5051c7
         email: formData.email,
         password: formData.password,
         gender: formData.gender, 

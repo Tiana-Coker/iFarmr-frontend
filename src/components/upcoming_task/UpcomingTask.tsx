@@ -1,54 +1,56 @@
-// import React from 'react'
-import IMAGES from "../../assets/dashboard/upcoming_task/"
+import {useState} from 'react'
+import IMAGES from "../../assets/dashboard/upcoming_task/";
+import TaskModal from '../modals/TaskModal';
 
-export default function UpcomingTask() {
+type Task = {
+  category: string;
+  description: string;
+  dueDate: string;
+  location: string;
+  title: string;
+};
 
-  const upcoming = [
-    {
-      task_icon : IMAGES.UPCOMING_TASK,
-      task_duedate: 'due tomorrow',
-      task_title:'Tractors - Oil Change',
-      task_desc:'Scheduled for tomorrow in Equipment Shed.'
-    },
-    {
-      task_icon : IMAGES.UPCOMING_TASK,
-      task_duedate: 'due tomorrow',
-      task_title:'Tractors - Oil Change',
-      task_desc:'Scheduled for tomorrow in Equipment Shed.'
-    },
-    {
-      task_icon : IMAGES.UPCOMING_TASK,
-      task_duedate: 'due tomorrow',
-      task_title:'Tractors - Oil Change',
-      task_desc:'Scheduled for tomorrow in Equipment Shed.'
-    },
-    {
-      task_icon : IMAGES.UPCOMING_TASK,
-      task_duedate: 'due tomorrow',
-      task_title:'Tractors - Oil Change',
-      task_desc:'Scheduled for tomorrow in Equipment Shed.'
-    }
-  ]
+type UpcomingTaskProps = {
+  upcomingTask: Task[];
+};
+
+export default function UpcomingTask({upcomingTask}: UpcomingTaskProps) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal for adding new task
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+
   return (
-    <div className='border font-[Raleway]'>
+    <div className='font-[Raleway]'>
 
         <div className='flex justify-between mb-6'>
             <div className=" font-[500] text-[16px] leading-[18.78px]">Upcoming Tasks</div>
-            <div className=" text-[12px] leading-[14.09px]"> + New Task</div>
+            <button onClick={openModal} className="flex gap-2 items-center text-[12px] leading-[14.09px]">
+              <span className="text-[20px]"><img src={IMAGES.ADD_ICON} alt="" /></span>
+              <span>New Task</span>
+            </button>
+            {isModalOpen && <TaskModal onClose={closeModal} />}
         </div>
 
         <div className="flex flex-col gap-6">
             {
-              upcoming.map((task, index) => {
+              upcomingTask.map((task, index) => {
                 return (
                   <div key={index} className="flex gap-4">
-                    <div><img src={task.task_icon} alt={task.task_title} /></div>
+                    <div><img src={IMAGES.UPCOMING_TASK} alt={task.title} /></div>
                     <div>
                         <div className="flex justify-between mb-1">
-                           <div className="font-[500] text-[14px] leading-[16.44px] text-[#333333]">{task.task_title}</div>
-                           <div className="text-[10px] leading-[11.74px] text-[#666666]">{task.task_duedate}</div>
+                           <div className="font-[500] text-[14px] leading-[16.44px] text-[#333333]">{task.title}</div>
+                           <div className="text-[11px] leading-[11.74px] text-[#666666]">{task.dueDate}</div>
                         </div>
-                        <div className=" text-[12px] leading-[14.09px] text-[#666666]">{task.task_desc}</div>
+                        <div className=" text-[12px] leading-[14.09px] text-[#666666]">{task.description}</div>
                     </div>
                   </div> 
                  

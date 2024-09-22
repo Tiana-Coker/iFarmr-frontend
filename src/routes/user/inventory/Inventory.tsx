@@ -1,60 +1,103 @@
 import { useState, useEffect } from "react";
+import IMAGES from "../../../assets/dashboard/sidebar/";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 // import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 import Sidebar from "../../../components/dashboard/new-sidebar/Sidebar"
+import MobileSidebar from "../../../components/dashboard/new-sidebar/MobileSidebar";
 import InventoryCard from "../../../components/dashboard/inventory-mgt/inventory-card/InventoryCard";
 import InventoryTable from "../../../components/dashboard/inventory-mgt/inventory-table/InventoryTable";
 import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiJdLCJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNjYxNTM4OCwiZXhwIjoxNzI2NzAxNzg4fQ.ZiCJ6UCAzPL5JTGWXj2WnAeXAv-CCdcUqTjqH6nVTc8"
-  const [upcomingTask, setUpcomingTask] = useState([])
+  const token = localStorage.getItem('token');
+  const [upcomingTask, setUpcomingTask] = useState([]);
+  const [totalInventory, setTotalInventory] = useState(0);
+  const [totalInventoryValue, setTotalInventoryValue] = useState(0);
+  const [inventories, setInventories] = useState([]);
 
+  const [isMobileSidebarOpen, setMobileSidebar] = useState(false); // Sidebar state for mobile/tablet devices
+  const openMobileSidebar = () => setMobileSidebar(true);
+  const closeMobileSidebar = () => setMobileSidebar(false);
+
+    // Inventories Useeffect
+    useEffect(()=> {
+      console.log('fetching inventories')
+      fetch(baseApiUrl + '/api/v1/inventory',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log(data);
+        setInventories(data.inventories);
+        setTotalInventory(data.totalInventory);
+        setTotalInventoryValue(data.totalInventoryValue);
+      })
   
-
+    } ,[])
 
   // Tasks Useeffect
   useEffect(()=> {
-    console.log('fetching tasks')
     fetch(baseApiUrl + '/api/v1/tasks/upcoming',{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Bearer': token
+        'Authorization': `Bearer ${token}` 
       }
     })
     .then(res => {
-      console.log(res)
+      return res.json()
+    })
+    .then(data => {
+      setUpcomingTask(data)
+      // console.log(data)
     })
 
   } ,[])
 
   return (
-    <div className="flex">
+   <>
+
+    {/* Mobile Nav */}
+   <div className="flex justify-between items-center lg:hidden px-8 pt-4  gap-4">
+      <div className="" ><img className="w-full" src={IMAGES.IFARMR_LOGO} alt="" /></div>
+      <button onClick={openMobileSidebar}><GiHamburgerMenu /></button>
+   </div>
+   
+   <div className="flex">
 
       <div className="hidden lg:block lg:w-[16%] pt-4">
         <Sidebar />
       </div>
 
+        <MobileSidebar isOpen={isMobileSidebarOpen} onClose={closeMobileSidebar}/>
 
-      <div className="pt-10 px-8 md:w-[70%] lg:w-[60.3%] border">
+
+      <div className="pt-10 px-8 md:w-[70%] lg:w-[60.3%] overflow-x-auto">
           <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4">Good Morning, Ayomide</div>
-          <div className="mb-8"><InventoryCard /></div>
+          <div className="mb-8"><InventoryCard  totalInventory = {totalInventory} totalInventoryValue = {totalInventoryValue}/></div>
 
-          <InventoryTable />
+            <InventoryTable inventories={inventories} />
       </div>
 
       <div className=" hidden md:block w-[30%] lg:w-[23.7%] pr-4 lg:pr-12 pt-10">
-        <UpcomingTask />
+        <UpcomingTask upcomingTask = {upcomingTask}/>
       </div>
 
-      <div>
-       
+    <div>
+ 
 
-      </div>
-      
-      
+</div>
+
+
     </div>
+   </>
   )
 }

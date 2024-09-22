@@ -43,7 +43,7 @@ export const sidebarItems_settings = [
         id: 1,
         route:"/user/dashboard",
         title: "Settings",
-        icon: IMAGES.INVENTORY,
+        icon: IMAGES.SETTINGS,
         active: false
     },
 
@@ -51,7 +51,7 @@ export const sidebarItems_settings = [
         id: 2,
         route:"/user/dashboard",
         title: "Community",
-        icon: IMAGES.INVENTORY,
+        icon: IMAGES.COMMUNITY,
         active: false
     },
 
@@ -59,7 +59,7 @@ export const sidebarItems_settings = [
         id: 3,
         route:"/user/dashboard",
         title: "Notifications",
-        icon: IMAGES.INVENTORY,
+        icon: IMAGES.NOTIFICATIONS,
         active: false
     },
 
@@ -67,15 +67,15 @@ export const sidebarItems_settings = [
         id: 4,
         route:"/user/dashboard",
         title: "My Profile",
-        icon: IMAGES.INVENTORY,
+        icon: IMAGES.PROFILE,
         active: false
     },
 
     {
-        id: 4,
+        id: 5,
         route:"/user/dashboard",
         title: "Logout",
-        icon: IMAGES.INVENTORY,
+        icon: IMAGES.LOGOUT,
         active: false
     },
 
