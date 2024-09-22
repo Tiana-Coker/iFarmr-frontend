@@ -32,14 +32,15 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/post" element={<UploadSection/>}></Route>
               <Route path="/user/dashboard" element={<MainUserDashboard />} />
+              <Route path="/user/inventory" element={<Inventory />} />
             </Routes>
           </LoadingProvider>
       </NotificationProvider>
       </AuthProvider>
 
-      <Routes>
-        <Route path="/user/inventory" element={<Inventory />} />
-      </Routes>
+      {/* <Routes>
+       
+      </Routes> */}
     </>
 
   );
