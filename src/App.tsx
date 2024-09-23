@@ -33,6 +33,15 @@ export default function App() {
               <Route path="/post" element={<UploadSection/>}></Route>
               <Route path="/user/dashboard" element={<MainUserDashboard />} />
               <Route path="/user/inventory" element={<Inventory />} />
+
+              {/* Protected Admin Routes */}
+              <Route element={<ProtectedRoute />}>
+                    <Route path="admin" element={<AdminLayout />}>
+                      <Route path="dashboard" element={<AdminDashboard />} />
+                      <Route path="user-database" element={<UserDatabase />} />
+                      <Route path="user-analytics" element={<UserAnalytics />} />
+                    </Route>
+              </Route> 
             </Routes>
           </LoadingProvider>
       </NotificationProvider>

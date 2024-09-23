@@ -9,6 +9,14 @@ import InventoryCard from "../../../components/dashboard/inventory-mgt/inventory
 import InventoryTable from "../../../components/dashboard/inventory-mgt/inventory-table/InventoryTable";
 import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 
+type Task = {
+  category: string;
+  description: string;
+  dueDate: string;
+  location: string;
+  title: string;
+};
+
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');
@@ -56,8 +64,8 @@ export default function Inventory() {
       return res.json()
     })
     .then(data => {
-      setUpcomingTask(data)
-      // console.log(data)
+      const inventoryTasks = data.filter((task:Task) => task.category === 'INVENTORY');
+      setUpcomingTask(inventoryTasks);
     })
 
   } ,[])
