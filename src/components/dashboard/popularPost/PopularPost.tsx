@@ -100,7 +100,7 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
               key={post.id}
               className="post-card bg-white rounded-lg p-4 flex flex-col space-y-2 cursor-pointer hover:shadow-md transition-shadow duration-300"
             >
-              <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
+              <Link to={`/post/${post.id}`} className="no-underline flex flex-col">
                 <div className="flex flex-row">
                   <div className="flex flex-col flex-1 pr-4">
                     <div className="flex items-center space-x-2 mb-2">
