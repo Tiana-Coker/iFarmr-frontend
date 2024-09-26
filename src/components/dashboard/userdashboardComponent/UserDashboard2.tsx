@@ -53,7 +53,7 @@ const GrowYourFarmAndNotifications: React.FC = () => {
         });
   
         const data = Array.isArray(response.data) ? response.data : [];
-        setNotifications(data);
+        setNotifications(data.slice(0, 5));
       } catch (err) {
         const axiosError = err as AxiosError<ErrorResponse>;
         setError(axiosError.response?.data?.message || 'Failed to fetch notifications.');

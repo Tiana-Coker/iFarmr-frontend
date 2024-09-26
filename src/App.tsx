@@ -14,7 +14,8 @@ import AdminLayout from './layouts/AdminLayout';
 import UserDatabase from './routes/admin/UserDatabase';
 import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
- import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+import PostPage from './components/postPage/PostPage';
 
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
@@ -23,34 +24,37 @@ import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 export default function App() {
   return (
     <>
-      <AuthProvider>
-        <NotificationProvider>
-          <LoadingProvider>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/verify-email" element={<VerifyEmail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/post" element={<UploadSection/>}></Route>
-              <Route path="/user/dashboard" element={<MainUserDashboard />} />
-              <Route path="/user/inventory" element={<Inventory />} />
-              <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+    <AuthProvider>
+      <NotificationProvider>
+        <LoadingProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/post" element={<UploadSection/>}></Route>
+            <Route path="/view-post" element={<ViewPost/>} />
+                {/* Post Details Page */}
+            <Route path="/post/:postId" element={<PostPage />} />
+            <Route path="user/dashboard" element={<MainUserDashboard />} />
+            <Route path="/user/inventory" element={<Inventory />} />
+            <Route path="/user/inventory/:id" element={<CurrentInventory />} />
 
-              {/* Protected Admin Routes */}
-              <Route element={<ProtectedRoute />}>
-                    <Route path="admin" element={<AdminLayout />}>
-                      <Route path="dashboard" element={<AdminDashboard />} />
-                      <Route path="user-database" element={<UserDatabase />} />
-                      <Route path="user-analytics" element={<UserAnalytics />} />
-                    </Route>
-              </Route> 
-            </Routes>
-          </LoadingProvider>
-      </NotificationProvider>
-      </AuthProvider>
+            {/* Protected Admin Routes */}
+          <Route element={<ProtectedRoute />}>
+                <Route path="admin" element={<AdminLayout />}>
+                  <Route path="dashboard" element={<AdminDashboard />} />
+                  <Route path="user-database" element={<UserDatabase />} />
+                  <Route path="user-analytics" element={<UserAnalytics />} />
+                </Route>
+          </Route> 
 
-    
-    </>
+
+          </Routes>
+        </LoadingProvider>
+     </NotificationProvider>
+    </AuthProvider>
+
 
   );
 }
