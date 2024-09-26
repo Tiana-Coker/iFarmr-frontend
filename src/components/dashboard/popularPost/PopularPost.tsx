@@ -118,7 +118,8 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
                     <div className="my-2">
                       <p className="text-xs text-gray-500">{timeAgo(post.dateCreated)}</p>
                       <p className="font-raleway text-sm font-light text-gray-700 overflow-hidden overflow-ellipsis">
-                        {post.content}
+                      {post.content.substring(0, 30)}{post.content.length > 30 ? '...' : ''}
+                      
                       </p>
                     </div>
                   </div>
