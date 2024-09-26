@@ -293,7 +293,7 @@ const [errors, setErrors] = useState({});
     isOpen && (
       <div 
     //   className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-4 sm:px-0" 
-        className="fixed inset-0 bg-slate-900 bg-opacity-30 backdrop-blur-sm flex justify-center items-center px-4 sm:px-6 lg:px-8" 
+        className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-30 z-50 flex justify-center items-center px-4 sm:px-6 lg:px-8" 
         ref={modalRef}
         onClick={closeModal}
       >
@@ -594,7 +594,7 @@ const [errors, setErrors] = useState({});
       className="pl-2 w-full border sm:w-2/3 p-1.5 text-sm border-gray-200 text-gray-800 rounded-lg appearance-none font-light bg-gray-100 shadow-sm focus:outline-none focus:ring-0 focus:ring-green-700"
       value={formData.location}
       
-      placeholder='Enter breed'
+      placeholder='Enter location'
       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
     />
   </div>

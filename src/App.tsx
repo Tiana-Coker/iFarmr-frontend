@@ -14,8 +14,9 @@ import AdminLayout from './layouts/AdminLayout';
 import UserDatabase from './routes/admin/UserDatabase';
 import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
- import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
- import LivestockDashboard from './components/livestockPage/LivestockManagement'
+import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+import PostPage from './components/postPage/PostPage';
+import LivestockDashboard from './components/livestockPage/LivestockManagement';
 
 
 
@@ -31,6 +32,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/post" element={<UploadSection/>}></Route>
         <Route path="/view-post" element={<ViewPost/>} />
+
+          {/* Post Details Page */}
+          <Route path="/post/:postId" element={<PostPage />} />
 
       <Route path="user/dashboard" element={<MainUserDashboard />} />
       <Route path='livestock-management' element= {<LivestockDashboard/>}/>
