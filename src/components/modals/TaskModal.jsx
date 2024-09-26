@@ -175,7 +175,7 @@ const handleCloseSuccessModal = () => {
     <div
       ref={modalRef}
       onClick={closeModal}
-      className="fixed inset-0 bg-slate-900 bg-opacity-30 backdrop-blur-sm flex justify-center items-center px-4 sm:px-6 lg:px-5"
+      className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-30 z-50 flex justify-center items-center px-4 sm:px-6 lg:px-5"
     >
       <div className="flex flex-col mt-10 text-black bg-white rounded-xl px-2 py-3 items-center w-full max-w-md">
         <div className="flex items-center justify-between w-full mb-3">

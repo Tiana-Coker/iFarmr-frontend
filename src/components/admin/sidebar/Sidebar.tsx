@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom'; 
 import { FaBars, FaTimes } from 'react-icons/fa'; 
 import farmerIcon from '../../../assets/signupImages/f-logo.svg';
@@ -9,13 +9,20 @@ import settingsIcon from '../../../assets/adminImages/settings.svg';
 import bellIcon from '../../../assets/adminImages/bell.svg';
 import profileIcon from '../../../assets/adminImages/profile.svg';
 import logoutIcon from '../../../assets/adminImages/logout.svg';
+import NotificationModal from '../../modals/NotificationModal';
 
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
+  toggleNotificationModal: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, toggleNotificationModal }) => {
+  // const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
+  // const toggleNotificationModal = () => {
+  //   setNotificationModalOpen(!isNotificationModalOpen);
+  // };
+
   return (
     <div>
       {/* Top bar for small screens with just the hamburger menu */}
@@ -99,10 +106,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
           <NavLink
             to="#"
             className="flex items-center space-x-3 text-[#333333] hover:text-[#204E51] transition-colors"
+            onClick={toggleNotificationModal}
           >
             <img src={bellIcon} alt="Notifications" className="w-5 h-5" />
             <span>Notifications</span>
           </NavLink>
+          {/* {isNotificationModalOpen && (
+        <NotificationModal onClose={toggleNotificationModal} /> 
+      )} */}
 
           {/* My Profile */}
           <NavLink

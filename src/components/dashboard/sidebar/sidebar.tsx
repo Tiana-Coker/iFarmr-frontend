@@ -12,6 +12,7 @@ import profile from '../../../assets/dashboard/user-1-svgrepo-com.svg';
 import logout from '../../../assets/dashboard/logout.svg';
 import plusIcon from '../../../assets/dashboard/+.svg';
 import menuIcon from '../../../assets/dashboard/menu.jpg';
+import NotificationModal from '../../modals/NotificationModal';
 
 interface SidebarProps {
   className?: string;
@@ -20,6 +21,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isNotificationModalOpen, setNotificationModalOpen] = useState(false); // State for notification modal
 
   const handleDashboardClick = () => {
     location.pathname === '/user/dashboard' ? window.location.reload() : (window.location.href = '/user/dashboard');
@@ -27,6 +29,10 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleNotificationModal = () => {
+    setNotificationModalOpen(!isNotificationModalOpen);
   };
 
   return (
@@ -66,11 +72,13 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
               { src: inventory, alt: 'Inventory Icon', text: 'Inventory', path: '/inventory' },
               { src: setting, alt: 'Settings Icon', text: 'Settings', path: '/settings' },
               { src: community, alt: 'Community Icon', text: 'Community', path: '/view-post' },
-              { src: bell, alt: 'Notifications Icon', text: 'Notifications', path: '/notifications' },
+              { src: bell, alt: 'Notifications Icon', text: 'Notifications', path: '#',
+              onClick: toggleNotificationModal
+               },
               { src: profile, alt: 'Profile Icon', text: 'My Profile', path: '/profile' },
               { src: logout, alt: 'Logout Icon', text: 'Logout', path: '/logout', textColor: 'text-red-500' },
-            ].map(({ src, alt, text, path, textColor = 'text-gray-700' }, index) => (
-              <li key={index} className="flex items-center">
+            ].map(({ src, alt, text, path, onClick = undefined, textColor = 'text-gray-700' }, index) => (
+              <li key={index} className="flex items-center" onClick={onClick}>
                 <img src={src} alt={alt} className="h-6 w-6 mr-2" />
                 <Link to={path} className={`block font-thin hover:text-side-bar ${textColor}`}>
                   {text}
@@ -108,11 +116,15 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
       </div>
 
-      {isOpen && (
+      {isOpen && 
         <div
           className="fixed inset-0 bg-black opacity-50 z-30 md:hidden"
           onClick={toggleSidebar}
         ></div>
+      }
+      {/* Notification Modal */}
+      {isNotificationModalOpen && (
+        <NotificationModal onClose={toggleNotificationModal} /> 
       )}
     </>
   );

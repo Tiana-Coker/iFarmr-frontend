@@ -249,7 +249,7 @@ if (!formData.animalName) {
     isOpen && (
       <div 
     //   className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-4 sm:px-0" 
-        className="fixed inset-0 bg-slate-900 bg-opacity-30 backdrop-blur-sm flex justify-center items-center px-4 sm:px-6 lg:px-8" 
+        className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-30 z-50 flex justify-center items-center px-4 sm:px-6 lg:px-8" 
         ref={modalRef}
         onClick={closeModal}
       >
