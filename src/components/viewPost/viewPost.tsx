@@ -4,7 +4,7 @@ import { useLoading } from '../../context/globalSpinner/LoadingContext';
 import { useNotification } from '../../context/notificationContext/Notification';
 import Sidebar from '../dashboard/sidebar/sidebar';
 import PopularPosts from '../dashboard/popularPost/PopularPost';
-import { FaThumbsUp } from 'react-icons/fa';
+import PostCard from './PostCard';
 
 const decodeToken = (token: string) => {
   const base64Url = token.split('.')[1];
@@ -123,7 +123,7 @@ const ViewPost: React.FC = () => {
                 // Show all posts if not viewing only user posts
                 posts.length > 0 ? (
                   <>
-                    <h3 className="text-xl font-semibold mb-2">All Posts</h3>
+                    <h3 className="text-xl font-semibold mb-2 mt-3">All Posts</h3>
                     {posts.map((post, index) => (
                       <PostCard key={index} post={post} />
                     ))}
@@ -146,7 +146,7 @@ const ViewPost: React.FC = () => {
     </div>
   );
 };
-
+{/*
 // PostCard component to render each post
 const PostCard = ({ post }: { post: any }) => (
   <div className="bg-white border mb-4 rounded-lg">
@@ -182,6 +182,6 @@ const PostCard = ({ post }: { post: any }) => (
       </div>
     </div>
   </div>
-);
+);*/}
 
 export default ViewPost;
