@@ -15,6 +15,7 @@ import UserDatabase from './routes/admin/UserDatabase';
 import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
  import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+ import LivestockDashboard from './components/livestockPage/LivestockManagement'
 
 
 
@@ -32,6 +33,9 @@ export default function App() {
         <Route path="/view-post" element={<ViewPost/>} />
 
       <Route path="user/dashboard" element={<MainUserDashboard />} />
+      <Route path='livestock-management' element= {<LivestockDashboard/>}/>
+
+
 
       {/* Protected Admin Routes */}
     <Route element={<ProtectedRoute />}>
@@ -39,6 +43,7 @@ export default function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="user-database" element={<UserDatabase />} />
             <Route path="user-analytics" element={<UserAnalytics />} />
+
           </Route>
     </Route> 
 
