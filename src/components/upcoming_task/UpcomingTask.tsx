@@ -1,6 +1,6 @@
-import {useState} from 'react'
 import IMAGES from "../../assets/dashboard/upcoming_task/";
 import TaskModal from '../modals/TaskModal';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 type Task = {
   category: string;
@@ -10,11 +10,28 @@ type Task = {
   title: string;
 };
 
-type UpcomingTaskProps = {
-  upcomingTask: Task[];
-};
 
-export default function UpcomingTask({upcomingTask}: UpcomingTaskProps) {
+export default function UpcomingTask(){
+
+  const [upcomingTask, setUpcomingTask] = useState<Task[]>([]);
+  const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem('token');
+
+  // Tasks Useeffect
+  useEffect(() => {
+    fetch(`${baseApiUrl}/api/v1/tasks/upcoming`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const inventoryTasks = data.filter((task: Task) => task.category === 'INVENTORY');
+        setUpcomingTask(inventoryTasks);
+      });
+  }, [baseApiUrl, token]);
 
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal for adding new task
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './InventoryTable.module.scss';
 
@@ -37,10 +38,10 @@ export default function InventoryTable({inventories}:inventoriesProp) {
            </thead>
            <tbody>
                 {
-                    inventories.map((item:inventoriesType) => (
+                    inventories?.map((item:inventoriesType) => (
                     <tr key={item.id} className={`${styles.table_data_row}`}>
                     <td>{item.itemType}</td>
-                    <td>{item.name}</td>
+                    <td><Link to={`/user/inventory/${item.id}`}>{item.name}</Link></td>
                     <td>{item.quantity}</td>
                     <td>{item.location}</td>
                     <td>{item.dateAcquired}</td>

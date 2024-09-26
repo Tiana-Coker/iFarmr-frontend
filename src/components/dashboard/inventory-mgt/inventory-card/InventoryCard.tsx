@@ -40,7 +40,7 @@ export default function InventoryCard({totalInventory, totalInventoryValue}: Inv
                     {/* Inventory Value */}
                     <div className='mb-4 md:mb-0'>
                         <div>Inventory Value</div>
-                        <div>N {totalInventoryValue.toLocaleString()}</div>
+                        <div>N {totalInventoryValue?.toLocaleString()}</div>
 
                     </div>
                 </div>

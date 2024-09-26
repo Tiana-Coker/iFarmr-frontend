@@ -20,7 +20,6 @@ type Task = {
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');
-  const [upcomingTask, setUpcomingTask] = useState([]);
   const [totalInventory, setTotalInventory] = useState(0);
   const [totalInventoryValue, setTotalInventoryValue] = useState(0);
   const [inventories, setInventories] = useState([]);
@@ -51,24 +50,6 @@ export default function Inventory() {
   
     } ,[])
 
-  // Tasks Useeffect
-  useEffect(()=> {
-    fetch(baseApiUrl + '/api/v1/tasks/upcoming',{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      }
-    })
-    .then(res => {
-      return res.json()
-    })
-    .then(data => {
-      const inventoryTasks = data.filter((task:Task) => task.category === 'INVENTORY');
-      setUpcomingTask(inventoryTasks);
-    })
-
-  } ,[])
 
   return (
    <>
@@ -96,7 +77,7 @@ export default function Inventory() {
       </div>
 
       <div className=" hidden md:block w-[30%] lg:w-[23.7%] pr-4 lg:pr-12 pt-10">
-        <UpcomingTask upcomingTask = {upcomingTask}/>
+        <UpcomingTask />
       </div>
 
     <div>

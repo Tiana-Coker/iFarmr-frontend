@@ -17,6 +17,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
  import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
 
 import Inventory from './routes/user/inventory/Inventory';
+import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/post" element={<UploadSection/>}></Route>
               <Route path="/user/dashboard" element={<MainUserDashboard />} />
               <Route path="/user/inventory" element={<Inventory />} />
+              <Route path="/user/inventory/:id" element={<CurrentInventory />} />
 
               {/* Protected Admin Routes */}
               <Route element={<ProtectedRoute />}>
