@@ -8,6 +8,12 @@ import Modal from '../../components/signUp/modal';
 import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
+
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+  // State to track form data (name, username, email, password, confirmPassword)
+
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -71,6 +77,7 @@ const Signup: React.FC = () => {
       setIsModalOpen(true);
 
     } catch (error: any) {
+      console.log("here is the error ", error)
       setIsLoading(false);
 
       if (error.response && error.response.data) {
