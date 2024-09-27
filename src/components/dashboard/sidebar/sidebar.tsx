@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       text: 'Livestock Management',
       path: '/livestock-management',
     },
-    { src: inventory, alt: 'Inventory Icon', text: 'Inventory', path: '/inventory' },
+    { src: inventory, alt: 'Inventory Icon', text: 'Inventory', path: '/user/inventory' },
   ];
 
   // Settings navigation items
@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   return (
     <>
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-gray-200 rounded-md"
+        className="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-200 rounded-md"
         onClick={toggleSidebar}
         aria-expanded={isOpen}
         aria-label="Toggle sidebar"
@@ -76,59 +76,78 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       </button>
 
       <div
-        className={`sidebar h-screen w-64 p-4 flex flex-col bg-gray-50 justify-between fixed z-40 transform ${
+        className={`sidebar h-screen w-64 p-4 flex flex-col justify-between fixed z-40 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 transition-transform duration-300 ${className} ${
-          // Allow scrolling only on mobile and tablet
-          'overflow-y-auto md:overflow-y-hidden'
+          'overflow-y-hidden md:overflow-y-hidden'
         }`}
       >
         <div className="hover:text-side-bar">
-          <div className="logo mb-8 hover:text-side-bar">
+          <div className="logo mb-12 hover:text-side-bar">
             <Link to="/">
               <img src={Ifarm} alt="iFarmr Logo" className="h-16 mx-auto" />
             </Link>
           </div>
-          <ul className="nav-links space-y-4">
+          <ul className="nav-links">
             {/* Dashboard Link */}
-            <li className="flex items-center" onClick={handleDashboardClick}>
+            <li className="flex items-center mb-6" onClick={handleDashboardClick}>
+              {/* Increased mb-6 to mb-8 for more spacing */}
               <img src={Dashboard} alt="Dashboard Icon" className="h-6 w-6 mr-2" />
-              <span className="text-gray-500 hover:text-side-bar cursor-pointer">Dashboard</span>
+              <span className="text-black hover:text-side-bar cursor-pointer text-sm">
+                Dashboard
+              </span>
             </li>
 
             {/* Top Navigation Items */}
             {topNavItems.map(
-              ({ src, alt, text, path, onClick = undefined, textColor = 'text-gray-700' }, index
-            ) => (
-              <li key={index} className="flex items-center" onClick={onClick}>
-                <img src={src} alt={alt} className="h-6 w-6 mr-2" />
-                <Link to={path} className={`block font-thin hover:text-side-bar ${textColor}`}>
-                  {text}
-                </Link>
-              </li>
-            ))}
+              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
+                <li
+                  key={index}
+                  className="flex items-center mb-6" // Increased mb-6 to mb-8
+                  onClick={onClick}
+                >
+                  <img src={src} alt={alt} className="h-6 w-6 mr-2" />
+                  <Link
+                    to={path}
+                    className={`block hover:text-side-bar ${textColor} text-sm`}
+                  >
+                    {text}
+                  </Link>
+                </li>
+              )
+            )}
 
             {/* Settings Section Header */}
-            <h1 className="text-gray-700 font-bold text-lg mt-4 mb-2">Settings</h1>
+            <h1 className="text-gray-700 font-bold text-lg mt-6 mb-6">
+              {/* Increased mt-6 to mt-8 and mb-6 to mb-8 */}
+              Settings
+            </h1>
 
             {/* Settings Navigation Items */}
             {settingsNavItems.map(
-              ({ src, alt, text, path, onClick = undefined, textColor = 'text-gray-700' }, index
-            ) => (
-              <li key={index} className="flex items-center" onClick={onClick}>
-                <img src={src} alt={alt} className="h-6 w-6 mr-2" />
-                <Link to={path} className={`block font-thin hover:text-side-bar ${textColor}`}>
-                  {text}
-                </Link>
-              </li>
-            ))}
+              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
+                <li
+                  key={index}
+                  className="flex items-center mb-8" // Increased mb-6 to mb-8
+                  onClick={onClick}
+                >
+                  <img src={src} alt={alt} className="h-6 w-6 mr-2" />
+                  <Link
+                    to={path}
+                    className={`block hover:text-side-bar ${textColor} text-sm`}
+                  >
+                    {text}
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
         </div>
 
-        {/* Your existing code for the bottom section remains unchanged */}
+        {/* Bottom Section */}
         <div className="bg-[#C0F196] rounded-3xl p-6 text-center mt-8 shadow-sm relative">
           {/* Top-left arc */}
-          <div className="absolute top-0 left-0 w-1/4 h-1/4 border bg-[#D8F9C4] rounded-tl-[10rem] rounded-br-[50rem]"></div>
+          <div className="absolute top-0 left-0 w-1/4 h-1/4 bg-[#D8F9C4] rounded-tl-[10rem] rounded-br-[50rem]"></div>
           {/* Bottom-right arc */}
           <div className="absolute bottom-0 right-0 w-2/5 h-2/5 bg-[#D8F9C4] rounded-tl-[60rem] rounded-br-[9rem]"></div>
 
@@ -140,7 +159,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
           </div>
 
           <div className="mt-12 flex items-center justify-center flex-col relative z-10">
-            <div className="text-green-800 p font-semibold text-sm mb-2">Share Your Experience</div>
+            <div className="text-green-800 font-semibold text-sm mb-2">Share Your Experience</div>
             <p className="text-green-700 text-sm mb-4 text-center">
               Connect with Others, Ask Questions, and Share Your Success Stories.
             </p>
@@ -159,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       {/* Sidebar Overlay for Mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-50 z-30 md:hidden"
+          className="fixed inset-0  bg-gray-50 z-30 md:hidden"
           onClick={toggleSidebar}
         ></div>
       )}

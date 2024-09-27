@@ -40,6 +40,7 @@ export default function App() {
             <Route path="user/dashboard" element={<MainUserDashboard />} />
             <Route path="/user/inventory" element={<Inventory />} />
             <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+            <Route path="/livestock-management" element={<LivestockDashboard />} />
 
             {/* Protected Admin Routes */}
           <Route element={<ProtectedRoute />}>
@@ -57,5 +58,7 @@ export default function App() {
     </AuthProvider>
 
 
+  );
+  </>
   );
 }
