@@ -6,7 +6,7 @@ import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import { useAuth } from '../../context/authContext/AuthContext';
 import { useNotification } from '../../context/notificationContext/Notification';
-
+import { requestFirebaseToken } from '../../utils/firebase';  // Import Firebase token request function
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -34,24 +34,51 @@ const Login: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
-
+  
     try {
       const response = await axios.post(`${baseUrl}/api/v1/auth/login`, {
         username: formData.username,
         password: formData.password,
       });
-
+  
       if (response.data && response.data.token) {
         const { token, role, username } = response.data;
-
+  
+        // Store the token and username
         setToken(token, username);
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
-
+  
         showNotification('Login successful!');
-
         setIsLoading(false);
-
+  
+        // Request Firebase token
+        const firebaseToken = await requestFirebaseToken();
+        console.log('Firebase token:', firebaseToken);
+  
+        // Save Firebase token to your backend if available
+        if (firebaseToken) {
+          try {
+            await axios.post(`${baseUrl}/token/firebase-save`, {
+              token: firebaseToken,
+            }, {
+              headers: {
+                Authorization: `Bearer ${token}`,  // JWT token for authentication
+              },
+            });
+            showNotification('Firebase token saved successfully!');
+          } catch (saveError: any) {
+            if (saveError.response && saveError.response.status === 409) {
+              // Token already exists, but continue without showing an error
+              console.log('Firebase token already exists. Proceeding with the rest of the flow.');
+            } else {
+              // Handle other errors
+              console.error('Error saving Firebase token:', saveError.message);
+            }
+          }
+        }
+  
+        // Redirect based on role
         const userRole = role[0];
         if (userRole === 'USER') {
           navigate('/user/dashboard');
@@ -73,7 +100,7 @@ const Login: React.FC = () => {
       }
     }
   };
-
+  
   return (
     <div className="flex h-screen font-raleway">
 

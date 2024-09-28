@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react'; // Import useEffect from 'react'
 import './App.css';
 import LandingPage from "./routes/landingPage/LandingPage";
 import Signup from './routes/signup/signup';
@@ -9,44 +10,49 @@ import { LoadingProvider } from './context/globalSpinner/LoadingContext';
 import { AuthProvider } from './context/authContext/AuthContext';
 import UploadSection from './components/createAPost/UploadSection';
 import ViewPost from './components/viewPost/viewPost';
-import { NotificationProvider } from './context/notificationContext/Notification';
+import { NotificationProvider, useNotification } from './context/notificationContext/Notification';
 import AdminLayout from './layouts/AdminLayout';
 import UserDatabase from './routes/admin/UserDatabase';
 import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
- import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
+import { listenForMessages } from './utils/firebase'; // Import listenForMessages
 
+const App: React.FC = () => {
+  const { showNotification } = useNotification(); // Access showNotification from context
 
+  useEffect(() => {
+    listenForMessages(showNotification); // Pass showNotification to listenForMessages
+  }, [showNotification]);
 
-export default function App() {
   return (
-    <AuthProvider>
-      <NotificationProvider>
-    <LoadingProvider>
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/post" element={<UploadSection/>}></Route>
-        <Route path="/view-post" element={<ViewPost/>} />
-
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/post" element={<UploadSection />} />
+      <Route path="/view-post" element={<ViewPost />} />
       <Route path="user/dashboard" element={<MainUserDashboard />} />
 
       {/* Protected Admin Routes */}
-    <Route element={<ProtectedRoute />}>
-          <Route path="admin" element={<AdminLayout />}>
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="user-database" element={<UserDatabase />} />
-            <Route path="user-analytics" element={<UserAnalytics />} />
-          </Route>
-    </Route> 
-
-
+      <Route element={<ProtectedRoute />}>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="user-database" element={<UserDatabase />} />
+          <Route path="user-analytics" element={<UserAnalytics />} />
+        </Route>
+      </Route>
     </Routes>
-    </LoadingProvider>
-    </NotificationProvider>
-    </AuthProvider>
-
   );
-}
+};
+
+export default () => (
+  <AuthProvider>
+    <NotificationProvider>
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
+    </NotificationProvider>
+  </AuthProvider>
+);
