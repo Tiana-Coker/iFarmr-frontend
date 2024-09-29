@@ -101,9 +101,9 @@ const UploadSection: React.FC = () => {
       <Sidebar className="w-20  mr-0 flex-shrink-0" />
       
       <div className="flex-grow flex flex-col md:flex-row ">
-        <main className="flex-grow p-0  ml-0  md:ml-8">
-          <div className="bg-white rounded-lg  p-6 max-w-3xl  md:mr-8 mx-auto">
-            <div className="flex justify-between items-center mb-6">
+      <main className="flex-grow p-0 flex justify-center">
+      <div className="bg-white rounded-lg p-6 max-w-3xl w-full mx-auto">
+      <div className="flex justify-between items-center mb-6">
               <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-800">
                 ← Back
               </button>

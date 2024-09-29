@@ -1,19 +1,12 @@
 import React from 'react';
-import AnalyticsCharts from '../../components/admin/AnalyticsCharts';
 
-const AdminAnalytics: React.FC = () => {
+const UserAnalytics: React.FC = () => {
   return (
-    <div className="flex flex-col flex-grow custom-md:flex-row h-screen">
-      <main className="flex-grow w-full lg:w-1/3 p-4 custom-md:p-6">
-      <p>Good Morning, Admin</p>
-      <br></br>
-        <AnalyticsCharts />
-      </main>
-      <aside className="w-full custom-md:w-[calc(20%+10px)] bg-white p-0 custom-md:p-6">    
-        {/* Any additional sidebar content can go here */}
-      </aside>
+    <div>
+      <h1 className='mt-9'>User Analytics</h1>
+      <p>Welcome to the user Analytics dashboard!</p>
     </div>
   );
 };
 
-export default AdminAnalytics;
+export default UserAnalytics;
