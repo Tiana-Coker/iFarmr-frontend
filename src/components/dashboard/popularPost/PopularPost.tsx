@@ -100,7 +100,7 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
               key={post.id}
               className="post-card bg-white rounded-lg p-4 flex flex-col space-y-2 cursor-pointer hover:shadow-md transition-shadow duration-300"
             >
-              <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
+              <Link to={`/post/${post.id}`} className="no-underline flex flex-col">
                 <div className="flex flex-row">
                   <div className="flex flex-col flex-1 pr-4">
                     <div className="flex items-center space-x-2 mb-2">
@@ -118,7 +118,8 @@ const PopularPosts: React.FC<PopularPostsProps> = ({ className }) => {
                     <div className="my-2">
                       <p className="text-xs text-gray-500">{timeAgo(post.dateCreated)}</p>
                       <p className="font-raleway text-sm font-light text-gray-700 overflow-hidden overflow-ellipsis">
-                        {post.content}
+                      {post.content.substring(0, 30)}{post.content.length > 30 ? '...' : ''}
+                      
                       </p>
                     </div>
                   </div>

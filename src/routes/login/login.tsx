@@ -9,6 +9,8 @@ import { useNotification } from '../../context/notificationContext/Notification'
 import { requestFirebaseToken } from '../../utils/firebase';  // Import Firebase token request function
 
 const Login: React.FC = () => {
+  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   const navigate = useNavigate();
   const { setToken, baseUrl } = useAuth(); 
   const { showNotification } = useNotification();
