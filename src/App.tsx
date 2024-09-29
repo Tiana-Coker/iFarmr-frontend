@@ -16,6 +16,7 @@ import UserAnalytics from './routes/admin/UserAnaytics';
 import ProtectedRoute from './utils/ProtectedRoute';
 import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard';
 import PostPage from './components/postPage/PostPage';
+import LivestockDashboard from './components/livestockPage/LivestockManagement';
 
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="user/dashboard" element={<MainUserDashboard />} />
             <Route path="/user/inventory" element={<Inventory />} />
             <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+            <Route path="/livestock-management" element={<LivestockDashboard />} />
 
             {/* Protected Admin Routes */}
           <Route element={<ProtectedRoute />}>
@@ -56,5 +58,7 @@ export default function App() {
     </AuthProvider>
 
 
+  );
+  </>
   );
 }
