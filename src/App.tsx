@@ -5,6 +5,7 @@ import LandingPage from "./routes/landingPage/LandingPage";
 import Signup from './routes/signup/signup';
 import VerifyEmail from './components/emailConfirmation/EmailConfirmation';
 import Login from './routes/login/login';
+import Logout from './routes/logout/logout';
 import ForgotPassword from './routes/forgotPassword/forgotPassword';
 import ResetPassword from './routes/resetPassword/resetPassword';
 import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
@@ -39,6 +40,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/logout" element={<Logout />} />
 
         {/* Protected User Route Page */}
         <Route path="/post" element={<UploadSection/>}></Route>
