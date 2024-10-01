@@ -9,8 +9,6 @@ import { useNotification } from '../../context/notificationContext/Notification'
 import { requestFirebaseToken } from '../../utils/firebase';  // Import Firebase token request function
 
 const Login: React.FC = () => {
-  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
   const navigate = useNavigate();
   const { setToken, baseUrl } = useAuth(); 
   const { showNotification } = useNotification();
@@ -23,6 +21,7 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false); // To show the reset password button
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -36,7 +35,8 @@ const Login: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
-  
+    setShowResetPassword(false); // Hide reset password button when trying to login
+
     try {
       const response = await axios.post(`${baseUrl}/api/v1/auth/login`, {
         username: formData.username,
@@ -46,7 +46,6 @@ const Login: React.FC = () => {
       if (response.data && response.data.token) {
         const { token, role, username } = response.data;
   
-        // Store the token and username
         setToken(token, username);
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
@@ -54,33 +53,28 @@ const Login: React.FC = () => {
         showNotification('Login successful!');
         setIsLoading(false);
   
-        // Request Firebase token
         const firebaseToken = await requestFirebaseToken();
         console.log('Firebase token:', firebaseToken);
   
-        // Save Firebase token to your backend if available
         if (firebaseToken) {
           try {
             await axios.post(`${baseUrl}/token/firebase-save`, {
               token: firebaseToken,
             }, {
               headers: {
-                Authorization: `Bearer ${token}`,  // JWT token for authentication
+                Authorization: `Bearer ${token}`,
               },
             });
             showNotification('Firebase token saved successfully!');
           } catch (saveError: any) {
             if (saveError.response && saveError.response.status === 409) {
-              // Token already exists, but continue without showing an error
               console.log('Firebase token already exists. Proceeding with the rest of the flow.');
             } else {
-              // Handle other errors
               console.error('Error saving Firebase token:', saveError.message);
             }
           }
         }
   
-        // Redirect based on role
         const userRole = role[0];
         if (userRole === 'USER') {
           navigate('/user/dashboard');
@@ -100,12 +94,14 @@ const Login: React.FC = () => {
       } else {
         setErrorMessage('Failed to login. Please check your credentials and try again.');
       }
+
+      // Show reset password button on login failure
+      setShowResetPassword(true);
     }
   };
-  
+
   return (
     <div className="flex h-screen font-raleway">
-
       {/* Left side: Image + Welcome for larger screens */}
       <div className="hidden custom-bp:flex custom-bp:w-1/2 bg-customGreen relative bg-no-repeat bg-cover justify-center items-center" style={{ backgroundImage: `url('/src/assets/signupImages/wave.svg')` }}>
         <h1 className="text-4xl text-[#204E51] font-semibold mb-80 text-center z-10">Welcome to IFarmr</h1>
@@ -170,6 +166,18 @@ const Login: React.FC = () => {
               )}
             </button>
           </div>
+
+          {showResetPassword && (
+            <div className="flex justify-center mt-4">
+              <button
+                type="button"
+                className="text-blue-600 hover:underline"
+                onClick={() => navigate('/forgot-password')}
+              >
+                Forgot Password?
+              </button>
+            </div>
+          )}
         </form>
       </div>
 
@@ -201,7 +209,7 @@ const Login: React.FC = () => {
               <input
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline"
+                className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 bg-[#e0e0e01f] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="********"
@@ -219,18 +227,30 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <div className="flex justify-center w-full">
-            <button className="bg-[#204E51] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center justify-center w-full" type="submit" disabled={isLoading}>
+          <div className="flex justify-end">
+            <button className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap" type="submit" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <span className="text-sm">Logging in...</span>
-                  <FaSpinner className="animate-spin ml-2 text-sm" />
+                  <FaSpinner className="animate-spin mr-2 text-sm" />
                 </>
               ) : (
                 "Log In"
               )}
             </button>
           </div>
+
+          {showResetPassword && (
+            <div className="flex justify-center mt-4">
+              <button
+                type="button"
+                className="text-blue-600 hover:underline"
+                onClick={() => navigate('/forgot-password')}
+              >
+                Forgot Password?
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>

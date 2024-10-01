@@ -5,6 +5,8 @@ import LandingPage from "./routes/landingPage/LandingPage";
 import Signup from './routes/signup/signup';
 import VerifyEmail from './components/emailConfirmation/EmailConfirmation';
 import Login from './routes/login/login';
+import ForgotPassword from './routes/forgotPassword/forgotPassword';
+import ResetPassword from './routes/resetPassword/resetPassword';
 import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './context/globalSpinner/LoadingContext';
 import { AuthProvider } from './context/authContext/AuthContext';
@@ -35,6 +37,8 @@ const App: React.FC = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/post" element={<UploadSection/>}></Route>
         <Route path="/view-post" element={<ViewPost/>} />
             {/* Post Details Page */}
