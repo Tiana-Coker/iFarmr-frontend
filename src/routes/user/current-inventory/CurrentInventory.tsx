@@ -11,14 +11,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
   
 
-type Task = {
-  category: string;
-  description: string;
-  dueDate: string;
-  location: string;
-  title: string;
-};
-
 type InventoryData = {
   itemType: string;
   name: string;

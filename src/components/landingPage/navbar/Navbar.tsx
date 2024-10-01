@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import IFARMR_LOGO from "../../../assets/landingPage/navbar/ifarmr_logo_green.png"
 

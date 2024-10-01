@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom'; 
 import { FaBars, FaTimes } from 'react-icons/fa'; 
 import farmerIcon from '../../../assets/signupImages/f-logo.svg';
@@ -9,7 +9,7 @@ import settingsIcon from '../../../assets/adminImages/settings.svg';
 import bellIcon from '../../../assets/adminImages/bell.svg';
 import profileIcon from '../../../assets/adminImages/profile.svg';
 import logoutIcon from '../../../assets/adminImages/logout.svg';
-import NotificationModal from '../../modals/NotificationModal';
+// import NotificationModal from '../../modals/NotificationModal';
 
 interface SidebarProps {
   isOpen: boolean;
