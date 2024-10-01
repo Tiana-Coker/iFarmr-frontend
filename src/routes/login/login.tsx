@@ -10,7 +10,7 @@ import { requestFirebaseToken } from '../../utils/firebase';  // Import Firebase
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { setToken, baseUrl, userRole, isAuthenticated } = useAuth(); 
+  const { setToken, setFirebaseToken, baseUrl, userRole, isAuthenticated } = useAuth(); 
   const { showNotification } = useNotification();
 
   const [formData, setFormData] = useState({
@@ -67,6 +67,7 @@ const Login: React.FC = () => {
               },
             });
             showNotification('Firebase token saved successfully!');
+            setFirebaseToken(firebaseToken); 
           } catch (saveError: any) {
             if (saveError.response && saveError.response.status === 409) {
               console.log('Firebase token already exists. Proceeding with the rest of the flow.');
