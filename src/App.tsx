@@ -55,6 +55,6 @@ export default function App() {
      </NotificationProvider>
     </AuthProvider>
 
-
+</>
   );
 }
