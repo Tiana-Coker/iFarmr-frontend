@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
@@ -10,7 +10,7 @@ import { requestFirebaseToken } from '../../utils/firebase';  // Import Firebase
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { setToken, baseUrl } = useAuth(); 
+  const { setToken, baseUrl, userRole, isAuthenticated } = useAuth(); 
   const { showNotification } = useNotification();
 
   const [formData, setFormData] = useState({
@@ -46,9 +46,10 @@ const Login: React.FC = () => {
       if (response.data && response.data.token) {
         const { token, role, username } = response.data;
   
-        setToken(token, username);
+        setToken(token, username, role[0]); // Pass role to setToken
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        localStorage.setItem('userRole', role[0]); // Save user role in localStorage
   
         showNotification('Login successful!');
         setIsLoading(false);
@@ -75,10 +76,10 @@ const Login: React.FC = () => {
           }
         }
   
-        const userRole = role[0];
-        if (userRole === 'USER') {
+        // Redirect based on user role
+        if (role[0] === 'USER') {
           navigate('/user/dashboard');
-        } else if (userRole === 'ADMIN') {
+        } else if (role[0] === 'ADMIN') {
           navigate('/admin/dashboard');
         } else {
           setErrorMessage('Unrecognized role. Please contact support.');
@@ -99,6 +100,17 @@ const Login: React.FC = () => {
       setShowResetPassword(true);
     }
   };
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (userRole === 'USER') {
+        navigate('/user/dashboard');
+      } else if (userRole === 'ADMIN') {
+        navigate('/admin/dashboard');
+      }
+    }
+  }, [isAuthenticated, userRole, navigate]);
 
   return (
     <div className="flex h-screen font-raleway">

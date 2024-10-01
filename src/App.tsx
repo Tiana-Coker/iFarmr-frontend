@@ -39,14 +39,14 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+        {/* Protected User Route Page */}
         <Route path="/post" element={<UploadSection/>}></Route>
         <Route path="/view-post" element={<ViewPost/>} />
-            {/* Post Details Page */}
         <Route path="/post/:postId" element={<PostPage />} />
         <Route path="user/dashboard" element={<MainUserDashboard />} />
         <Route path="/user/inventory" element={<Inventory />} />
         <Route path="/user/inventory/:id" element={<CurrentInventory />} />
-
 
       {/* Protected Admin Routes */}
       <Route element={<ProtectedRoute />}>

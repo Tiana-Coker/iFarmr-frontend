@@ -3,9 +3,10 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 interface AuthContextProps {
   token: string | null;
   baseUrl: string;
-  setToken: (token: string | null, username?: string | null) => void;
+  setToken: (token: string | null, username?: string | null, role?: string | null) => void; // Add role as optional
   isAuthenticated: boolean;
   adminName: string | null;
+  userRole: string | null; // Add userRole here
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -27,25 +28,33 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return localStorage.getItem('token'); // Retrieve token from localStorage
   });
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token); // Initialize auth status based on token
-
   const [adminName, setAdminName] = useState<string | null>(() => {
     return localStorage.getItem('username') || null ;  // Store adminName in context
+  });
+  const [userRole, setUserRole] = useState<string | null>(() => {
+    return localStorage.getItem('userRole') || null; // Initialize user role
   });
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   // Save token to localStorage
-  const saveToken = (userToken: string | null, username: string | null = null) => {
+  const saveToken = (userToken: string | null, username: string | null = null, role: string | null = null) => {
     if (userToken) {
       localStorage.setItem('token', userToken);
       if (username) {
         localStorage.setItem('username', username); // Store the username when available
         setAdminName(username); // Update adminName
       }
+      if (role) {
+        localStorage.setItem('userRole', role); // Store the user role
+        setUserRole(role); // Update userRole
+      }
     } else {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      localStorage.removeItem('userRole'); // Clear user role on logout
       setAdminName(null);
+      setUserRole(null); // Clear userRole on logout
     }
     setToken(userToken);
     setIsAuthenticated(!!userToken); // Update auth status based on the presence of token
@@ -61,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, baseUrl, setToken: saveToken, isAuthenticated, adminName }}>
+    <AuthContext.Provider value={{ token, baseUrl, setToken: saveToken, isAuthenticated, adminName, userRole }}>
       {children}
     </AuthContext.Provider>
   );
