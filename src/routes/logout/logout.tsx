@@ -28,7 +28,7 @@ const Logout: React.FC = () => {
         navigate('/login');
       } catch (error) {
         console.error('Error during logout:', error);
-        showNotification('Logout failed. Please try again.');
+        //showNotification('Logout failed. Please try again.');
       }
     };
 

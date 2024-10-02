@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react'; // Import useEffect from 'react'
+import { useEffect } from 'react'; 
 import './App.css';
 import LandingPage from "./routes/landingPage/LandingPage";
 import Signup from './routes/signup/signup';
@@ -10,7 +10,7 @@ import ForgotPassword from './routes/forgotPassword/forgotPassword';
 import ResetPassword from './routes/resetPassword/resetPassword';
 import MainUserDashboard from './routes/userdashboard/MainUserDashboard';
 import { LoadingProvider } from './context/globalSpinner/LoadingContext';
-import { AuthProvider } from './context/authContext/AuthContext';
+import { AuthProvider, useAuth } from './context/authContext/AuthContext'; // Import useAuth
 import UploadSection from './components/createAPost/UploadSection';
 import ViewPost from './components/viewPost/viewPost';
 import { NotificationProvider, useNotification } from './context/notificationContext/Notification';
@@ -23,32 +23,47 @@ import PostPage from './components/postPage/PostPage';
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 
-import { listenForMessages } from './utils/firebase'; // Import listenForMessages
+import { listenForMessages, requestFirebaseToken } from './utils/firebase'; // Import listenForMessages and requestFirebaseToken
 
 const App: React.FC = () => {
-  const { showNotification } = useNotification(); // Access showNotification from context
+  const { showNotification } = useNotification();
+  const { firebaseToken, userRole, setFirebaseToken } = useAuth(); // Access firebaseToken, userRole, and setFirebaseToken
 
   useEffect(() => {
-    listenForMessages(showNotification); // Pass showNotification to listenForMessages
+    listenForMessages(showNotification);
   }, [showNotification]);
+
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      if (!firebaseToken && userRole) {
+        const newFirebaseToken = await requestFirebaseToken();
+        if (newFirebaseToken) {
+          setFirebaseToken(newFirebaseToken); // Save the new Firebase token
+          console.log('Firebase token set after retry:', newFirebaseToken);
+        }
+      }
+    }, 120000); // Run every 2 minutes (120,000 ms)
+
+    return () => clearInterval(intervalId); // Clean up the interval when component unmounts
+  }, [firebaseToken, userRole, setFirebaseToken]);
 
   return (
     <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/logout" element={<Logout />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/logout" element={<Logout />} />
 
-        {/* Protected User Route Page */}
-        <Route path="/post" element={<UploadSection/>}></Route>
-        <Route path="/view-post" element={<ViewPost/>} />
-        <Route path="/post/:postId" element={<PostPage />} />
-        <Route path="user/dashboard" element={<MainUserDashboard />} />
-        <Route path="/user/inventory" element={<Inventory />} />
-        <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+      {/* Protected User Route Page */}
+      <Route path="/post" element={<UploadSection/>}></Route>
+      <Route path="/view-post" element={<ViewPost/>} />
+      <Route path="/post/:postId" element={<PostPage />} />
+      <Route path="user/dashboard" element={<MainUserDashboard />} />
+      <Route path="/user/inventory" element={<Inventory />} />
+      <Route path="/user/inventory/:id" element={<CurrentInventory />} />
 
       {/* Protected Admin Routes */}
       <Route element={<ProtectedRoute />}>
