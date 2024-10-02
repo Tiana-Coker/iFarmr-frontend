@@ -92,6 +92,8 @@ const Signup: React.FC = () => {
       } else {
         setErrorMessage('Failed to connect to the server.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
