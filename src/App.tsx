@@ -22,6 +22,7 @@ import AdminDashboard from './components/dashboard/adminDashboard/AdminDashboard
 import PostPage from './components/postPage/PostPage';
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
+import Unauthorized from './routes/unauthorized/unauthorized'; 
 
 import { listenForMessages, requestFirebaseToken } from './utils/firebase'; // Import listenForMessages and requestFirebaseToken
 
@@ -56,17 +57,20 @@ const App: React.FC = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Protected User Route Page */}
-      <Route path="/post" element={<UploadSection/>}></Route>
-      <Route path="/view-post" element={<ViewPost/>} />
-      <Route path="/post/:postId" element={<PostPage />} />
-      <Route path="user/dashboard" element={<MainUserDashboard />} />
-      <Route path="/user/inventory" element={<Inventory />} />
-      <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+      {/* Protected User Routes */}
+      <Route element={<ProtectedRoute allowedRoles={['USER']} />}>
+        <Route path="/post" element={<UploadSection />} />
+        <Route path="/view-post" element={<ViewPost />} />
+        <Route path="/post/:postId" element={<PostPage />} />
+        <Route path="/user/dashboard" element={<MainUserDashboard />} />
+        <Route path="/user/inventory" element={<Inventory />} />
+        <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+      </Route>
 
       {/* Protected Admin Routes */}
-      <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
         <Route path="admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="user-database" element={<UserDatabase />} />
