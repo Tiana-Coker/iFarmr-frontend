@@ -96,7 +96,12 @@ const AnalyticsCharts: React.FC = () => {
     },
   };
 
-  // Pie chart data for user demographics (Male/Female)
+  // Calculate total users and percentages
+  const totalUsers = analyticsData.userDemographics.Male + analyticsData.userDemographics.Female;
+  const malePercentage = totalUsers > 0 ? ((analyticsData.userDemographics.Male / totalUsers) * 100).toFixed(2) : '0';
+  const femalePercentage = totalUsers > 0 ? ((analyticsData.userDemographics.Female / totalUsers) * 100).toFixed(2) : '0';
+
+  // Pie chart data for user demographics (Male/Female) with donut style
   const pieChartData = {
     labels: ['Male', 'Female'],
     datasets: [
@@ -104,22 +109,59 @@ const AnalyticsCharts: React.FC = () => {
         data: [analyticsData.userDemographics.Male, analyticsData.userDemographics.Female],
         backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
         hoverOffset: 4,
+        cutout: '50%', // This makes the pie chart a donut
       },
     ],
+  };
+
+  // Chart options to make the donut smaller and align left
+  const pieChartOptions = {
+    maintainAspectRatio: false, // Disable aspect ratio to control size
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false, // Disable default legend since we'll use a custom one
+      },
+    },
   };
 
   return (
     <div className="grid grid-cols-1 gap-10">
       {/* Line chart */}
       <div className="bg-white rounded-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">Monthly User Growth</h3>
+        <h3 className="text-lg font-semibold mb-4">Average User Time</h3>
         <Line data={lineChartData} options={lineChartOptions} />
       </div>
 
-      {/* Pie chart */}
+      {/* Pie (Donut) chart */}
       <div className="bg-white rounded-lg p-6">
         <h3 className="text-lg font-semibold mb-4">User Demographics</h3>
-        <Pie data={pieChartData} />
+        <div className="flex flex-col items-center">
+          {/* Donut chart aligned to the left */}
+          <div className="self-start" style={{ width: '200px', height: '200px' }}>
+            <Pie data={pieChartData} options={pieChartOptions} />
+          </div>
+          
+          {/* Custom legend centered below the donut */}
+          <div className="mt-4 text-center space-y-2">
+            <div className="flex justify-center items-center space-x-2">
+              <span
+                className="inline-block w-3 h-3 rounded-full"
+                style={{ backgroundColor: 'rgba(75, 192, 192, 0.6)' }}
+              ></span>
+              <span>Male</span>
+              <span className="ml-4">{malePercentage}%</span>
+            </div>
+            <div className="flex justify-center items-center space-x-2">
+              <span
+                className="inline-block w-3 h-3 rounded-full"
+                style={{ backgroundColor: 'rgba(255, 99, 132, 0.6)' }}
+              ></span>
+              <span>Female</span>
+              <span className="ml-4">{femalePercentage}%</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
