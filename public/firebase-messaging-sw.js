@@ -2,16 +2,14 @@
 importScripts('https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js');
 
-const firebaseConfig = {
-    apiKey: 'AIzaSyDGgOmVsNeoCk8JGx9g1zKrR3wdzV6B9NU',
-    authDomain: 'ifarmr-ff5d0.firebaseapp.com',
-    projectId: 'ifarmr-ff5d0',
-    storageBucket: 'ifarmr-ff5d0.appspot.com',
-    messagingSenderId: '1085541548184',
-    appId: '1:1085541548184:web:96eded14c8303544bf10ed',
-};
+const defaultConfig = {
+    apiKey: true,
+    projectId: true,
+    messagingSenderId: true,
+    appId: true,
+  };
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(defaultConfig);
 
 const messaging = firebase.messaging();
 
