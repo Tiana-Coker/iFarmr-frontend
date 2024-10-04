@@ -3,13 +3,12 @@ importScripts('https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBbJRnC9NOpFpLNL3bcLoW7hbgLKUMBp_g",
-    authDomain: "ifarm-17b22.firebaseapp.com",
-    projectId: "ifarm-17b22",
-    storageBucket: "ifarm-17b22.appspot.com",
-    messagingSenderId: "353197689782",
-    appId: "1:353197689782:web:6c16cfd945e31debb34f17",
-    measurementId: "G-T1J90VEF2J"
+    apiKey: 'AIzaSyDGgOmVsNeoCk8JGx9g1zKrR3wdzV6B9NU',
+    authDomain: 'ifarmr-ff5d0.firebaseapp.com',
+    projectId: 'ifarmr-ff5d0',
+    storageBucket: 'ifarmr-ff5d0.appspot.com',
+    messagingSenderId: '1085541548184',
+    appId: '1:1085541548184:web:96eded14c8303544bf10ed',
 };
 
 firebase.initializeApp(firebaseConfig);
