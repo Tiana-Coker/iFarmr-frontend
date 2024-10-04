@@ -126,7 +126,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, toggleNotifica
 
           {/* Logout */}
           <NavLink
-            to="#"
+            to="/logout"
             className="flex items-center space-x-3 text-[#333333] hover:text-[#204E51] transition-colors"
           >
             <img src={logoutIcon} alt="Logout" className="w-5 h-5" />

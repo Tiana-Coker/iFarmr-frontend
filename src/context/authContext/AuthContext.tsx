@@ -2,10 +2,13 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 
 interface AuthContextProps {
   token: string | null;
+  firebaseToken: string | null; // Add firebaseToken
   baseUrl: string;
-  setToken: (token: string | null, username?: string | null) => void;
+  setToken: (token: string | null, username?: string | null, role?: string | null) => void; 
+  setFirebaseToken: (token: string | null) => void; // Function to set firebaseToken
   isAuthenticated: boolean;
   adminName: string | null;
+  userRole: string | null; 
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -24,44 +27,64 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem('token'); // Retrieve token from localStorage
+    return localStorage.getItem('token');
   });
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token); // Initialize auth status based on token
-
+  const [firebaseToken, setFirebaseToken] = useState<string | null>(() => {
+    return localStorage.getItem('firebaseToken'); // Initialize from localStorage
+  });
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token);
   const [adminName, setAdminName] = useState<string | null>(() => {
-    return localStorage.getItem('username') || null ;  // Store adminName in context
+    return localStorage.getItem('username') || null;  
+  });
+  const [userRole, setUserRole] = useState<string | null>(() => {
+    return localStorage.getItem('userRole') || null;
   });
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-  // Save token to localStorage
-  const saveToken = (userToken: string | null, username: string | null = null) => {
+  const saveToken = (userToken: string | null, username: string | null = null, role: string | null = null) => {
     if (userToken) {
       localStorage.setItem('token', userToken);
       if (username) {
-        localStorage.setItem('username', username); // Store the username when available
-        setAdminName(username); // Update adminName
+        localStorage.setItem('username', username);
+        setAdminName(username);
       }
+      if (role) {
+        localStorage.setItem('userRole', role);
+        setUserRole(role);
+      }
+      setIsAuthenticated(true);
     } else {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      localStorage.removeItem('userRole'); 
       setAdminName(null);
+      setUserRole(null);
+      setIsAuthenticated(false);
     }
     setToken(userToken);
-    setIsAuthenticated(!!userToken); // Update auth status based on the presence of token
   };
 
-  // Check token expiration on load or token change
+  // Function to save Firebase token
+  const saveFirebaseToken = (userFirebaseToken: string | null) => {
+    if (userFirebaseToken) {
+      localStorage.setItem('firebaseToken', userFirebaseToken); // Save firebase token
+    } else {
+      localStorage.removeItem('firebaseToken'); // Clear firebase token
+    }
+    setFirebaseToken(userFirebaseToken); // Update state
+  };
+
   useEffect(() => {
     const expiration = localStorage.getItem('tokenExpiration');
     if (expiration && Date.now() > parseInt(expiration)) {
       console.log('Token has expired.');
-      saveToken(null); // Clear token if it's expired
+      saveToken(null);
     }
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, baseUrl, setToken: saveToken, isAuthenticated, adminName }}>
+    <AuthContext.Provider value={{ token, firebaseToken, baseUrl, setToken: saveToken, setFirebaseToken: saveFirebaseToken, isAuthenticated, adminName, userRole }}>
       {children}
     </AuthContext.Provider>
   );
