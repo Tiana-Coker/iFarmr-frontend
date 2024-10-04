@@ -24,7 +24,8 @@ import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 import Unauthorized from './routes/unauthorized/unauthorized'; 
 
-import { listenForMessages, requestFirebaseToken } from './utils/firebase'; // Import listenForMessages and requestFirebaseToken
+import LivestockManagement from './components/livestockPage/LivestockManagement';
+import { listenForMessages } from './utils/firebase'; // Import listenForMessages
 
 const App: React.FC = () => {
   const { showNotification } = useNotification();
@@ -68,6 +69,8 @@ const App: React.FC = () => {
         <Route path="/user/inventory" element={<Inventory />} />
         <Route path="/user/inventory/:id" element={<CurrentInventory />} />
       </Route>
+        <Route path='livestock-management' element={<LivestockManagement/>}/>
+
 
       {/* Protected Admin Routes */}
       <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
