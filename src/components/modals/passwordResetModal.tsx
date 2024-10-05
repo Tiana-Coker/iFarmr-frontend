@@ -9,7 +9,7 @@ type ModalProps = {
   email: string;
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, email }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   // Prevent the modal from rendering if it's not open

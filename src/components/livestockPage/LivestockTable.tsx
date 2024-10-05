@@ -36,7 +36,8 @@ const LivestockComponent: React.FC<LivestockComponentProps> = ({ title = 'Curren
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        setLivestockData(response.data.map((item) => item.livestockSummaryInfo));
+        // setLivestockData(response.data.map((item) => item.livestockSummaryInfo));
+        setLivestockData(response.data.livestockSummaryInfo);
       } catch (error) {
         setError('Failed to fetch data.');
       }

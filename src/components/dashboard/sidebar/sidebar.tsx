@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
             {/* Top Navigation Items */}
             {topNavItems.map(
-              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
+              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }: { src: string; alt: string; text: string; path: string; onClick?: () => void; textColor?: string }, index) => (
                 <li
                   key={index}
                   className="flex items-center mb-6" // Increased mb-6 to mb-8
