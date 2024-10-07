@@ -7,6 +7,7 @@ import { FaNewspaper, FaComment, FaHeart, FaTasks, FaSeedling, FaBoxes, FaTicket
 import { GiSheep } from 'react-icons/gi';
 import CropModal from '../../modals/CropModal';
  import LivestockModal from '../../modals/LivestockModal';
+ import FarmingTips from '../../farmingTip/FarmingTips';
 
 
 interface Notification {
@@ -84,9 +85,10 @@ const GrowYourFarmAndNotifications: React.FC = () => {
    const [showLivestockModal, setShowLivestockModal] = useState<boolean>(false);
   return (
     <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8 p-4 w-full">
+      <div className= "flex flex-col md:w-1/2">
       {/* Grow Your Farm Section */}
       <div
-        className={`w-full h-auto md:w-1/2 p-6 rounded-lg shadow-md relative ${
+        className={`w-full h-auto p-6 rounded-lg shadow-md relative ${
           'min-h-[19rem] md:min-h-0'
         }`}
         style={{ 
@@ -111,7 +113,16 @@ const GrowYourFarmAndNotifications: React.FC = () => {
             <LivestockModal isOpen={showLivestockModal} onClose={() => setShowLivestockModal(false)} />
           </div>
         </div>
+        
+         
+
       </div>
+       {/* Farming Tips Section */}
+      <div className="mt-0 z-10 p-6 pt-0"> {/* Adjusted margin */}
+      <FarmingTips />
+      </div>
+      </div>
+      
 
       {/* Notifications Section */}
       <aside className="w-full md:w-1/2">

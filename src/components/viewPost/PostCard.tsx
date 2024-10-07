@@ -32,7 +32,7 @@ const getRandomColor = (name: string) => {
 
 
  return (
-  <div className="bg-white border mb-4 rounded-lg cursor-pointer" onClick={handlePostClick}>
+  <div className="bg-white border mb-4 rounded-lg cursor-pointer font-raleway" onClick={handlePostClick}>
     <div className="flex flex-col md:flex-row">
       <div className="flex-1 p-4">
         {/* Image placeholder and Username side by side */}
