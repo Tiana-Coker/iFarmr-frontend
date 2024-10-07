@@ -45,7 +45,7 @@ export const requestFirebaseToken = async () => {
 
 // Listen for messages while the app is in the foreground
 export const listenForMessages = (showNotification: (message: string) => void) => {
-  onMessage(messaging, (payload) => {
+  onMessage(messaging, (payload) => { 
     console.log('Message received. ', payload);
 
     // Show notification using the NotificationContext

@@ -38,7 +38,8 @@ export default {
         'custom-bg': '#2F580F',       // Custom background color
         'custom-writing': '#4F4F4F',  // Custom color for writing
         'custom-grow': ' #C0F196',
-        'side-bar' : ' #204E51 '
+        'side-bar' : ' #204E51 ',
+        'modal-green': '#204E51'
         
       },
     },
