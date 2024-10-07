@@ -13,7 +13,7 @@ type Task = {
 };
 
 
-export default function UpcomingTask(){
+export default function UpcomingTask({taskType}: {taskType: string}){
 
   const [upcomingTask, setUpcomingTask] = useState<Task[]>([]);
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -55,7 +55,12 @@ export default function UpcomingTask(){
               <span className="text-[20px]"><img src={ADD_ICON} alt="" /></span>
               <span>New Task</span>
             </button>
-            {isModalOpen && <TaskModal onClose={closeModal} />}
+            {isModalOpen && <TaskModal 
+           onClose={closeModal} 
+           setUpcomingTask={setUpcomingTask}
+           taskType={taskType}
+            
+            />}
         </div>
 
         <div className="flex flex-col gap-6">

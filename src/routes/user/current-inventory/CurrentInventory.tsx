@@ -11,14 +11,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
   
 
-type Task = {
-  category: string;
-  description: string;
-  dueDate: string;
-  location: string;
-  title: string;
-};
-
 type InventoryData = {
   itemType: string;
   name: string;
@@ -192,7 +184,10 @@ export default function CurrentInventory() {
         </div>
 
         <div className="hidden md:block w-[30%] lg:w-[23.7%] pr-4 lg:pr-12 pt-10">
-          <UpcomingTask />
+          <UpcomingTask taskType='INVENTORY'
+          
+          
+          />
         </div>
       </div>
       <ToastContainer />

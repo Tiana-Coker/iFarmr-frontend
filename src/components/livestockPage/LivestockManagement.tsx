@@ -3,6 +3,7 @@ import Sidebar from "../dashboard/sidebar/sidebar";
 import LivestockTable from "./LivestockTable";
 import LivestockDashboard from "./LivestockDashboard";
 import UpcomingTask from './LivestockAside'; // Import the component
+// import UpcomingTask from "../upcoming_task/UpcomingTask";
 
 const LivestockManagement: React.FC = () => {
   // Retrieve the token from localStorage
@@ -44,7 +45,7 @@ const LivestockManagement: React.FC = () => {
 
       {/* Right-hand side <aside> */}
       <aside className="w-full custom-md:w-[calc(29.7%+10px)] bg-white p-0 custom-md:p-6">    
-        <UpcomingTask />
+        <UpcomingTask taskType="LIVESTOCK"/>
       </aside>
     </div>
   );

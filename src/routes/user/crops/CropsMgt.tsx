@@ -5,9 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 // import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 import Sidebar from "../../../components/dashboard/new-sidebar/Sidebar"
 import MobileSidebar from "../../../components/dashboard/new-sidebar/MobileSidebar";
-import InventoryCard from "../../../components/dashboard/inventory-mgt/inventory-card/InventoryCard";
 import CropCard from "../../../components/dashboard/crop-mgt/crop-card/CropCard";
-import InventoryTable from "../../../components/dashboard/inventory-mgt/inventory-table/InventoryTable";
+import CropTable from "../../../components/dashboard/crop-mgt/crop-table/CropTable";
 import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 
 
@@ -26,9 +25,6 @@ type Task = {
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');
-  const [totalInventory, setTotalInventory] = useState(0);
-  const [totalInventoryValue, setTotalInventoryValue] = useState(0);
-  const [inventories, setInventories] = useState([]);
   const[crops, setCrops] = useState([]);
   const [totalCrops, setTotalCrops] = useState(0);
   const [totalMatureCrops, setTotalMatureCrops] = useState(0);
@@ -102,11 +98,11 @@ export default function Inventory() {
                 
           </div>
 
-            <InventoryTable inventories={inventories} />
+            <CropTable crops={crops} />
       </div>
 
       <div className=" hidden md:block w-[30%] lg:w-[23.7%] pr-4 lg:pr-12 pt-10">
-        <UpcomingTask />
+        <UpcomingTask taskType = "CROP"/>
       </div>
 
     <div>

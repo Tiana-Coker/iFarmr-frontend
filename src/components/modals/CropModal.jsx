@@ -4,7 +4,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 // import "./Livestock.css";
 import CustomDate from './CustomDate/CustomDate'
 
-const CropModal = ({ isOpen, onClose }) => {
+const CropModal = ({ isOpen, onClose,
+  setTotalCrops, setTotalMatureCrops, setTotalFloweringCrops, setCrops
+}) => {
   const [formData, setFormData] = useState({
     cropName: '',
     cropType: '',
@@ -284,8 +286,33 @@ const [errors, setErrors] = useState({});
     setLoading(false);
   } finally {
     setLoading(false);
+    reloadCrop();
   }
   };
+
+  const reloadCrop = ()=>{ // Upgrade and redo with Redux later
+    console.log("called")
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const token = localStorage.getItem("token");
+    fetch(baseUrl  + '/api/v1/crops',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      }
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      console.log(data);
+      setCrops(data.crops);
+      setTotalCrops(data.totalCrops);
+      setTotalMatureCrops(data.totalMatureCrops);
+      setTotalFloweringCrops(data.totalFloweringCrops);
+    })
+  }
+
 
   
 

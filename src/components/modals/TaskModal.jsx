@@ -6,7 +6,7 @@ import CustomDate from "./CustomDate/CustomDate";
 
 
 
-const TaskModal = ({ onClose }) => {
+const TaskModal = ({ onClose, setUpcomingTask, taskType }) => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState("Select Category");
@@ -147,8 +147,27 @@ const TaskModal = ({ onClose }) => {
       setLoading(false);
     } finally {
       setLoading(false);
+      reloadTask();
     }
   };
+
+  const reloadTask = ()=>{ // Upgrade and redo with Redux later
+    console.log("called")
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const token = localStorage.getItem("token");
+    fetch(baseUrl  + '/api/v1/tasks/upcoming',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      const tasks = data.filter((task) => task.category === taskType);
+      setUpcomingTask(tasks);
+    });
+  }
 
   const modalRef = useRef();
   const closeModal = (e) => {

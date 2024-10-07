@@ -96,7 +96,7 @@ export default function Inventory() {
       </div>
 
       <div className=" hidden md:block w-[30%] lg:w-[23.7%] pr-4 lg:pr-12 pt-10">
-        <UpcomingTask />
+        <UpcomingTask taskType="INVENTORY"/>
       </div>
 
     <div>

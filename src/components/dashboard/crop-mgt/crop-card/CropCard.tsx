@@ -1,8 +1,8 @@
 import {useState} from 'react'
 
-import IMAGES from "../../../../assets/dashboard/inventory_mgt/index";
+import IMAGES from "../../../../assets/dashboard/crop_mgt/index";
 
-import InventoryModal from "../../../modals/InventoryModal";
+import CropModal from '../../../modals/CropModal';
 
 
 type CropProps = {
@@ -22,7 +22,7 @@ export default function CropCard({
 
   console.log("totalcrops", totalCrops)
 
-   // State to control Inventory modal visibility
+   // State to control Crop modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -42,30 +42,30 @@ export default function CropCard({
                     {/* Total Crops */}
                     <div className=''>
                         <div>Total Crops</div>
-                        <div>{totalCrops} Crops</div>
+                        <div>{totalCrops} {totalCrops > 1 ? "Crops" : "Crop" }</div>
 
                     </div>
 
                    {/* Mature Crops */}
                    <div className=''>
                         <div>Mature Crops</div>
-                        <div>{totalMatureCrops} Crops</div>
+                        <div>{totalMatureCrops} {totalMatureCrops > 1 ? "Crops" : "Crop" } </div>
 
                     </div>
 
                     {/* Flowering Crops */}
                     <div className='mb-4 md:mb-0'>
                         <div>Flowering Crops</div>
-                        <div>{totalFloweringCrops} Crops</div>
+                        <div>{totalFloweringCrops} {totalFloweringCrops > 1 ? "Crops" : "Crop" }</div>
                     </div>
                 </div>
             </div>
 
             <button onClick={openModal}  className="flex items-center gap-6 text-[#00563E] font-[Raleway] font-[500] text-[14px] leading-[16.44px]">
-                <div >Add New Inventory</div>
+                <div >Add New Crop</div>
                 <div><img src={IMAGES.ARROW_RIGHT} alt="" /></div>
             </button >
-            {isModalOpen && <InventoryModal onClose={closeModal} 
+            {isModalOpen && <CropModal isOpen={isModalOpen} onClose={closeModal} 
               setTotalCrops={setTotalCrops}  
               setTotalMatureCrops={setTotalMatureCrops}
               setTotalFloweringCrops={setTotalFloweringCrops}
@@ -75,7 +75,7 @@ export default function CropCard({
         </div>
 
         <div className="sm:w-6/12">
-            <img className="w-full h-full" src={IMAGES.INVENTORY_TRUCK} alt="" />
+            <img className="w-full h-full" src={IMAGES.CROPS} alt="" />
         </div>
     </div>
   )
