@@ -46,7 +46,7 @@ const FarmingTips: React.FC = () => {
   };
 
   return (
-    <div className="bg-[rgba(192,241,150,1)] p-6 rounded-xl shadow-lg mt-12 relative w-full -ml-7 font-raleway">
+    <div className="bg-[rgba(192,241,150,1)] p-6 rounded-xl shadow-sm mt-10 relative w-full  font-raleway">
       <div className="absolute top-[-15px] right-[-15px] bg-[rgba(192,241,150,1)] rounded-full p-3 z-30">
         <FaLightbulb className="text-[#01815d] h-8 w-8" />
       </div>

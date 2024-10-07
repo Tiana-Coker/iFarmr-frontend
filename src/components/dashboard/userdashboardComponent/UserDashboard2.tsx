@@ -8,6 +8,7 @@ import { GiSheep } from 'react-icons/gi';
 import CropModal from '../../modals/CropModal';
  import LivestockModal from '../../modals/LivestockModal';
  import FarmingTips from '../../farmingTip/FarmingTips';
+ import WeatherUpdates from '../../weatherUpdates/WeatherUpdates';
 
 
 interface Notification {
@@ -117,8 +118,15 @@ const GrowYourFarmAndNotifications: React.FC = () => {
          
 
       </div>
-       {/* Farming Tips Section */}
-      <div className="mt-0 z-10 p-6 pt-0"> {/* Adjusted margin */}
+      
+
+       {/* Weather Updates Section */}
+       <div> {/* Adjusted margin */}
+      <WeatherUpdates />
+      </div>
+
+ {/* Farming Tips Section */}
+     <div > {/* Adjusted margin */}
       <FarmingTips />
       </div>
       </div>
