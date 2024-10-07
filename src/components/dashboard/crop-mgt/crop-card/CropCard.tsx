@@ -46,18 +46,16 @@ export default function CropCard({
 
                     </div>
 
-                   {/* Mature Crops */}
-                   <div className=''>
+                   {/* <div className=''> // Commented because it may be reused next wee
                         <div>Mature Crops</div>
                         <div>{totalMatureCrops} {totalMatureCrops > 1 ? "Crops" : "Crop" } </div>
 
                     </div>
 
-                    {/* Flowering Crops */}
                     <div className='mb-4 md:mb-0'>
                         <div>Flowering Crops</div>
                         <div>{totalFloweringCrops} {totalFloweringCrops > 1 ? "Crops" : "Crop" }</div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
