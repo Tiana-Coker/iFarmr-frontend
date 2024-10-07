@@ -104,7 +104,12 @@ const GrowYourFarmAndNotifications: React.FC = () => {
             <button onClick={() => setShowCropModal(true)} className="bg-transparent text-white py-0 px-1 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
               Add New Crop
             </button>
-            <CropModal isOpen={showCropModal} onClose={() => setShowCropModal(false)}/>
+            <CropModal isOpen={showCropModal} onClose={() => setShowCropModal(false)}
+            setTotalCrops={undefined}
+            setTotalMatureCrops={undefined}
+            setTotalFloweringCrops={undefined}
+            setCrops={undefined}
+            />
             <button onClick={() => setShowLivestockModal(true)} className="bg-transparent text-white py-2 px-4 rounded-lg font-thin border border-gray-300 hover:bg-white hover:text-custom-bg hover:shadow-md transition">
               Add New Livestock
             </button>

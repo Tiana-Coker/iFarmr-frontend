@@ -13,15 +13,6 @@ import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 // loading effect
 import { useLoading } from "../../../context/globalSpinner/LoadingContext";
 
-
-type Task = {
-  category: string;
-  description: string;
-  dueDate: string;
-  location: string;
-  title: string;
-};
-
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');

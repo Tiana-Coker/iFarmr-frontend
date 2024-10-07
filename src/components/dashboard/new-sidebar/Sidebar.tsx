@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { sidebarItems, sidebarItems_settings } from "../../../utils/sidebar/sidebarItems.utils";
 import IMAGES from "../../../assets/dashboard/sidebar";

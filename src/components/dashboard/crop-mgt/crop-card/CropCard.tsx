@@ -16,7 +16,8 @@ type CropProps = {
 };
 
 export default function CropCard({
-  totalCrops, totalMatureCrops, totalFloweringCrops,
+  totalCrops,
+  // totalMatureCrops, totalFloweringCrops,
   setCrops, setTotalCrops, setTotalMatureCrops, setTotalFloweringCrops
 }: CropProps) {
 

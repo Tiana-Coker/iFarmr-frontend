@@ -286,7 +286,7 @@ const [errors, setErrors] = useState({});
     setLoading(false);
   } finally {
     setLoading(false);
-    reloadCrop();
+    setCrops && reloadCrop();
   }
   };
 
