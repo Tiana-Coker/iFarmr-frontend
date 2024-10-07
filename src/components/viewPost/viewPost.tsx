@@ -7,6 +7,7 @@ import PopularPosts from '../dashboard/popularPost/PopularPost';
 import IMAGES from "../../assets/dashboard/sidebar";
 import PostCard from './PostCard';
 import { GiHamburgerMenu } from 'react-icons/gi'; 
+import { getGreeting } from '../../utils/greetings';
 
 const decodeToken = (token: string) => {
   const base64Url = token.split('.')[1];
@@ -27,6 +28,7 @@ const ViewPost: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false); // Toggle between user and all posts
   const [isMobileSidebarOpen, setMobileSidebar] = useState(false); // For mobile sidebar
+  const [greeting, setGreeting] = useState<string>('');
   const { setLoading } = useLoading();
   const { showNotification } = useNotification();
   
@@ -39,9 +41,20 @@ const ViewPost: React.FC = () => {
     userName = decodedToken.sub;
   }
 
+  
+
   // Mobile Sidebar Toggle
   const openMobileSidebar = () => setMobileSidebar(true);
   const closeMobileSidebar = () => setMobileSidebar(false);
+
+  
+  // Set greeting on page load
+  useEffect(() => {
+    if (userName) {
+      const greetingText = `${getGreeting()}, ${userName}`;
+      setGreeting(greetingText); // Set the greeting along with the user's name
+    }
+  }, [userName]);
 
   // Fetch All Posts (Paginated)
   useEffect(() => {
@@ -145,6 +158,8 @@ const ViewPost: React.FC = () => {
         <div className="flex-grow flex flex-col md:flex-row">
           <div className="flex-grow relative mt-11 mx-4 my-4 rounded-lg" onScroll={handleScroll}>
             <main className="p-6 max-w-3xl mx-auto">
+               {/* Display greeting at the top */}
+               <h2 className="text-2xl font-semibold mb-4">{greeting}</h2>
               <div className="flex justify-between mb-4">
                 <h2 className="text-2xl font-semibold">Posts</h2>
                 {/* Toggle Buttons */}
