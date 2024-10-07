@@ -1,4 +1,3 @@
-import React from 'react';
 
 // import Hero from '../../components/landingPage/hero/Hero';
 import Hero from '../../components/landingPage/hero/Hero';

@@ -5,12 +5,12 @@ import LivestockModal from '../modals/LivestockModal';
 import { getGreeting } from '../../utils/greetings';
 
 // Define the shape of the Livestock data
-interface LivestockData {
-  name: string;
-  age: number;
-  breed: string;
-  // Add other fields as needed
-}
+// interface LivestockData {
+//   name: string;
+//   age: number;
+//   breed: string;
+//   // Add other fields as needed
+// }
 
 // Define the props interface
 interface LivestockDashboardProps {
@@ -24,7 +24,7 @@ const LivestockDashboard: React.FC<LivestockDashboardProps> = ({ username }) => 
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
  // Use the utility function to get the greeting
- const [greeting, setGreeting] = useState<string>(getGreeting());
+ const [greeting] = useState<string>(getGreeting());
   
 
   useEffect(() => {
@@ -53,10 +53,10 @@ const LivestockDashboard: React.FC<LivestockDashboardProps> = ({ username }) => 
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleNewLivestock = (newData: LivestockData) => {
-    console.log(newData);
-    toggleModal(); // Close modal after submission
-  };
+  // const handleNewLivestock = (newData: LivestockData) => {
+  //   console.log(newData);
+  //   toggleModal(); // Close modal after submission
+  // };
 
   if (error) return <div className="text-red-600">{error}</div>;
 
@@ -100,11 +100,6 @@ const LivestockDashboard: React.FC<LivestockDashboardProps> = ({ username }) => 
         <LivestockModal
           isOpen={isModalOpen}
           onClose={toggleModal}
-          onSubmit={(newData: LivestockData) => {
-            // Handle new livestock data submission here
-            console.log(newData);
-            toggleModal(); // Close modal after submission
-          }}
         />
       )}
     </div>

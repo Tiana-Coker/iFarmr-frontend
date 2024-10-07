@@ -1,7 +1,7 @@
 // Unauthorized.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Unauthorized.css'; // Custom styles
+import './unauthorized.css'; // Custom styles
 
 const Unauthorized: React.FC = () => {
   const navigate = useNavigate();

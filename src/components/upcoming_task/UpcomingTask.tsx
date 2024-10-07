@@ -1,6 +1,6 @@
 import IMAGES from "../../assets/dashboard/upcoming_task/";
 import TaskModal from '../modals/TaskModal';
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { formatDueDate } from "../../utils/tasks/tasks.util";
 

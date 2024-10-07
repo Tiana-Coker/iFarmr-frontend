@@ -2,7 +2,7 @@ import UPCOMING_TASK from '../../assets/dashboard/upcoming_task1.svg';
 import TaskModal from '../modals/TaskModal';
 import ADD_ICON from '../../assets/dashboard/add_icon1.svg';
 
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 
 type Task = {
   category: string;

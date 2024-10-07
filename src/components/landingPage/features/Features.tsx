@@ -1,6 +1,5 @@
-import React from 'react';
 
-import styles from "./features.module.css";
+import styles from "./Features.module.css";
 import IMAGES from '../../../assets/landingPage/features'
 
 export default function Features() {

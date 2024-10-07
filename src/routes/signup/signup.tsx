@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import signupImage from '../../assets/signupImages/image 5.png';
 import farmerIcon from '../../assets/signupImages/f-logo.svg';
 import Modal from '../../components/signUp/modal';
-import { baseUrl } from '../../utils/apiConfig';
+// import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
 
@@ -92,6 +92,8 @@ const Signup: React.FC = () => {
       } else {
         setErrorMessage('Failed to connect to the server.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 

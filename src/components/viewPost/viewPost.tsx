@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLoading } from '../../context/globalSpinner/LoadingContext';
 import { useNotification } from '../../context/notificationContext/Notification';
 import Sidebar from '../dashboard/sidebar/sidebar';
@@ -25,7 +24,7 @@ const ViewPost: React.FC = () => {
   const [greeting, setGreeting] = useState<string>('');
   const { setLoading } = useLoading();
   const { showNotification } = useNotification();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token'); // Get token directly from localStorage
@@ -61,7 +60,7 @@ const ViewPost: React.FC = () => {
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
-          const errorText = await response.text();
+          // const errorText = await response.text();
           throw new Error('Failed to fetch posts');
         }
 

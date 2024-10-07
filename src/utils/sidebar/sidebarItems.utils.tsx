@@ -49,7 +49,7 @@ export const sidebarItems_settings = [
 
     {
         id: 2,
-        route:"/user/dashboard",
+        route:"/view-post",
         title: "Community",
         icon: IMAGES.COMMUNITY,
         active: false
@@ -65,7 +65,7 @@ export const sidebarItems_settings = [
 
     {
         id: 4,
-        route:"/user/dashboard",
+        route:"/user/profile",
         title: "My Profile",
         icon: IMAGES.PROFILE,
         active: false
@@ -73,7 +73,7 @@ export const sidebarItems_settings = [
 
     {
         id: 5,
-        route:"/user/dashboard",
+        route:"/logout",
         title: "Logout",
         icon: IMAGES.LOGOUT,
         active: false

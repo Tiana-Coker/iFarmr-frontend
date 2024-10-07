@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../context/authContext/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom'; // For navigation and token retrieval
+import {useParams } from 'react-router-dom'; // For navigation and token retrieval
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; // Icons
 import signupImage from "../../assets/signupImages/image 5.png";
 import farmerIcon from "../../assets/signupImages/f-logo.svg";

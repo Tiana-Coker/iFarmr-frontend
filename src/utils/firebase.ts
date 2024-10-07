@@ -8,7 +8,7 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  // measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase app
@@ -45,7 +45,7 @@ export const requestFirebaseToken = async () => {
 
 // Listen for messages while the app is in the foreground
 export const listenForMessages = (showNotification: (message: string) => void) => {
-  onMessage(messaging, (payload) => {
+  onMessage(messaging, (payload) => { 
     console.log('Message received. ', payload);
 
     // Show notification using the NotificationContext
