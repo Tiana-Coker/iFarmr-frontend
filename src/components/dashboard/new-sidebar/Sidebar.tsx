@@ -17,10 +17,10 @@ export default function Sidebar() {
         {
           sidebarItems.map((item) => {
             return (
-              <div key={item.id} className="flex items-center gap-4">
+              <Link to={`${item.route}`} key={item.id} className="flex items-center gap-4">
                   <div className="w-[22px]"><img  className="w-full h-full" src={item.icon} alt={item.title} /></div>
                   <div className="font-[Raleway] text-[13px] leading-[15.26px] text-[#333333]">{item.title}</div>
-              </div>
+              </Link>
             )
           })
         }
@@ -32,10 +32,10 @@ export default function Sidebar() {
         {
           sidebarItems_settings.map((item) => {
             return (
-              <div key={item.id} className="flex items-center gap-4">
+              <Link to={`${item.route}`} key={item.id} className="flex items-center gap-4">
                   <div className="w-[22px]"><img  className="w-full h-full" src={item.icon} alt={item.title} /></div>
                   <div className="font-[Raleway] text-[13px] leading-[15.26px] text-[#333333]">{item.title}</div>
-              </div>
+              </Link>
             )
           })
         }

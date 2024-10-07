@@ -112,8 +112,12 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
             {/* Top Navigation Items */}
             {topNavItems.map(
-              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
-                <li key={index} className="flex items-center mb-6">
+              ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }: { src: string; alt: string; text: string; path: string; onClick?: () => void; textColor?: string }, index) => (
+                <li
+                  key={index}
+                  className="flex items-center mb-6" // Increased mb-6 to mb-8
+                  onClick={onClick}
+                >
                   <img src={src} alt={alt} className="h-6 w-6 mr-2" />
                   <Link to={path} className={`block hover:text-side-bar ${textColor} text-sm`}>
                     {text}
