@@ -13,6 +13,7 @@ import logout from '../../../assets/dashboard/logout.svg';
 import plusIcon from '../../../assets/dashboard/+.svg';
 import menuIcon from '../../../assets/dashboard/menu.jpg';
 import NotificationModal from '../../modals/NotificationModal';
+import ProfileModal from '../../modals/UserProfile';
 
 interface SidebarProps {
   className?: string;
@@ -22,6 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isNotificationModalOpen, setNotificationModalOpen] = useState(false); // State for notification modal
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false); // State for profile modal
 
   const handleDashboardClick = () => {
     location.pathname === '/user/dashboard'
@@ -35,6 +37,10 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
   const toggleNotificationModal = () => {
     setNotificationModalOpen(!isNotificationModalOpen);
+  };
+
+  const toggleProfileModal = () => {
+    setProfileModalOpen(!isProfileModalOpen);
   };
 
   // Top navigation items
@@ -60,7 +66,13 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       path: '#',
       onClick: toggleNotificationModal,
     },
-    { src: profile, alt: 'Profile Icon', text: 'My Profile', path: '/profile' },
+    {
+      src: profile,
+      alt: 'Profile Icon',
+      text: 'My Profile',
+      path: '#',
+      onClick: toggleProfileModal, // Opens Profile Modal
+    },
     { src: logout, alt: 'Logout Icon', text: 'Logout', path: '/logout', textColor: 'text-red-500' },
   ];
 
@@ -101,16 +113,9 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
             {/* Top Navigation Items */}
             {topNavItems.map(
               ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
-                <li
-                  key={index}
-                  className="flex items-center mb-6" // Increased mb-6 to mb-8
-                  onClick={onClick}
-                >
+                <li key={index} className="flex items-center mb-6">
                   <img src={src} alt={alt} className="h-6 w-6 mr-2" />
-                  <Link
-                    to={path}
-                    className={`block hover:text-side-bar ${textColor} text-sm`}
-                  >
+                  <Link to={path} className={`block hover:text-side-bar ${textColor} text-sm`}>
                     {text}
                   </Link>
                 </li>
@@ -118,23 +123,17 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
             )}
 
             {/* Settings Section Header */}
-            <h1 className="text-gray-700 font-bold text-lg mt-6 mb-6">
-              {/* Increased mt-6 to mt-8 and mb-6 to mb-8 */}
-              Settings
-            </h1>
+            <h1 className="text-gray-700 font-bold text-lg mt-6 mb-6">Settings</h1>
 
             {/* Settings Navigation Items */}
             {settingsNavItems.map(
               ({ src, alt, text, path, onClick = undefined, textColor = 'text-black' }, index) => (
-                <li
-                  key={index}
-                  className="flex items-center mb-8" // Increased mb-6 to mb-8
-                  onClick={onClick}
-                >
+                <li key={index} className="flex items-center mb-8">
                   <img src={src} alt={alt} className="h-6 w-6 mr-2" />
                   <Link
                     to={path}
                     className={`block hover:text-side-bar ${textColor} text-sm`}
+                    onClick={onClick} // Moved onClick handler here
                   >
                     {text}
                   </Link>
@@ -178,13 +177,16 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       {/* Sidebar Overlay for Mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0  bg-gray-50 z-30 md:hidden"
+          className="fixed inset-0 bg-gray-50 z-30 md:hidden"
           onClick={toggleSidebar}
         ></div>
       )}
 
       {/* Notification Modal */}
       {isNotificationModalOpen && <NotificationModal onClose={toggleNotificationModal} />}
+
+      {/* Profile Modal */}
+      <ProfileModal isOpen={isProfileModalOpen} onClose={toggleProfileModal} />
     </>
   );
 };
