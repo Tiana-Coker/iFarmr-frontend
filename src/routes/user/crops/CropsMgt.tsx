@@ -6,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Sidebar from "../../../components/dashboard/new-sidebar/Sidebar"
 import MobileSidebar from "../../../components/dashboard/new-sidebar/MobileSidebar";
 import InventoryCard from "../../../components/dashboard/inventory-mgt/inventory-card/InventoryCard";
+import CropCard from "../../../components/dashboard/crop-mgt/crop-card/CropCard";
 import InventoryTable from "../../../components/dashboard/inventory-mgt/inventory-table/InventoryTable";
 import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 
@@ -28,6 +29,10 @@ export default function Inventory() {
   const [totalInventory, setTotalInventory] = useState(0);
   const [totalInventoryValue, setTotalInventoryValue] = useState(0);
   const [inventories, setInventories] = useState([]);
+  const[crops, setCrops] = useState([]);
+  const [totalCrops, setTotalCrops] = useState(0);
+  const [totalMatureCrops, setTotalMatureCrops] = useState(0);
+  const [totalFloweringCrops, setTotalFloweringCrops] = useState(0);
 
   // Access loading state 
   const { setLoading } = useLoading();
@@ -36,11 +41,11 @@ export default function Inventory() {
   const openMobileSidebar = () => setMobileSidebar(true);
   const closeMobileSidebar = () => setMobileSidebar(false);
 
-    // Inventories Useeffect
+    // crops Useeffect
     useEffect(()=> {
-      console.log('fetching inventories')
+      console.log('fetching crops')
       setLoading(true);
-      fetch(baseApiUrl + '/api/v1/inventory',{
+      fetch(baseApiUrl + '/api/v1/crops',{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -52,9 +57,10 @@ export default function Inventory() {
       })
       .then(data => {
         console.log(data);
-        setInventories(data.inventories);
-        setTotalInventory(data.totalInventory);
-        setTotalInventoryValue(data.totalInventoryValue);
+        setCrops(data.crops);
+        setTotalCrops(data.totalCrops);
+        setTotalMatureCrops(data.totalMatureCrops);
+        setTotalFloweringCrops(data.totalFloweringCrops);
       })
       .finally(()=>{
           setLoading(false);
@@ -83,14 +89,18 @@ export default function Inventory() {
 
       <div className="pt-10 px-8 md:w-[70%] lg:w-[60.3%] overflow-x-auto">
           <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4">Good Morning, Ayomide</div>
-          <div className="mb-8"><InventoryCard 
-          
-          setTotalInventory={setTotalInventory}  
-          setTotalInventoryValue={setTotalInventoryValue}
-          setInventories={setInventories}
-          
-          
-          totalInventory = {totalInventory} totalInventoryValue = {totalInventoryValue}/></div>
+          <div className="mb-8">
+            <CropCard 
+                totalCrops={totalCrops}
+                totalMatureCrops={totalMatureCrops}
+                totalFloweringCrops={totalFloweringCrops}
+                setTotalCrops={setTotalCrops}  
+                setTotalMatureCrops={setTotalMatureCrops}
+                setTotalFloweringCrops={setTotalFloweringCrops}
+                setCrops={setCrops}
+                />
+                
+          </div>
 
             <InventoryTable inventories={inventories} />
       </div>

@@ -23,6 +23,7 @@ import PostPage from './components/postPage/PostPage';
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 import Unauthorized from './routes/unauthorized/unauthorized'; 
+import CropsMgt from "./routes/user/crops/CropsMgt"
 
 import { listenForMessages, requestFirebaseToken } from './utils/firebase'; // Import listenForMessages and requestFirebaseToken
 
@@ -67,6 +68,7 @@ const App: React.FC = () => {
         <Route path="/user/dashboard" element={<MainUserDashboard />} />
         <Route path="/user/inventory" element={<Inventory />} />
         <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+        <Route path="/user/crops" element={<CropsMgt />} />
       </Route>
 
       {/* Protected Admin Routes */}

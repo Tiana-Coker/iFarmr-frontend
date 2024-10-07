@@ -7,7 +7,7 @@ import CustomDate from "./CustomDate/CustomDate";
 
 
 
-const InventoryModal = ({ onClose }) => {
+const InventoryModal = ({ onClose, setInventories, setTotalInventoryValue, setTotalInventory }) => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState("Select Item");
@@ -164,8 +164,31 @@ const InventoryModal = ({ onClose }) => {
       setLoading(false);
     } finally {
       setLoading(false);
+      reloadInventory();
     }
   };
+
+  const reloadInventory = ()=>{ // Upgrade and redo with Redux later
+    console.log("called")
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const token = localStorage.getItem("token");
+    fetch(baseUrl  + '/api/v1/inventory',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      }
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      console.log(data);
+      setInventories(data.inventories);
+      setTotalInventory(data.totalInventory);
+      setTotalInventoryValue(data.totalInventoryValue);
+    })
+  }
 
   const modalRef = useRef();
   const closeModal = (e) => {

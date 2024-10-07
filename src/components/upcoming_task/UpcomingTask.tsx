@@ -30,6 +30,7 @@ export default function UpcomingTask(){
       .then((data) => {
         const inventoryTasks = data.filter((task: Task) => task.category === 'INVENTORY');
         setUpcomingTask(inventoryTasks);
+        console.log(upcomingTask);
       });
   }, [baseApiUrl, token]);
 
