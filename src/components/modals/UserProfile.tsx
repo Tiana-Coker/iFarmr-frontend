@@ -114,7 +114,7 @@ const ProfileModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((response) => {
+      .then(() => {
         // Handle success
         setShowSuccessModal(true);
       })

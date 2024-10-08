@@ -139,6 +139,7 @@ const Login: React.FC = () => {
               placeholder="Username"
               required 
             />
+            
           </div>
 
           <div className="mb-2 flex flex-col md:flex-row items-center">
@@ -178,7 +179,9 @@ const Login: React.FC = () => {
                 "Log In"
               )}
             </button>
+           
           </div>
+          
 
           {showResetPassword && (
             <div className="flex justify-center mt-4">
@@ -191,7 +194,9 @@ const Login: React.FC = () => {
               </button>
             </div>
           )}
+          
         </form>
+        
       </div>
 
       {/* For smaller screens: Form floats on background */}
