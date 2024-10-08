@@ -13,6 +13,8 @@ const Signup: React.FC = () => {
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+  const [showTooltip, setShowTooltip] = useState(false);
+
   // State to track form data (name, username, email, password, confirmPassword)
 
   const [formData, setFormData] = useState({
@@ -144,8 +146,21 @@ const Signup: React.FC = () => {
           <div className="mb-2 flex items-center">
             <label className="block text-gray-700 text-sm font-light mr-4 w-1/3" htmlFor="password">Password</label>
             <div className="w-3/4 relative">
-              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} placeholder="********" required />
+              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} onFocus={() => setShowTooltip(true)} onBlur={() => setShowTooltip(false)}  placeholder="********" required />
               <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2" onClick={handleTogglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
+
+              {/* Tooltip */}
+            {showTooltip && (
+              <div className=" hidden custom-bp:block absolute left-0 mt-2 w-full bg-gray-100 border border-gray-300 p-2 rounded-md shadow-md text-sm text-gray-600 z-10">
+                Password must include:
+                <ul className="list-disc ml-4">
+                  <li>At least 1 uppercase letter</li>
+                  <li>At least 1 number</li>
+                  <li>Minimum 8 characters</li>
+                </ul>
+              </div>
+            )}
+
             </div>
           </div>
 
@@ -217,8 +232,21 @@ const Signup: React.FC = () => {
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">Password</label>
             <div className="relative">
-              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} placeholder="********" required />
+              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} onFocus={() => setShowTooltip(true)} onBlur={() => setShowTooltip(false)}  placeholder="********" required />
               <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2" onClick={handleTogglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
+
+               {/* Tooltip */}
+            {showTooltip && (
+              <div className=" block custom-bp:hidden absolute left-0 mt-2 w-full bg-gray-100 border border-gray-300 p-2 rounded-md shadow-md text-sm text-gray-600 z-10">
+                Password must include:
+                <ul className="list-disc ml-4">
+                  <li>At least 1 uppercase letter</li>
+                  <li>At least 1 number</li>
+                  <li>Minimum 8 characters</li>
+                </ul>
+              </div>
+            )}
+
             </div>
           </div>
 
