@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import { FaSpinner } from 'react-icons/fa';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
@@ -8,7 +9,7 @@ import Modal from '../../components/signUp/modal';
 // import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
-
+  const navigate = useNavigate(); 
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -158,6 +159,20 @@ const Signup: React.FC = () => {
 
           {passwordMatchError && <p className="text-red-500 text-xs italic">{passwordMatchError}</p>}
 
+           {/* "Already have an account? Login" */}
+           <div className="flex justify-center mt-4 ml-16">
+            <p className="text-gray-500 text-sm">
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </button>
+            </p>
+          </div>
+
           <div className="flex justify-end">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap" type="submit" disabled={isLoading}>
               {isLoading ? <FaSpinner className="animate-spin" /> : 'Sign Up'}
@@ -216,6 +231,20 @@ const Signup: React.FC = () => {
           </div>
 
           {passwordMatchError && <p className="text-red-500 text-xs italic">{passwordMatchError}</p>}
+
+           {/* "Already have an account? Login" */}
+           <div className="flex justify-center mt-4 mb-4">
+            <p className="text-gray-500 text-sm">
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </button>
+            </p>
+          </div>
 
           <div className="flex justify-center w-full">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center justify-center w-full" type="submit" disabled={isLoading}>
