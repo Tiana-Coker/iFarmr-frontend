@@ -27,6 +27,7 @@ import CropsMgt from "./routes/user/crops/CropsMgt"
 import { requestFirebaseToken } from './utils/firebase'; // Import requestFirebaseToken
 import LivestockManagement from './components/livestockPage/LivestockManagement';
 import { listenForMessages } from './utils/firebase'; // Import listenForMessages
+import { requestFirebaseToken } from './utils/firebase';
 
 const App: React.FC = () => {
   const { showNotification } = useNotification();

@@ -139,6 +139,7 @@ const Login: React.FC = () => {
               placeholder="Username"
               required 
             />
+            
           </div>
 
           <div className="mb-2 flex flex-col md:flex-row items-center">
@@ -167,6 +168,20 @@ const Login: React.FC = () => {
             </div>
           )}
 
+             {/* Add "Don't have an account?" link */}
+             <div className="flex justify-center mt-4 ml-8">
+            <p className="text-gray-500 text-sm">
+              Don't have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/signup')}
+              >
+                Register
+              </button>
+            </p>
+          </div>
+
           <div className="flex justify-end">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap" type="submit" disabled={isLoading}>
               {isLoading ? (
@@ -178,20 +193,25 @@ const Login: React.FC = () => {
                 "Log In"
               )}
             </button>
+           
           </div>
+          
 
           {showResetPassword && (
             <div className="flex justify-center mt-4">
               <button
                 type="button"
-                className="text-blue-600 hover:underline"
+                className="text-[#204E51] hover:underline"
                 onClick={() => navigate('/forgot-password')}
               >
                 Forgot Password?
               </button>
             </div>
           )}
+          
+          
         </form>
+        
       </div>
 
       {/* For smaller screens: Form floats on background */}
@@ -240,6 +260,21 @@ const Login: React.FC = () => {
             </div>
           )}
 
+          
+
+           <div className="flex justify-center mt-4">
+            <p className="text-gray-500 text-sm">
+              Don't have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/signup')}
+              >
+                Register
+              </button>
+            </p>
+          </div>
+
           <div className="flex justify-end">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap" type="submit" disabled={isLoading}>
               {isLoading ? (
@@ -257,7 +292,7 @@ const Login: React.FC = () => {
             <div className="flex justify-center mt-4">
               <button
                 type="button"
-                className="text-blue-600 hover:underline"
+                className="text-[#204E51] hover:underline"
                 onClick={() => navigate('/forgot-password')}
               >
                 Forgot Password?
