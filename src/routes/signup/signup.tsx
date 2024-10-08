@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import { FaSpinner } from 'react-icons/fa';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
@@ -8,9 +9,11 @@ import Modal from '../../components/signUp/modal';
 // import { baseUrl } from '../../utils/apiConfig';
 
 const Signup: React.FC = () => {
-
+  const navigate = useNavigate(); 
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+  const [showTooltip, setShowTooltip] = useState(false);
 
   // State to track form data (name, username, email, password, confirmPassword)
 
@@ -143,8 +146,21 @@ const Signup: React.FC = () => {
           <div className="mb-2 flex items-center">
             <label className="block text-gray-700 text-sm font-light mr-4 w-1/3" htmlFor="password">Password</label>
             <div className="w-3/4 relative">
-              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} placeholder="********" required />
+              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} onFocus={() => setShowTooltip(true)} onBlur={() => setShowTooltip(false)}  placeholder="********" required />
               <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2" onClick={handleTogglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
+
+              {/* Tooltip */}
+            {showTooltip && (
+              <div className=" hidden custom-bp:block absolute left-0 mt-2 w-full bg-gray-100 border border-gray-300 p-2 rounded-md shadow-md text-sm text-gray-600 z-10">
+                Password must include:
+                <ul className="list-disc ml-4">
+                  <li>At least 1 uppercase letter</li>
+                  <li>At least 1 number</li>
+                  <li>Minimum 8 characters</li>
+                </ul>
+              </div>
+            )}
+
             </div>
           </div>
 
@@ -157,6 +173,20 @@ const Signup: React.FC = () => {
           </div>
 
           {passwordMatchError && <p className="text-red-500 text-xs italic">{passwordMatchError}</p>}
+
+           {/* "Already have an account? Login" */}
+           <div className="flex justify-center mt-4 ml-16">
+            <p className="text-gray-500 text-sm">
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </button>
+            </p>
+          </div>
 
           <div className="flex justify-end">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white mt-4 font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center whitespace-nowrap" type="submit" disabled={isLoading}>
@@ -202,8 +232,21 @@ const Signup: React.FC = () => {
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">Password</label>
             <div className="relative">
-              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} placeholder="********" required />
+              <input name="password" type={showPassword ? 'text' : 'password'} className="appearance-none border rounded-lg w-full py-2 px-3 pr-10 text-gray-700 bg-[#e0e0e01f] leading-tight focus:outline-none focus:shadow-outline" value={formData.password} onChange={handleChange} onFocus={() => setShowTooltip(true)} onBlur={() => setShowTooltip(false)}  placeholder="********" required />
               <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2" onClick={handleTogglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
+
+               {/* Tooltip */}
+            {showTooltip && (
+              <div className=" block custom-bp:hidden absolute left-0 mt-2 w-full bg-gray-100 border border-gray-300 p-2 rounded-md shadow-md text-sm text-gray-600 z-10">
+                Password must include:
+                <ul className="list-disc ml-4">
+                  <li>At least 1 uppercase letter</li>
+                  <li>At least 1 number</li>
+                  <li>Minimum 8 characters</li>
+                </ul>
+              </div>
+            )}
+
             </div>
           </div>
 
@@ -216,6 +259,20 @@ const Signup: React.FC = () => {
           </div>
 
           {passwordMatchError && <p className="text-red-500 text-xs italic">{passwordMatchError}</p>}
+
+           {/* "Already have an account? Login" */}
+           <div className="flex justify-center mt-4 mb-4">
+            <p className="text-gray-500 text-sm">
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="text-[#204E51] hover:underline"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </button>
+            </p>
+          </div>
 
           <div className="flex justify-center w-full">
             <button className="bg-[#204E51] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center justify-center w-full" type="submit" disabled={isLoading}>

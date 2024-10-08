@@ -5,8 +5,11 @@ import { useAuth } from '../../context/authContext/AuthContext';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import CommentSection from './CommentSection';
-import Sidebar from '../dashboard/sidebar/sidebar';
+import Sidebar from '../../components/dashboard/new-sidebar/Sidebar';
+import MobileSidebar from '../../components/dashboard/new-sidebar/MobileSidebar'; // Import MobileSidebar
+import IMAGES from "../../assets/dashboard/sidebar";
 import PopularPosts from '../dashboard/popularPost/PopularPost'; 
+import { GiHamburgerMenu } from 'react-icons/gi'; // Import Hamburger Icon
 
 interface PostData {
   title: string;
@@ -36,8 +39,13 @@ const PostPage: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMobileSidebarOpen, setMobileSidebar] = useState(false); // Mobile sidebar state
   const { token, baseUrl } = useAuth();
   const currentUser = localStorage.getItem('username') || 'Anonymous';
+
+  // Mobile Sidebar Toggle
+  const openMobileSidebar = () => setMobileSidebar(true);
+  const closeMobileSidebar = () => setMobileSidebar(false);
 
   // Fetch post, comments, and like status from the backend
   useEffect(() => {
@@ -207,56 +215,70 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-64 flex-shrink-0">
-        <Sidebar />
+    <>
+      {/* Mobile Nav */}
+      <div className="flex justify-between items-center lg:hidden px-8 pt-4 gap-4">
+        <div className=""><img className="w-full" src={IMAGES.IFARMR_LOGO} alt="Logo" /></div>
+        <button onClick={openMobileSidebar}><GiHamburgerMenu /></button>
       </div>
-      <div className="flex-grow flex flex-col md:flex-row">
-        <div className="flex-grow relative mt-11 mx-4 my-4 rounded-lg">
-          <main className="p-6 max-w-4xl mx-auto">
-            <PostHeader />
-            {postData && (
-              <PostContent
-                postData={postData}
-                isLiked={isLiked}
-                likeCount={likeCount}
-                onLikeToggle={handleLikeToggle}
-              />
-            )}
 
-            <div className="mt-6">
-              <textarea
-                value={newComment}
-                onChange={handleTextChange}
-                maxLength={1250} 
-                className={`w-full p-4 border rounded-3xl h-auto resize-none focus:outline-none focus:border-gray-500 ${
-                  isTyping ? 'border-gray-500' : 'border-gray-300'
-                }`}
-                rows={3}
-                placeholder="Add a comment..."
-              />
-
-              {isTyping && (
-                <div className="flex justify-end mt-2">
-                  <button
-                    onClick={handleCommentSubmit}
-                    className="px-4 py-2 bg-[#01815d] text-white rounded-lg hover:bg-[#00563E]"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Posting...' : 'Comment'}
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <CommentSection comments={comments} onReplySubmit={handleReplySubmit} />
-          </main>
+      <div className="flex h-screen">
+        {/* Sidebar (Hidden on Mobile) */}
+        <div className="hidden lg:block w-64 flex-shrink-0 pt-4">
+          <Sidebar />
         </div>
-        <aside className="w-80 p-6">
-          <PopularPosts />
-        </aside>
+
+        {/* Mobile Sidebar */}
+        <MobileSidebar isOpen={isMobileSidebarOpen} onClose={closeMobileSidebar} />
+
+        <div className="flex-grow flex flex-col md:flex-row">
+          <div className="flex-grow relative mt-11 mx-4 my-4 rounded-lg">
+            <main className="p-6 max-w-4xl mx-auto">
+              <PostHeader />
+              {postData && (
+                <PostContent
+                  postData={postData}
+                  isLiked={isLiked}
+                  likeCount={likeCount}
+                  onLikeToggle={handleLikeToggle}
+                />
+              )}
+
+              <div className="mt-6">
+                <textarea
+                  value={newComment}
+                  onChange={handleTextChange}
+                  maxLength={1250} 
+                  className={`w-full p-4 border rounded-3xl h-auto resize-none focus:outline-none focus:border-gray-500 ${
+                    isTyping ? 'border-gray-500' : 'border-gray-300'
+                  }`}
+                  rows={3}
+                  placeholder="Add a comment..."
+                />
+
+                {isTyping && (
+                  <div className="flex justify-end mt-2">
+                    <button
+                      onClick={handleCommentSubmit}
+                      className="px-4 py-2 bg-[#01815d] text-white rounded-lg hover:bg-[#00563E]"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Posting...' : 'Comment'}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <CommentSection comments={comments} onReplySubmit={handleReplySubmit} />
+            </main>
+          </div>
+
+          <aside className="hidden md:block w-80 p-6">
+            <PopularPosts />
+          </aside>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

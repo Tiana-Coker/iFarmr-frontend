@@ -26,6 +26,7 @@ import Unauthorized from './routes/unauthorized/unauthorized';
 
 import LivestockManagement from './components/livestockPage/LivestockManagement';
 import { listenForMessages } from './utils/firebase'; // Import listenForMessages
+import { requestFirebaseToken } from './utils/firebase';
 
 const App: React.FC = () => {
   const { showNotification } = useNotification();
