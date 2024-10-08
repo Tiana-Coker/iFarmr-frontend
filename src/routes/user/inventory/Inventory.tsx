@@ -73,7 +73,7 @@ export default function Inventory() {
 
 
       <div className="pt-10 px-8 md:w-[70%] lg:w-[60.3%] overflow-x-auto">
-          <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4">Good Morning, Ayomide</div>
+          {/* <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4">Good Morning, Ayomide</div> */}
           <div className="mb-8"><InventoryCard 
           
           setTotalInventory={setTotalInventory}  
