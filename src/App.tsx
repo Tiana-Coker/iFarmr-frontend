@@ -23,10 +23,10 @@ import PostPage from './components/postPage/PostPage';
 import Inventory from './routes/user/inventory/Inventory';
 import CurrentInventory from './routes/user/current-inventory/CurrentInventory';
 import Unauthorized from './routes/unauthorized/unauthorized'; 
-
+import CropsMgt from "./routes/user/crops/CropsMgt"
+import { requestFirebaseToken } from './utils/firebase'; // Import requestFirebaseToken
 import LivestockManagement from './components/livestockPage/LivestockManagement';
 import { listenForMessages } from './utils/firebase'; // Import listenForMessages
-import { requestFirebaseToken } from './utils/firebase';
 
 const App: React.FC = () => {
   const { showNotification } = useNotification();
@@ -36,10 +36,11 @@ const App: React.FC = () => {
     listenForMessages(showNotification);
   }, [showNotification]);
 
+
   useEffect(() => {
     const intervalId = setInterval(async () => {
       if (!firebaseToken && userRole) {
-        const newFirebaseToken = await requestFirebaseToken();
+        const newFirebaseToken = await requestFirebaseToken(); // Use requestFirebaseToken
         if (newFirebaseToken) {
           setFirebaseToken(newFirebaseToken); // Save the new Firebase token
           console.log('Firebase token set after retry:', newFirebaseToken);
@@ -69,8 +70,9 @@ const App: React.FC = () => {
         <Route path="/user/dashboard" element={<MainUserDashboard />} />
         <Route path="/user/inventory" element={<Inventory />} />
         <Route path="/user/inventory/:id" element={<CurrentInventory />} />
+        <Route path="/user/crops" element={<CropsMgt />} />
       </Route>
-        <Route path='livestock-management' element={<LivestockManagement/>}/>
+        <Route path='/livestock-management' element={<LivestockManagement/>}/>
 
 
       {/* Protected Admin Routes */}

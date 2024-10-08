@@ -45,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
   // Top navigation items
   const topNavItems = [
-    { src: plant, alt: 'Crop Management Icon', text: 'Crop Management', path: '/crop-management' },
+    { src: plant, alt: 'Crop Management Icon', text: 'Crop Management', path: '/user/crops' },
     {
       src: cow,
       alt: 'Livestock Management Icon',

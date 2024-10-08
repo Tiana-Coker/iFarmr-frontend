@@ -4,14 +4,19 @@ import IMAGES from "../../../../assets/dashboard/inventory_mgt/index";
 
 import InventoryModal from "../../../modals/InventoryModal";
 
+
 type InventoryProps = {
-    totalInventory: number;
-    totalInventoryValue: number;
-  };
+  totalInventory: number;
+  totalInventoryValue: number;
+  setInventories: (value: any) => void;
+  setTotalInventoryValue: (value: number) => void;
+  setTotalInventory: (value: number) => void;
+};
 
-
-
-export default function InventoryCard({totalInventory, totalInventoryValue}: InventoryProps) {
+export default function InventoryCard({totalInventory, totalInventoryValue, 
+  setInventories,
+  setTotalInventoryValue,
+  setTotalInventory}: InventoryProps) {
 
    // State to control Inventory modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +55,8 @@ export default function InventoryCard({totalInventory, totalInventoryValue}: Inv
                 <div >Add New Inventory</div>
                 <div><img src={IMAGES.ARROW_RIGHT} alt="" /></div>
             </button >
-            {isModalOpen && <InventoryModal onClose={closeModal} />}
+            {isModalOpen && <InventoryModal onClose={closeModal} setInventories={setInventories}
+  setTotalInventoryValue={setTotalInventoryValue} setTotalInventory={setTotalInventory} />}
 
         </div>
 

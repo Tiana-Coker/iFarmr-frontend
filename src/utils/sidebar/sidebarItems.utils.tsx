@@ -13,7 +13,7 @@ export const sidebarItems = [
 
     {
         id: 2,
-        route:"/user/dashboard",
+        route:"/user/crops",
         title: "Crop Management",
         icon: IMAGES.PLANT,
         active: false
