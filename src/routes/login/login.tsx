@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                 Authorization: `Bearer ${token}`,
               },
             });
-            showNotification('Firebase token saved successfully!');
+            // showNotification('Firebase token saved successfully!'); 
             setFirebaseToken(firebaseToken); 
           } catch (saveError: any) {
             if (saveError.response && saveError.response.status === 409) {
@@ -103,15 +103,15 @@ const Login: React.FC = () => {
   };
 
   // Redirect if already authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      if (userRole === 'USER') {
-        navigate('/user/dashboard');
-      } else if (userRole === 'ADMIN') {
-        navigate('/admin/dashboard');
-      }
-    }
-  }, [isAuthenticated, userRole, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     if (userRole === 'USER') {
+  //       navigate('/user/dashboard');
+  //     } else if (userRole === 'ADMIN') {
+  //       navigate('/admin/dashboard');
+  //     }
+  //   }
+  // }, [isAuthenticated, userRole, navigate]);
 
   return (
     <div className="flex h-screen font-raleway">

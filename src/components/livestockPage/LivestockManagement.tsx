@@ -3,6 +3,7 @@ import Sidebar from "../dashboard/sidebar/sidebar";
 import LivestockTable from "./LivestockTable";
 import LivestockDashboard from "./LivestockDashboard";
 import UpcomingTask from './LivestockAside'; // Import the component
+import { useAuth } from "../../context/authContext/AuthContext";
 // import UpcomingTask from "../upcoming_task/UpcomingTask";
 
 const LivestockManagement: React.FC = () => {
@@ -30,6 +31,9 @@ const LivestockManagement: React.FC = () => {
   const decodedToken = token ? decodeToken(token) : null;
   const username = decodedToken && decodedToken.sub ? decodedToken.sub : 'User';
 
+    // Get user details from the AuthContext
+    const { userDetails } = useAuth();
+
   return (
     <div className="flex flex-col custom-md:flex-row h-screen">
       {/* Sidebar */}
@@ -39,7 +43,7 @@ const LivestockManagement: React.FC = () => {
 
       {/* Main content */}
       <main className="flex-grow w-full p-4 custom-md:p-6">
-        <LivestockDashboard username={username} />
+        <LivestockDashboard username={userDetails?.fullName || 'User'} />
         <LivestockTable />
       </main>
 

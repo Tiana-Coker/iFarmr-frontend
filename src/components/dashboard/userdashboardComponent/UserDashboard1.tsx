@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import image from '../../../assets/dashboard/image.svg';
 
+import { useAuth } from '../../../context/authContext/AuthContext';
+
 interface FarmGlanceProps {}
 
 const FarmGlance: React.FC<FarmGlanceProps> = () => {
@@ -70,11 +72,15 @@ const FarmGlance: React.FC<FarmGlanceProps> = () => {
     fetchData();
   }, []);
 
+     // Get user details from the AuthContext
+     const { userDetails } = useAuth();
+
+
   if (error) return <div className="text-red-600">{error}</div>;
 
   return (
     <div className="w-full p-4">
-      <h1 className="text-l font-semibold text-gray-800 mb-4">Welcome Back, {username ? username : 'User'}</h1>
+      <h1 className="text-l font-semibold text-gray-800 mb-4">Welcome Back, {userDetails?.fullName || ''}</h1>
 
       <section className="flex flex-col md:flex-row justify-between items-center p-4 md:p-8 rounded-lg shadow-md relative bg-cover bg-no-repeat" style={{ backgroundColor: '#C0F196' }}>
   <div className="w-full md:w-2/3 mb-6 md:mb-0">

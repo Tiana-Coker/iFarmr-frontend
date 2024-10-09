@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import IMAGES from "../../../assets/dashboard/sidebar/";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 // import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 import Sidebar from "../../../components/dashboard/new-sidebar/Sidebar"
@@ -12,6 +13,13 @@ import UpcomingTask from "../../../components/upcoming_task/UpcomingTask";
 
 // loading effect
 import { useLoading } from "../../../context/globalSpinner/LoadingContext";
+
+// Import the useAuth hook to access the AuthContext
+import { useAuth } from "../../../context/authContext/AuthContext";
+
+// Import util to format greeting according to time of the day
+import { getGreeting } from "../../../utils/greetings";
+
 
 export default function Inventory() {
   const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -27,6 +35,12 @@ export default function Inventory() {
   const [isMobileSidebarOpen, setMobileSidebar] = useState(false); // Sidebar state for mobile/tablet devices
   const openMobileSidebar = () => setMobileSidebar(true);
   const closeMobileSidebar = () => setMobileSidebar(false);
+
+   // Get user details from the AuthContext
+   const { userDetails } = useAuth();
+
+   // Use the utility function to get the greeting
+  const [greeting] = useState<string>(getGreeting());
 
     // crops Useeffect
     useEffect(()=> {
@@ -61,7 +75,7 @@ export default function Inventory() {
 
     {/* Mobile Nav */}
    <div className="flex justify-between items-center lg:hidden px-8 pt-4  gap-4">
-      <div className="" ><img className="w-full" src={IMAGES.IFARMR_LOGO} alt="" /></div>
+      <div className="" ><Link to ='/'><img className="w-full" src={IMAGES.IFARMR_LOGO} alt="" /></Link></div>
       <button onClick={openMobileSidebar}><GiHamburgerMenu /></button>
    </div>
    
@@ -75,7 +89,7 @@ export default function Inventory() {
 
 
       <div className="pt-10 px-8 md:w-[70%] lg:w-[60.3%] overflow-x-auto">
-          {/* <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4"></div> */}
+      <div className="font-[Raleway] font-[600] text-[18px] leading-[21.13px] mb-4">{greeting}, {userDetails?.fullName || ''}</div>
           <div className="mb-8">
             <CropCard 
                 totalCrops={totalCrops}

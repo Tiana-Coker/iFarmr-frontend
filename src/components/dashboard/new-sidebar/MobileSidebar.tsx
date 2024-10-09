@@ -46,7 +46,7 @@ export default function MobileSidebar({isOpen, onClose}: MobileSidebarProps) {
       <div className=' px-4 w-[250px] md:w-[300px]  bg-white pt-4 shadow-2xl'>
 
         <div className={`mb-8 flex items-center gap-4`}>
-            <div>  <img className="" src={IMAGES.IFARMR_LOGO} alt="ifarmr_logo" /></div>
+            <div><Link to ="/"><img className="" src={IMAGES.IFARMR_LOGO} alt="ifarmr_logo" /></Link></div>
             <button onClick={closeSidebar} ><IoIosClose size={30} /></button>
         </div>
 
