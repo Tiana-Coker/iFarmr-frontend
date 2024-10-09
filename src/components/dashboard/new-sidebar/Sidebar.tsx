@@ -4,6 +4,7 @@ import { sidebarItems, sidebarItems_settings } from "../../../utils/sidebar/side
 import IMAGES from "../../../assets/dashboard/sidebar";
 import NotificationModal from '../../modals/NotificationModal';
 import ProfileModal from '../../modals/UserProfile';
+import styles from './Sidebar.module.scss';
 
 export default function Sidebar() {
   const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
@@ -25,10 +26,12 @@ export default function Sidebar() {
     }
   };
 
+  
+
   return (
-    <div className='px-4'>
+    <div className={`${styles.hide_scrollbar} px-4 pt-4 fixed top-0 left-0 h-screen overflow-y-auto`}>
       <div className={`mb-8`}>
-        <img src={IMAGES.IFARMR_LOGO} alt="ifarmr_logo" />
+        <Link to='/'><img src={IMAGES.IFARMR_LOGO} alt="ifarmr_logo" /></Link>
       </div>
 
       <div className={`flex flex-col gap-8 mb-8`}>

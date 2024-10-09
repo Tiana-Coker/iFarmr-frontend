@@ -102,7 +102,7 @@ const UploadSection: React.FC = () => {
       
       <div className="flex-grow flex flex-col md:flex-row ">
       <main className="flex-grow p-0 flex justify-center">
-      <div className="bg-white rounded-lg p-6 max-w-3xl w-full mx-auto">
+      <div className="bg-white rounded-lg p-6 max-w-xl w-full ml-0 md:ml-40">
       <div className="flex justify-between items-center mb-6">
               <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-800">
                 ← Back
@@ -162,7 +162,7 @@ const UploadSection: React.FC = () => {
     placeholder="Type here.."
     value={description}
     onChange={(e) => setDescription(e.target.value)}
-    rows={1}  // Adjust the number of rows for initial height
+    rows={3}  // Adjust the number of rows for initial height
   ></textarea>
 </div>
 
@@ -178,7 +178,7 @@ const UploadSection: React.FC = () => {
           </div>
         </main>
         
-        <aside className="md:w-80 p-6 ">
+        <aside className="md:w-96 p-6 ">
           <div className="bg-white rounded-lg ">
             <PopularPosts />
           </div>
